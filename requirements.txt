@@ -1,0 +1,5 @@
+pettingzoo==1.21.0
+pettingzoo[mpe]
+supersuit
+torch
+ray
