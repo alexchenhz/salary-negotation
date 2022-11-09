@@ -37,7 +37,14 @@ def env(render_mode=None):
     # This wrapper is only for environments which print results to the terminal
     if render_mode == "ansi":
         env = wrappers.CaptureStdoutWrapper(env)
-    # this wrapper helps error handling for discrete action spaces
+    """
+    This wrapper helps error handling for discrete action spaces
+    
+    NOTE: see pettingzoo/utils/wrappers/assert_out_of_bounds.py
+    This checks that every agent in self.possible_agents is a Discrete agent.
+    This assertion fails because possible_agents is a list of strings, with a 
+    mapping of those strings to Discrete agent objects.
+    """
     # env = wrappers.AssertOutOfBoundsWrapper(env)
     # Provides a wide vareity of helpful user errors
     # Strongly recommended
