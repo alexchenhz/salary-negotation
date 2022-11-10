@@ -12,6 +12,5 @@ for agent in env.agent_iter():
         act = None
     else:
         act = random.choice([0,1,2])
-    print(agent)
+    print(agent, observation, reward)
     env.step(act)
-    print(observation, reward)

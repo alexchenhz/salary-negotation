@@ -71,7 +71,8 @@ class raw_env(AECEnv):
         - observation_spaces
         These attributes should not be changed after initialization.
         """
-        self.possible_agents = ["player_" + str(r) for r in range(2)]
+        # TODO: Update agents, action spaces, and observation spaces
+        self.possible_agents = ["candidate_" + str(r) for r in range(3)] + ["employer_" + str(r) for r in range(3)]
         self.agent_name_mapping = dict(
             zip(self.possible_agents, list(range(len(self.possible_agents))))
         )
