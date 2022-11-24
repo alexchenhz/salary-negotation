@@ -76,7 +76,7 @@ class raw_env(AECEnv):
         self.agent_name_mapping = dict(
             zip(self.possible_agents, list(range(len(self.possible_agents))))
         )
-
+        
         # gymnasium spaces are defined and documented here: https://gymnasium.farama.org/api/spaces/
         self._action_spaces = {agent: Discrete(3) for agent in self.possible_agents}
         self._observation_spaces = {

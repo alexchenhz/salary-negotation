@@ -10,34 +10,36 @@ Agents should be the list of strings. With either candidate agents or employer a
 
 Each candidate agent should be able to observe
 
-- the number of employer agents still hiring
-- their current offers and their values
-- their previous offers and their values
+- job openings (which employer agents are still hiring)
+- their current offers (with offer value and expiration)
+- their rejected offers (with offer value)
+- their counter offers (counter offer value, also store original offer details)
 
 Each employer agent should be able to observe
 
-- the number of candidates still applying
-- how many offers remaining
-- how much budget remaining
-- who rejected an offer + details of that rejected offer
+- job applicants (which candidates have applied for the job)
+- outstanding offers (candidate, offer value, and expiration)
+- declined offers (candidate, offer value)
+- counter offers (new offers made from candidates, with offer value)
+- rejected counter offers (counter offers the employer agent has rejected)
+- remaining budget (employer will have a limitted amount of resoures to allocate across all job offers, cannot pay everyone as high of a number as possible)
 
 `step`
 
 At each step, agents should take an action.
 
-Possible actions for candidates:
+Candidate actions:
 
 - Apply to job
 - Accept offer
-- Negotiate offer (counter-offer)
+- Negotiate offer (make a counter-offer)
 - Reject offer
 
 Possible actions for employers:
 
-- Reject candidate
-- Make offer
+- Reject applicant
+- Make offer (or make counter counter-offer)
 - Accept counter-offer
-- Make counter counter-offer
 - Reject counter-offer
 
 How many actions can employers/candidates do at once?
@@ -49,6 +51,6 @@ How many actions can employers/candidates do at once?
 - Each time step an employer doesn't have an employee it gets a penalty
 - Offers with deadlines (2 full iterations of all agents?)
 
-# Agents
+## Agents
 
 Start with stable baselines RL algorithms (ex: PPO).
