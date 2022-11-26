@@ -1,4 +1,4 @@
-#!/Users/alexchen/dev/salary-negotiation/venv/bin/python3
+#!/Users/alexchen/dev/salary-negotiation/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

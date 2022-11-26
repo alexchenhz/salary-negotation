@@ -2,7 +2,7 @@ import functools
 
 import gymnasium
 import numpy as np
-from gymnasium.spaces import Discrete
+from gymnasium.spaces import Discrete, Dict, Tuple, Text
 
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
@@ -72,13 +72,26 @@ class raw_env(AECEnv):
         These attributes should not be changed after initialization.
         """
         # TODO: Update agents, action spaces, and observation spaces
-        self.possible_agents = ["candidate_" + str(r) for r in range(3)] + ["employer_" + str(r) for r in range(3)]
+        candidates = ["candidate_" + str(r) for r in range(3)]
+        employers = ["employer_" + str(r) for r in range(3)]
+        self.possible_agents = candidates + employers
+        # self.possible_agents = ["player_0", "player_1"]
         self.agent_name_mapping = dict(
             zip(self.possible_agents, list(range(len(self.possible_agents))))
         )
-        
+        # print("agent maping", self.agent_name_mapping)
         # gymnasium spaces are defined and documented here: https://gymnasium.farama.org/api/spaces/
         self._action_spaces = {agent: Discrete(3) for agent in self.possible_agents}
+        
+        self._observation_spaces = {
+            agent: Dict(
+                {"job_openings": Discrete(3), 
+                 "current_offers": Dict({employer: Tuple() for employer in employers}), 
+                 "rejected_offers": Discrete}) if "candidate" in agent else \
+                Dict({"position": Discrete(2), "velocity": Discrete(3)}) \
+                    for agent in self.possible_agents
+        }
+        
         self._observation_spaces = {
             agent: Discrete(4) for agent in self.possible_agents
         }
