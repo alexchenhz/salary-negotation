@@ -76,10 +76,11 @@ class raw_env(AECEnv):
         employers = ["employer_" + str(r) for r in range(3)]
         self.possible_agents = candidates + employers
         # self.possible_agents = ["player_0", "player_1"]
+        
+        # Map agent names to numbers, 0 through (number of agents) - 1
         self.agent_name_mapping = dict(
             zip(self.possible_agents, list(range(len(self.possible_agents))))
         )
-        # print("agent maping", self.agent_name_mapping)
         # gymnasium spaces are defined and documented here: https://gymnasium.farama.org/api/spaces/
         self._action_spaces = {agent: Discrete(3) for agent in self.possible_agents}
         
@@ -88,16 +89,16 @@ class raw_env(AECEnv):
                 Dict(
                 {
                     "job_openings": Dict({employer: Discrete(2)for employer in employers}), # 0 = not hiring, 1 = still hiring
-                    "current_offers": Dict({employer: Tuple(Discrete(100), Discrete(100)) for employer in employers}), # for each employer: (offer value, deadline); (0,0) = no offer
+                    "current_offers": Dict({employer: Tuple((Discrete(100), Discrete(100))) for employer in employers}), # for each employer: (offer value, deadline); (0,0) = no offer
                     "rejected_offers": Dict({employer: Discrete(2)for employer in employers}), # 0 = not rejected, 1 = rejected
-                    "counter_offers": Dict({employer: Tuple(Discrete(100), Discrete(100)) for employer in employers}), # 
+                    "counter_offers": Dict({employer: Tuple((Discrete(100), Discrete(100))) for employer in employers}), # 
                 }) if "candidate" in agent else \
                 Dict(
                 {
-                    "job_applicants": Dict({candidate: Tuple(Discrete(2), Discrete(10)) for candidate in candidates}), # (1 = applied, 0-9 = strength of candidate higher is better)
-                    "outstanding_offers": Dict({candidate: Tuple(Discrete(100), Discrete(100)) for candidate in candidates}), # for each candidate: (offer value, deadline); (0,0) = no offer
+                    "job_applicants": Dict({candidate: Tuple((Discrete(2), Discrete(10))) for candidate in candidates}), # (1 = applied, 0-9 = strength of candidate higher is better)
+                    "outstanding_offers": Dict({candidate: Tuple((Discrete(100), Discrete(100))) for candidate in candidates}), # for each candidate: (offer value, deadline); (0,0) = no offer
                     "declined_offers": Dict({candidate: Discrete(100) for candidate in candidates}), # for each candidate: offer value of declined offer (declined by candidate)
-                    "counter_offers": Dict({candidate: Tuple(Discrete(100), Discrete(100)) for candidate in candidates}), # for each candidate: offer value from offer made by candidate, deadline
+                    "counter_offers": Dict({candidate: Tuple((Discrete(100), Discrete(100))) for candidate in candidates}), # for each candidate: offer value from offer made by candidate, deadline
                     "rejected_offers": Dict({candidate: Discrete(100) for candidate in candidates}), # for each candidate: offer value of counter offer that was rejected (rejected by employer)
                     "remaining_budget": Discrete(1000), # each employer will only have a budget of 999
                 }) 
