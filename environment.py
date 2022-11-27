@@ -82,7 +82,22 @@ class raw_env(AECEnv):
             zip(self.possible_agents, list(range(len(self.possible_agents))))
         )
         # gymnasium spaces are defined and documented here: https://gymnasium.farama.org/api/spaces/
-        self._action_spaces = {agent: Discrete(3) for agent in self.possible_agents}
+        self._action_spaces = {
+            agent:
+                Dict({
+                    "apply_to_job": Discrete(len(employers)),
+                    "accept_offer": Discrete(len(employers)),
+                    "negotiate_offer": Tuple((Discrete(len(employers)), Discrete(100), Discrete(100))),
+                    "reject_offer": Discrete(len(employers))
+                }) if "candidate" in agent else \
+                Dict({
+                    "reject_applicant": Discrete(len(candidates)),
+                    "make_offer": Tuple((Discrete(len(candidates)), Discrete(100), Discrete(100))),
+                    "accept_counter_offer": Discrete(len(candidates)),
+                    "reject_counter_offer": Discrete(len(candidates))
+                })
+            for agent in self.possible_agents
+            }
         
         self._observation_spaces = {
             agent: 
