@@ -84,17 +84,29 @@ class raw_env(AECEnv):
         self._action_spaces = {agent: Discrete(3) for agent in self.possible_agents}
         
         self._observation_spaces = {
-            agent: Dict(
-                {"job_openings": Discrete(3), 
-                 "current_offers": Dict({employer: Tuple() for employer in employers}), 
-                 "rejected_offers": Discrete}) if "candidate" in agent else \
-                Dict({"position": Discrete(2), "velocity": Discrete(3)}) \
-                    for agent in self.possible_agents
+            agent: 
+                Dict(
+                {
+                    "job_openings": Dict({employer: Discrete(2)for employer in employers}), # 0 = not hiring, 1 = still hiring
+                    "current_offers": Dict({employer: Tuple(Discrete(100), Discrete(100)) for employer in employers}), # for each employer: (offer value, deadline); (0,0) = no offer
+                    "rejected_offers": Dict({employer: Discrete(2)for employer in employers}), # 0 = not rejected, 1 = rejected
+                    "counter_offers": Dict({employer: Tuple(Discrete(100), Discrete(100)) for employer in employers}), # 
+                }) if "candidate" in agent else \
+                Dict(
+                {
+                    "job_applicants": Dict({candidate: Tuple(Discrete(2), Discrete(10)) for candidate in candidates}), # (1 = applied, 0-9 = strength of candidate higher is better)
+                    "outstanding_offers": Dict({candidate: Tuple(Discrete(100), Discrete(100)) for candidate in candidates}), # for each candidate: (offer value, deadline); (0,0) = no offer
+                    "declined_offers": Dict({candidate: Discrete(100) for candidate in candidates}), # for each candidate: offer value of declined offer (declined by candidate)
+                    "counter_offers": Dict({candidate: Tuple(Discrete(100), Discrete(100)) for candidate in candidates}), # for each candidate: offer value from offer made by candidate, deadline
+                    "rejected_offers": Dict({candidate: Discrete(100) for candidate in candidates}), # for each candidate: offer value of counter offer that was rejected (rejected by employer)
+                    "remaining_budget": Discrete(1000), # each employer will only have a budget of 999
+                }) 
+            for agent in self.possible_agents
         }
         
-        self._observation_spaces = {
-            agent: Discrete(4) for agent in self.possible_agents
-        }
+        # self._observation_spaces = {
+        #     agent: Discrete(4) for agent in self.possible_agents
+        # }
         self.render_mode = render_mode
 
     # this cache ensures that same space object is returned for the same agent
