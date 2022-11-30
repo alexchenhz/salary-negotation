@@ -51,6 +51,10 @@ How many actions can employers/candidates do at once?
 - Each time step an employer doesn't have an employee it gets a penalty
 - Offers with deadlines (2 full iterations of all agents?)
 
+Rewards
+
+1. At each step, the agent can choose an action
+
 ## Agents
 
 Start with stable baselines RL algorithms (ex: PPO).

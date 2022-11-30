@@ -7,23 +7,26 @@ from gymnasium.spaces import Discrete, Dict, Tuple, Text
 from pettingzoo import AECEnv
 from pettingzoo.utils import agent_selector, wrappers
 
-ROCK = 0
-PAPER = 1
-SCISSORS = 2
+
+NUM_CANDIDATES = 1
+NUM_EMPLOYERS = 1
+# ROCK = 0
+# PAPER = 1
+# SCISSORS = 2
 NONE = 3
-MOVES = ["ROCK", "PAPER", "SCISSORS", "None"]
-NUM_ITERS = 100
-REWARD_MAP = {
-    (ROCK, ROCK): (0, 0),
-    (ROCK, PAPER): (-1, 1),
-    (ROCK, SCISSORS): (1, -1),
-    (PAPER, ROCK): (1, -1),
-    (PAPER, PAPER): (0, 0),
-    (PAPER, SCISSORS): (-1, 1),
-    (SCISSORS, ROCK): (-1, 1),
-    (SCISSORS, PAPER): (1, -1),
-    (SCISSORS, SCISSORS): (0, 0),
-}
+# MOVES = ["ROCK", "PAPER", "SCISSORS", "None"]
+NUM_ITERS = 10
+# REWARD_MAP = {
+#     (ROCK, ROCK): (0, 0),
+#     (ROCK, PAPER): (-1, 1),
+#     (ROCK, SCISSORS): (1, -1),
+#     (PAPER, ROCK): (1, -1),
+#     (PAPER, PAPER): (0, 0),
+#     (PAPER, SCISSORS): (-1, 1),
+#     (SCISSORS, ROCK): (-1, 1),
+#     (SCISSORS, PAPER): (1, -1),
+#     (SCISSORS, SCISSORS): (0, 0),
+# }
 
 
 def env(render_mode=None):
@@ -71,11 +74,10 @@ class raw_env(AECEnv):
         - observation_spaces
         These attributes should not be changed after initialization.
         """
-        # TODO: Update agents, action spaces, and observation spaces
-        candidates = ["candidate_" + str(r) for r in range(3)]
-        employers = ["employer_" + str(r) for r in range(3)]
+        # Create candidate and employer agents
+        candidates = ["candidate_" + str(r) for r in range(NUM_CANDIDATES)]
+        employers = ["employer_" + str(r) for r in range(NUM_EMPLOYERS)]
         self.possible_agents = candidates + employers
-        # self.possible_agents = ["player_0", "player_1"]
         
         # Map agent names to numbers, 0 through (number of agents) - 1
         self.agent_name_mapping = dict(
@@ -85,9 +87,9 @@ class raw_env(AECEnv):
         self._action_spaces = {
             agent:
                 Dict({
-                    "apply_to_job": Discrete(len(employers)),
-                    "accept_offer": Discrete(len(employers)),
-                    "negotiate_offer": Tuple((Discrete(len(employers)), Discrete(100), Discrete(100))),
+                    "apply_to_job": Discrete(len(employers)), # index of the employer
+                    "accept_offer": Discrete(len(employers)), # index of the employer
+                    "negotiate_offer": Tuple((Discrete(len(employers)), Discrete(100), Discrete(100))), # (Index of the employer, 
                     "reject_offer": Discrete(len(employers))
                 }) if "candidate" in agent else \
                 Dict({
@@ -116,13 +118,9 @@ class raw_env(AECEnv):
                     "counter_offers": Dict({candidate: Tuple((Discrete(100), Discrete(100))) for candidate in candidates}), # for each candidate: offer value from offer made by candidate, deadline
                     "rejected_offers": Dict({candidate: Discrete(100) for candidate in candidates}), # for each candidate: offer value of counter offer that was rejected (rejected by employer)
                     "remaining_budget": Discrete(1000), # each employer will only have a budget of 999
-                }) 
+                })
             for agent in self.possible_agents
         }
-        
-        # self._observation_spaces = {
-        #     agent: Discrete(4) for agent in self.possible_agents
-        # }
         self.render_mode = render_mode
 
     # this cache ensures that same space object is returned for the same agent
@@ -162,6 +160,7 @@ class raw_env(AECEnv):
         at any time after reset() is called.
         """
         # observation of one agent is the previous state of the other
+        print(np.array(self.observations[agent]))
         return np.array(self.observations[agent])
 
     def close(self):
@@ -189,9 +188,11 @@ class raw_env(AECEnv):
         self.agents = self.possible_agents[:]
         self.rewards = {agent: 0 for agent in self.agents}
         self._cumulative_rewards = {agent: 0 for agent in self.agents}
+        # TODO: What do terminations and truncations mean?
         self.terminations = {agent: False for agent in self.agents}
         self.truncations = {agent: False for agent in self.agents}
         self.infos = {agent: {} for agent in self.agents}
+        # TODO: Update state and observations to initial empty states
         self.state = {agent: NONE for agent in self.agents}
         self.observations = {agent: NONE for agent in self.agents}
         self.num_moves = 0
@@ -232,7 +233,11 @@ class raw_env(AECEnv):
 
         # stores action of current agent
         self.state[self.agent_selection] = action
+        
+        print("obs ",self.observations)
 
+        # TODO: After all candidate agents OR all employer agents act, then reconcile the rewards/actions
+        '''Commenting this out for now
         # collect reward if it is the last agent to act
         if self._agent_selector.is_last():
             # rewards for all agents are placed in the .rewards dictionary
@@ -256,7 +261,7 @@ class raw_env(AECEnv):
             self.state[self.agents[1 - self.agent_name_mapping[agent]]] = NONE
             # no rewards are allocated until both players give an action
             self._clear_rewards()
-
+        '''
         # selects the next agent.
         self.agent_selection = self._agent_selector.next()
         # Adds .rewards to ._cumulative_rewards
