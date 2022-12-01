@@ -109,7 +109,7 @@ class JobSearchEnvironment(ParallelEnv):
             for agent in self.possible_agents
         }
         
-        self.state = None
+        self.game_state = None
     
     # this cache ensures that same space object is returned for the same agent
     # allows action space seeding to work as expected
@@ -127,7 +127,7 @@ class JobSearchEnvironment(ParallelEnv):
         self.num_moves = 0
         
         # TODO: should this info be in the environment, or in the main file?
-        self.state = {
+        self.game_state = {
             agent: {
                 "job_openings": {employer: 0 for employer in self._employers},
                 "current_offers": {employer: (0, 0) for employer in self._employers},
