@@ -9,6 +9,10 @@ from pettingzoo import ParallelEnv
 from pettingzoo.utils import agent_selector, wrappers
 
 
+NUM_CANDIDATES = 2
+NUM_EMPLOYERS = 2
+EMPLOYER_BUDGET = 1000
+
 def env(render_mode=None):
     """
     The env function often wraps the environment in wrappers by default.
@@ -65,15 +69,78 @@ class JobSearchEnvironment(ParallelEnv):
             zip(self.possible_agents, list(range(len(self.possible_agents))))
         )
         
+        # Define action spaces
+        self._action_spaces = {
+            agent:
+                Dict({
+                    "apply_to_job": Discrete(len(self._employers)), # index of the employer
+                    "accept_offer": Discrete(len(self._employers)), # index of the employer
+                    "negotiate_offer": Tuple((Discrete(len(self._employers)), Discrete(100), Discrete(100))), # (Index of the employer, 
+                    "reject_offer": Discrete(len(self._employers))
+                }) if "candidate" in agent else \
+                Dict({
+                    "reject_applicant": Discrete(len(self._candidates)),
+                    "make_offer": Tuple((Discrete(len(self._candidates)), Discrete(100), Discrete(100))),
+                    "accept_counter_offer": Discrete(len(self._candidates)),
+                    "reject_counter_offer": Discrete(len(self._candidates))
+                })
+            for agent in self.possible_agents
+        }
+        
+        # Define observation spaces
+        self._observation_spaces = {
+            agent: 
+                Dict(
+                {
+                    "job_openings": Dict({employer: Discrete(2)for employer in self._employers}), # for each employer: 0 = not hiring, 1 = still hiring
+                    "current_offers": Dict({employer: Tuple((Discrete(100), Discrete(100))) for employer in self._employers}), # for each employer: (offer value, deadline); (0,0) = no offer
+                    "rejected_offers": Dict({employer: Tuple((Discrete(2), Discrete(100))) for employer in self._employers}), # for each employer: 0 = not rejected/1 = rejected, value of rejected offer
+                    "counter_offers": Dict({employer: Tuple((Discrete(100), Discrete(100))) for employer in self._employers}), # for each employer: (counter offer value, deadline)
+                }) if "candidate" in agent else
+                Dict(
+                {
+                    "job_applicants": Dict({candidate: Tuple((Discrete(2), Discrete(10))) for candidate in self._candidates}), # (1 = applied, 0-9 = strength of candidate higher is better)
+                    "outstanding_offers": Dict({candidate: Tuple((Discrete(100), Discrete(100))) for candidate in self._candidates}), # for each candidate: (offer value, deadline); (0,0) = no offer
+                    "declined_offers": Dict({candidate: Tuple((Discrete(2), Discrete(100))) for candidate in self._candidates}), # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
+                    "counter_offers": Dict({candidate: Tuple((Discrete(100), Discrete(100))) for candidate in self._candidates}), # for each candidate: offer value from offer made by candidate, deadline
+                    "rejected_offers": Dict({candidate: Tuple((Discrete(2), Discrete(100))) for candidate in self._candidates}), # for each candidate: 0 = not rejected/1 = rejected, offer value of counter offer that was rejected (rejected by employer)
+                    "remaining_budget": Discrete(EMPLOYER_BUDGET + 1), # each employer will only have a budget of EMPLOYER_BUDGET
+                })
+            for agent in self.possible_agents
+        }
+        
+        self.state = None
     
     # this cache ensures that same space object is returned for the same agent
     # allows action space seeding to work as expected
     @functools.lru_cache(maxsize=None)
     def observation_space(self, agent):
         # gymnasium spaces are defined and documented here: https://gymnasium.farama.org/api/spaces/
-        return Discrete(4)
+        return self._observation_spaces[agent]
 
     @functools.lru_cache(maxsize=None)
     def action_space(self, agent):
-        return Discrete(3)
+        return self._action_spaces[agent]
     
+    def reset(self, seed=None, return_info=False, options=None):
+        self.agents = self.possible_agents[:]
+        self.num_moves = 0
+        
+        # TODO: should this info be in the environment, or in the main file?
+        self.state = {
+            agent: {
+                "job_openings": {employer: 0 for employer in self._employers},
+                "current_offers": {employer: (0, 0) for employer in self._employers},
+                "rejected_offers": {employer: (0, 0) for employer in self._employers},
+                "counter_offers": {employer: (0, 0) for employer in self._employers}
+            } if "candidate" in agent else
+            {
+                "job_applicants": {candidate: (0, 0) for candidate in self._candidates},
+                "outstanding_offers": {candidate: (0, 0) for candidate in self._candidates},
+                "declined_offers": {candidate: (0, 0) for candidate in self._candidates},
+                "counter_offers": {candidate: (0, 0) for candidate in self._candidates},
+                "rejected_offers": {candidate: (0, 0) for candidate in self._candidates},
+                "remaining_budget": EMPLOYER_BUDGET,
+            }
+            for agent in self.possible_agents
+        }
