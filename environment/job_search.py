@@ -5,8 +5,10 @@ import gymnasium
 import numpy as np
 from gymnasium.spaces import Discrete, Dict, Tuple, Text
 
+from gymnasium.spaces.utils import flatten
+
 from pettingzoo import ParallelEnv
-from pettingzoo.utils import agent_selector, wrappers
+from pettingzoo.utils import parallel_to_aec, wrappers
 
 
 NUM_CANDIDATES = 2
@@ -43,7 +45,7 @@ def raw_env(render_mode=None):
     To support the AEC API, the raw_env() function just uses the from_parallel
     function to convert from a ParallelEnv to an AEC env
     """
-    env = parallel_env(render_mode=render_mode)
+    env = JobSearchEnvironment(render_mode=render_mode)
     env = parallel_to_aec(env)
     return env
 
@@ -77,7 +79,7 @@ class JobSearchEnvironment(ParallelEnv):
                     "accept_offer": Discrete(len(self._employers)), # index of the employer
                     "negotiate_offer": Tuple((Discrete(len(self._employers)), Discrete(100), Discrete(100))), # (Index of the employer, 
                     "reject_offer": Discrete(len(self._employers))
-                }) if "candidate" in agent else \
+                }) if "candidate" in agent else
                 Dict({
                     "reject_applicant": Discrete(len(self._candidates)),
                     "make_offer": Tuple((Discrete(len(self._candidates)), Discrete(100), Discrete(100))),
@@ -127,20 +129,60 @@ class JobSearchEnvironment(ParallelEnv):
         self.num_moves = 0
         
         # TODO: should this info be in the environment, or in the main file?
+        # Game state is the same as all of the observations for each agent
         self.game_state = {
-            agent: {
-                "job_openings": {employer: 0 for employer in self._employers},
-                "current_offers": {employer: (0, 0) for employer in self._employers},
-                "rejected_offers": {employer: (0, 0) for employer in self._employers},
-                "counter_offers": {employer: (0, 0) for employer in self._employers}
+            agent: { 
+                "observation": {
+                    "job_openings": {employer: 0 for employer in self._employers},
+                    "current_offers": {employer: (0, 0) for employer in self._employers},
+                    "rejected_offers": {employer: (0, 0) for employer in self._employers},
+                    "counter_offers": {employer: (0, 0) for employer in self._employers}
+                },
+                "action_mask": [1, 0, 0, 0] # apply, accept, negotiate, reject
             } if "candidate" in agent else
             {
-                "job_applicants": {candidate: (0, 0) for candidate in self._candidates},
-                "outstanding_offers": {candidate: (0, 0) for candidate in self._candidates},
-                "declined_offers": {candidate: (0, 0) for candidate in self._candidates},
-                "counter_offers": {candidate: (0, 0) for candidate in self._candidates},
-                "rejected_offers": {candidate: (0, 0) for candidate in self._candidates},
-                "remaining_budget": EMPLOYER_BUDGET,
+                "observation": {
+                    "job_applicants": {candidate: (0, 0) for candidate in self._candidates},
+                    "outstanding_offers": {candidate: (0, 0) for candidate in self._candidates},
+                    "declined_offers": {candidate: (0, 0) for candidate in self._candidates},
+                    "counter_offers": {candidate: (0, 0) for candidate in self._candidates},
+                    "rejected_offers": {candidate: (0, 0) for candidate in self._candidates},
+                    "remaining_budget": EMPLOYER_BUDGET,
+                },
+                "action_mask": [0, 0, 0, 0] # reject appicant, make offer, accept counter offer, reject counter offer
             }
-            for agent in self.possible_agents
+            for agent in self.agents
         }
+        
+        observations = self.game_state
+        
+        if not return_info:
+            return observations
+        else:
+            infos = {agent: {} for agent in self.agents}
+            return observations, infos
+        
+    def step(self, actions):        
+        """
+        step(action) takes in an action for each agent and should return the
+        - observations
+        - rewards
+        - terminations
+        - truncations
+        - infos
+        dicts where each dict looks like {agent_1: item_1, agent_2: item_2}
+        """
+        if not actions:
+            self.agents = []
+            return {}, {}, {}, {}, {}
+
+        # Execute actions
+        candidate_actions = [actions[agent] for agent in self._candidates]
+        employer_actions = [actions[agent] for agent in self._employers]
+        
+        # TODO: Implement action masking
+        for agent in self.agents:
+            action = actions[agent]
+            print("action:", action)
+            if "candidate" in agent:
+                possible_actions = self.action_space(agent)

@@ -1,4 +1,4 @@
-import environment.environment as environment
+import environment.job_search as environment
 import random
 
 env = environment.env(render_mode="human")
@@ -12,6 +12,6 @@ for agent in env.agent_iter():
         env.close()
         act = None
     else:
-        act = random.choice([0,1,2])
+        act = 0
     print(agent, observation, reward)
     env.step(act)
