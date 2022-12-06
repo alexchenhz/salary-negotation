@@ -13,7 +13,7 @@ from pettingzoo.utils import parallel_to_aec, wrappers
 
 NUM_CANDIDATES = 2
 NUM_EMPLOYERS = 2
-EMPLOYER_BUDGET = 1000
+EMPLOYER_BUDGET = 100
 MAX_NUM_ITERS = 100
 
 APPLY = 0
@@ -27,7 +27,9 @@ MAKE_OFFER = 1
 ACCEPT_COUNTER_OFFER = 2
 REJECT_COUNTER_OFFER = 3
 EMPLOYER_ACTIONS = ["REJECT_APPLICANT", "MAKE_OFFER", "ACCEPT_COUNTER_OFFER", "REJECT_COUNTER_OFFER"]
-MAX_CANDIDATE_STRENGTH = 10
+MAX_CANDIDATE_STRENGTH = 100
+
+DISCOUNT_RATE = 0.05
 
 def env(render_mode=None):
     """
@@ -257,10 +259,10 @@ class JobSearchEnvironment(ParallelEnv):
                     # Update action mask -> this agent is done, so no remaining actions
                     candidate_action_mask = np.zeros(flatdim(self.action_space(candidate)))
                     
-                    # Update rewards
-                    # TODO: is this the best way to shape rewards?
-                    rewards[candidate] += offer_value - self.num_iters
-                    rewards[employer] += self._candidate_stregnths[candidate]
+                    # Update candidate reward
+                    rewards[candidate] += offer_value / ((1 + DISCOUNT_RATE) ** self.num_iters)
+                    # Update employer reward
+                    rewards[employer] += (self._candidate_stregnths[candidate] - offer_value) / ((1 + DISCOUNT_RATE) ** self.num_iters)
                 elif action == REJECT_OFFER:
                     # Get value of offer
                     _, offer_value = self.game_state[employer]["observation"]["outstanding_offers"][candidate]

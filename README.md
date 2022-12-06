@@ -51,9 +51,17 @@ How many actions can employers/candidates do at once?
 - Each time step an employer doesn't have an employee it gets a penalty
 - Offers with deadlines (2 full iterations of all agents?)
 
-Rewards
+### Rewards
 
-1. At each step, the agent can choose an action
+A candidate agent will receive a reward equal to the value of their accepted offer divided by the discount rate raised to the power of the number of iterations of the game that have passed.
+
+$$r_{c} = v_{o} / (1 + r)^{t}$$
+
+An employer agent will receive a reward equal to the strength of the candidate minus the value of the offer, all divided by the discount rate raised to the power of the number of iterations of the game that have passed.
+
+$$r_{e} = (s_{c} - v_{o})/(1 + r)^{t}$$
+
+We will assume the discount rate to be 0.05.
 
 ## Agents
 
