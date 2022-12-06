@@ -379,6 +379,7 @@ class JobSearchEnvironment(ParallelEnv):
         
         observations = self.game_state
         
-        
+        # Get dummy infos (not used)
+        infos = {agent: {} for agent in self.agents}
         
         return observations, rewards, terminations, truncations, infos

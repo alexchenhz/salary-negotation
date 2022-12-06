@@ -14,7 +14,7 @@ NUM_EMPLOYERS = 1
 # PAPER = 1
 # SCISSORS = 2
 NONE = 3
-# MOVES = ["ROCK", "PAPER", "SCISSORS", "None"]
+MOVES = ["ROCK", "PAPER", "SCISSORS", "None"]
 NUM_ITERS = 10
 # REWARD_MAP = {
 #     (ROCK, ROCK): (0, 0),
