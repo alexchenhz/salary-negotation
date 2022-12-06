@@ -14,7 +14,7 @@ from pettingzoo.utils import parallel_to_aec, wrappers
 NUM_CANDIDATES = 2
 NUM_EMPLOYERS = 2
 EMPLOYER_BUDGET = 1000
-NUM_ITERS = 100
+MAX_NUM_ITERS = 100
 
 APPLY = 0
 ACCEPT_OFFER = 1
@@ -92,13 +92,13 @@ class JobSearchEnvironment(ParallelEnv):
                     Discrete(4), 
                     Discrete(len(self._employers)), 
                     Discrete(EMPLOYER_BUDGET + 1), 
-                    Discrete(NUM_ITERS + 1)
+                    Discrete(MAX_NUM_ITERS + 1)
                 )) if "candidate" in agent else
                 Tuple((
                     Discrete(4),
                     Discrete(len(self._candidates)),
                     Discrete(EMPLOYER_BUDGET + 1), 
-                    Discrete(NUM_ITERS + 1)
+                    Discrete(MAX_NUM_ITERS + 1)
                 ))
             for agent in self.possible_agents
         }
@@ -126,17 +126,17 @@ class JobSearchEnvironment(ParallelEnv):
                 {
                     "job_openings": Dict({employer: Discrete(2)for employer in self._employers}), # for each employer: 0 = not hiring, 1 = still hiring
                     "accepted_offer": Dict({employer: Discrete(EMPLOYER_BUDGET + 1) for employer in self._employers}),
-                    "current_offers": Dict({employer: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(NUM_ITERS + 1))) for employer in self._employers}), # for each employer: (offer value, deadline); (0,0) = no offer
+                    "current_offers": Dict({employer: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(MAX_NUM_ITERS + 1))) for employer in self._employers}), # for each employer: (offer value, deadline); (0,0) = no offer
                     "rejected_offers": Dict({employer: Tuple((Discrete(2), Discrete(EMPLOYER_BUDGET + 1))) for employer in self._employers}), # for each employer: 0 = not rejected/1 = rejected, value of rejected offer
-                    "counter_offers": Dict({employer: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(NUM_ITERS + 1))) for employer in self._employers}), # for each employer: (counter offer value, deadline)
+                    "counter_offers": Dict({employer: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(MAX_NUM_ITERS + 1))) for employer in self._employers}), # for each employer: (counter offer value, deadline)
                 }) if "candidate" in agent else
                 Dict(
                 {
                     "job_applicants": Dict({candidate: Tuple((Discrete(2), Discrete(MAX_CANDIDATE_STRENGTH + 1))) for candidate in self._candidates}), # (1 = applied, 0-9 = strength of candidate higher is better)
-                    "outstanding_offers": Dict({candidate: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(NUM_ITERS + 1))) for candidate in self._candidates}), # for each candidate: (offer value, deadline); (0,0) = no offer
+                    "outstanding_offers": Dict({candidate: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(MAX_NUM_ITERS + 1))) for candidate in self._candidates}), # for each candidate: (offer value, deadline); (0,0) = no offer
                     "accepted_offers": Dict({candidate: Discrete(2) for candidate in self._candidates}), # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
                     "declined_offers": Dict({candidate: Tuple((Discrete(2), Discrete(EMPLOYER_BUDGET + 1))) for candidate in self._candidates}), # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
-                    "counter_offers": Dict({candidate: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(NUM_ITERS + 1))) for candidate in self._candidates}), # for each candidate: offer value from offer made by candidate, deadline
+                    "counter_offers": Dict({candidate: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(MAX_NUM_ITERS + 1))) for candidate in self._candidates}), # for each candidate: offer value from offer made by candidate, deadline
                     "rejected_offers": Dict({candidate: Tuple((Discrete(2), Discrete(EMPLOYER_BUDGET + 1))) for candidate in self._candidates}), # for each candidate: 0 = not rejected/1 = rejected, offer value of counter offer that was rejected (rejected by employer)
                     "remaining_budget": Discrete(EMPLOYER_BUDGET + 1), # each employer will only have a budget of EMPLOYER_BUDGET
                 })
@@ -159,9 +159,8 @@ class JobSearchEnvironment(ParallelEnv):
     
     def reset(self, seed=None, return_info=False, options=None):
         self.agents = self.possible_agents[:]
-        self.num_moves = 0
+        self.num_iters = 0
         
-        # TODO: should this info be in the environment, or in the main file?
         # Game state is the same as all of the observations for each agent
         self.game_state = {
             agent: { 
@@ -260,7 +259,7 @@ class JobSearchEnvironment(ParallelEnv):
                     
                     # Update rewards
                     # TODO: is this the best way to shape rewards?
-                    rewards[candidate] += offer_value - self.num_moves
+                    rewards[candidate] += offer_value - self.num_iters
                     rewards[employer] += self._candidate_stregnths[candidate]
                 elif action == REJECT_OFFER:
                     # Get value of offer
@@ -337,12 +336,49 @@ class JobSearchEnvironment(ParallelEnv):
                 else:
                     raise(ValueError, "Invalid employer action")
             # TODO: After each iteration, update action masks based on observations for employer/candidate
+            
             # TODO: Clean up all outstanding offers that have expired, and update action mask as appropriate
+            # Check candidate offers
+            for e in self._employers:
+                _, deadline = self.game_state[candidate]["observation"]["current_offers"][e]
+                if deadline < self.num_iters:
+                    self.game_state[candidate]["observation"]["current_offers"][e] = (0, 0)
+            for c in self._candidates:
+                _, deadline = self.game_state[employer]["observation"]["counter_offers"][c]
+                if deadline < self.num_iters:
+                    self.game_state[employer]["observation"]["counter_offers"][c] = (0, 0)
+                   
                 
-        # TODO: Check termination conditions (terminate when all candidates have found jobs OR when all employers have stopped hiring)
+        """
+        Check termination conditions 
         
-        # TODO: Check truncation conditions (exceeded MAX_ITERS)
+        1. For candidates, terminate when offer is accepted (note, candidates 
+        do not know when they have been rejected (the classic ghosted rejection))
+        
+        2. For employers, terminate when no budget remaining OR all candidates 
+        have either accepted an offer, declined an offer, or had their counter offer 
+        rejected
+        """
+        terminations = {}
+        for agent in self.agents:
+            if "candidate" in agent:
+                terminations[agent] = any(value != 0 for value in self.game_state[candidate]["observation"]["accepted_offers"].values())
+            else:
+                terminations[agent] = self.game_state[employer]["observation"]["remaining_budget"] <= 0 or (
+                    len(self._candidates) == 
+                        (sum(map(lambda x: x == 1, self.game_state[employer]["observation"]["accepted_offers"].values()))
+                        + (sum(map(lambda x: x != (0,0), self.game_state[employer]["observation"]["declined_offers"].values())))
+                        + (sum(map(lambda x: x != (0,0), self.game_state[employer]["observation"]["rejected_offers"].values())))
+                    ))
+        
+        # Check truncation conditions (overwrites termination conditions)
+        truncations = {
+                agent: self.num_iters >= MAX_NUM_ITERS for agent in self.agents
+            }
+        self.num_iters += 1
         
         observations = self.game_state
         
-        return observations
+        
+        
+        return observations, rewards, terminations, truncations, infos
