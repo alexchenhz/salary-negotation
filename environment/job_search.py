@@ -254,8 +254,16 @@ class JobSearchEnvironment(ParallelEnv):
                     self.game_state[candidate]["observation"]["current_offers"][employer] = (0, 0)
                     # Add to accepted offer
                     self.game_state[candidate]["observation"]["accepted_offer"][employer] = offer_value
-                    # TODO: Reject all other offers
-
+                    
+                    # Update game state to reject all other offers that the candidate has
+                    for e in self._employers:
+                        if self.game_state[candidate]["observation"]["current_offers"][e] != (0, 0):
+                            # Add offer to employer declined overs
+                            self.game_state[e]["observation"]["declined_offers"][candidate] = self.game_state[e]["observation"]["outstanding_offers"][candidate]
+                            # Delete outstanding offer
+                            self.game_state[e]["observation"]["outstanding_offers"][candidate] = (0, 0)
+                            # Offer from candidate's current offers
+                            self.game_state[candidate]["observation"]["current_offers"][e] = (0, 0)
                     # Update action mask -> this agent is done, so no remaining actions
                     candidate_action_mask = np.zeros(flatdim(self.action_space(candidate)))
                     
