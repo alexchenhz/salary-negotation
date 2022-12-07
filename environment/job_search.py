@@ -11,22 +11,23 @@ from pettingzoo import ParallelEnv
 from pettingzoo.utils import parallel_to_aec, wrappers
 
 
-NUM_CANDIDATES = 2
-NUM_EMPLOYERS = 2
+NUM_CANDIDATES = 1
+NUM_EMPLOYERS = 1
 EMPLOYER_BUDGET = 100
 MAX_NUM_ITERS = 100
 
-APPLY = 0
-ACCEPT_OFFER = 1
-REJECT_OFFER = 2
-NEGOTIATE = 3
-CANDIDATE_ACTIONS = ["APPLY", "ACCEPT_OFFER", "REJECT_OFFER", "NEGOTIATE"]
+NO_ACTION = 0
+APPLY = 1
+ACCEPT_OFFER = 2
+REJECT_OFFER = 3
+NEGOTIATE = 4
+CANDIDATE_ACTIONS = ["NO_ACTION", "APPLY", "ACCEPT_OFFER", "REJECT_OFFER", "NEGOTIATE"]
 
-REJECT_APPLICANT = 0
-MAKE_OFFER = 1
-ACCEPT_COUNTER_OFFER = 2
-REJECT_COUNTER_OFFER = 3
-EMPLOYER_ACTIONS = ["REJECT_APPLICANT", "MAKE_OFFER", "ACCEPT_COUNTER_OFFER", "REJECT_COUNTER_OFFER"]
+REJECT_APPLICANT = 1
+MAKE_OFFER = 2
+ACCEPT_COUNTER_OFFER = 3
+REJECT_COUNTER_OFFER = 4
+EMPLOYER_ACTIONS = ["NO_ACTION", "REJECT_APPLICANT", "MAKE_OFFER", "ACCEPT_COUNTER_OFFER", "REJECT_COUNTER_OFFER"]
 MAX_CANDIDATE_STRENGTH = 100
 
 DISCOUNT_RATE = 0.05
@@ -53,7 +54,7 @@ def env(render_mode=None):
     # env = wrappers.AssertOutOfBoundsWrapper(env)
     # Provides a wide vareity of helpful user errors
     # Strongly recommended
-    env = wrappers.OrderEnforcingWrapper(env)
+    # env = wrappers.OrderEnforcingWrapper(env)
     return env
 
 def raw_env(render_mode=None):
@@ -62,7 +63,7 @@ def raw_env(render_mode=None):
     function to convert from a ParallelEnv to an AEC env
     """
     env = JobSearchEnvironment(render_mode=render_mode)
-    env = parallel_to_aec(env)
+    # env = parallel_to_aec(env)
     return env
 
 class JobSearchEnvironment(ParallelEnv):
@@ -193,7 +194,7 @@ class JobSearchEnvironment(ParallelEnv):
             for agent in self.agents
         }
         
-        self._candidate_stregnths = [random.randint(0, MAX_CANDIDATE_STRENGTH) for _ in self._candidates]
+        self._candidate_stregnths = {candidate: random.randint(0, MAX_CANDIDATE_STRENGTH) for candidate in self._candidates}
         
         observations = self.game_state
         
@@ -216,6 +217,7 @@ class JobSearchEnvironment(ParallelEnv):
         if not actions:
             self.agents = []
             return {}, {}, {}, {}, {}
+        print(actions)
 
         # Execute actions
         candidate_actions = [actions[agent] for agent in self._candidates]
@@ -223,14 +225,15 @@ class JobSearchEnvironment(ParallelEnv):
         
         rewards = {agent: 0 for agent in self.agents}
         
-        # TODO: Execute actions in random order (in case multiple agents accept an offer)
         for agent in self.agents:
             action, target_index, new_offer_value, new_deadline = actions[agent]
             print("action:", action)
             if "candidate" in agent:
                 candidate = agent
                 employer = f"employer_{target_index}"
-                if action == APPLY:
+                if action == NO_ACTION:
+                    pass
+                elif action == APPLY:
                     # Update employer observation
                     self.game_state[employer]["observation"]["job_applicants"][candidate] = (0, self._candidate_stregnths[agent])
                     # Update candidate observation
@@ -304,7 +307,9 @@ class JobSearchEnvironment(ParallelEnv):
             else:
                 employer = agent
                 candidate = f"candidate_{target_index}"
-                if action == REJECT_APPLICANT:
+                if action == NO_ACTION:
+                    pass
+                elif action == REJECT_APPLICANT:
                     # Update employer observations
                     # Remove from applicants
                     self.game_state[employer]["observation"]["job_applicants"][candidate] = (0, 0)
@@ -372,7 +377,7 @@ class JobSearchEnvironment(ParallelEnv):
         terminations = {}
         for agent in self.agents:
             if "candidate" in agent:
-                terminations[agent] = any(value != 0 for value in self.game_state[candidate]["observation"]["accepted_offers"].values())
+                terminations[agent] = any(value != 0 for value in self.game_state[candidate]["observation"]["accepted_offer"].values())
             else:
                 terminations[agent] = self.game_state[employer]["observation"]["remaining_budget"] <= 0 or (
                     len(self._candidates) == 
