@@ -5,24 +5,9 @@ env = environment.env(render_mode="human")
 
 env.reset()
 
-# for agent in env.agent_iter():
-#     print(agent)
-#     observation, reward, terminated, truncated, info = env.last()
-#     if terminated or truncated:
-#         env.close()
-#         act = None
-#     else:
-#         act = {
-#             "candidate_0": (0, 0, 0, 0),
-#             "employer_0": (0, 0, 0, 0),
-#         }
-#     env.step(act)
+# Initial testing
 
-# observation, reward, terminated, truncated, info = env.last()
-# if terminated or truncated:
-#     env.close()
-#     act = None
-# else:
+# Apply to job 0
 act = {
     "candidate_0": (1, 0, 0, 0),
     "employer_0": (0, 0, 0, 0),
@@ -30,3 +15,57 @@ act = {
 
 observations, rewards, terminations, truncations, infos = env.step(act)
 print(observations)
+
+# Make offer to candidate 0
+act = {
+    "candidate_0": (0, 0, 0, 0),
+    "employer_0": (2, 0, 40, 4),
+}
+
+observations, rewards, terminations, truncations, infos = env.step(act)
+print(observations, rewards, terminations)
+
+# # Accept offer
+# act = {
+#     "candidate_0": (2, 0, 0, 0),
+#     "employer_0": (0, 0, 0, 0),
+# }
+
+# observations, rewards, terminations, truncations, infos = env.step(act)
+# print(observations, rewards, terminations)
+
+# # Reject offer
+# act = {
+#     "candidate_0": (3, 0, 0, 0),
+#     "employer_0": (0, 0, 0, 0),
+# }
+
+# observations, rewards, terminations, truncations, infos = env.step(act)
+# print(observations, rewards, terminations)
+
+# Counter offer
+act = {
+    "candidate_0": (4, 0, 60, 8),
+    "employer_0": (0, 0, 0, 0),
+}
+
+observations, rewards, terminations, truncations, infos = env.step(act)
+print(observations, rewards, terminations)
+
+# Accept counter offer
+act = {
+    "candidate_0": (0, 0, 0, 0),
+    "employer_0": (3, 0, 0, 0),
+}
+
+observations, rewards, terminations, truncations, infos = env.step(act)
+print(observations, rewards, terminations)
+
+# Accept offer
+act = {
+    "candidate_0": (2, 0, 0, 0),
+    "employer_0": (0, 0, 0, 0),
+}
+
+observations, rewards, terminations, truncations, infos = env.step(act)
+print(observations, rewards, terminations)
