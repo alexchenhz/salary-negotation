@@ -1,4 +1,13 @@
-# Salary negotiation
+# The job search game
+
+## Action items (temporary, delete this section when done)
+
+- [ ] Debug step function in environment
+- [ ] Create non-RL agents to play the game (random actions)
+  - [ ] Get action masking working
+- [ ] Create RL agents to play the game
+- [ ] Edit render() function to make terminal output prettier
+- [ ] Revise documentation, find interesting parameters and examples to run with results
 
 ## Job search environment
 
