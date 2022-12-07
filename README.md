@@ -2,7 +2,8 @@
 
 ## Action items (temporary, delete this section when done)
 
-- [ ] Debug step function in environment
+- [x] Debug step function in environment
+  - [ ] Finish up to do's in step()
 - [ ] Create non-RL agents to play the game (random actions)
   - [ ] Get action masking working
 - [ ] Create RL agents to play the game
