@@ -312,8 +312,8 @@ class JobSearchEnvironment(ParallelEnv):
                     # Update employer observations
                     # Remove from applicants
                     self.game_state[employer]["observation"]["job_applicants"][candidate] = (0, 0)
-                    # Add to rejected offers
-                    self.game_state[employer]["observation"]["rejected_offers"][candidate] = (1, 0) # TODO: Is this the best implementation of rejection? Do employers even need to keep information regarding the offer that was rejected?
+                    # Add to rejected offers with an offer value of 0 (offer never made)
+                    self.game_state[employer]["observation"]["rejected_offers"][candidate] = (1, 0) 
 
                     # NOTE: No candidate observations to update
                 elif action == MAKE_OFFER:
@@ -329,6 +329,7 @@ class JobSearchEnvironment(ParallelEnv):
                 elif action == ACCEPT_COUNTER_OFFER:
                     # Get offer value and deadline
                     offer_value, deadline = self.game_state[employer]["observation"]["counter_offers"][candidate]
+                    
                     # Update employer observations
                     # Remove from counter offers
                     self.game_state[employer]["observation"]["counter_offers"][candidate] = (0, 0)
@@ -341,12 +342,15 @@ class JobSearchEnvironment(ParallelEnv):
                     # Add to current offers
                     self.game_state[candidate]["observation"]["current_offers"][employer] = (offer_value, deadline)
                 elif action == REJECT_COUNTER_OFFER:
+                    # Get offer value and deadline
+                    offer_value, deadline = self.game_state[employer]["observation"]["counter_offers"][candidate]
+                    
                     # Update employer observations
                     # Remove from counter offers
                     self.game_state[employer]["observation"]["counter_offers"][candidate] = (0, 0)
                     # NOTE: employer rejects candidate, does NOT revert back to original offer
                     # Update rejected offers
-                    self.game_state[employer]["observation"]["rejected_offers"][candidate] = (new_offer_value, new_deadline)
+                    self.game_state[employer]["observation"]["rejected_offers"][candidate] = (1, offer_value)
                     
                     # Update candidate observations
                     # Remove from counter offers
