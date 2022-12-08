@@ -13,7 +13,7 @@ from pettingzoo.test import parallel_api_test
 NUM_CANDIDATES = 1
 NUM_EMPLOYERS = 1
 EMPLOYER_BUDGET = 100
-MAX_NUM_ITERS = 100
+MAX_NUM_ITERS = 10
 
 NO_ACTION = 0
 APPLY = 1

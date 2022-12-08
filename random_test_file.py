@@ -17,7 +17,7 @@ from pettingzoo.utils import parallel_to_aec, wrappers
 
 space = Tuple((Discrete(4), Discrete(2)))
 
-sample = (3,1)
+sample = (0,0)
 
 print(space, np.zeros(flatdim(space)))
 
