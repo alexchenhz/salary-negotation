@@ -176,10 +176,7 @@ class JobSearchEnvironment(ParallelEnv):
                     "rejected_offers": {employer: (0, 0) for employer in self._employers},
                     "counter_offers": {employer: (0, 0) for employer in self._employers}
                 },
-                # FIXME: Need to allow apply action with employer index (1's for first entry and all employer index entries)
-                # Probably should just create helper functions to handle to action_mask changes
-                # Use np.logical_or.reduce([np_arrays created with flatten and slicing])
-                # "action_mask": np.zeros(flatdim(self.action_space(agent)))
+                "action_mask": np.zeros(flatdim(self.action_space(agent)))
             } if "candidate" in agent else
             {
                 "observation": {
@@ -192,7 +189,7 @@ class JobSearchEnvironment(ParallelEnv):
                     "rejected_offers": {candidate: (0, 0) for candidate in self._candidates},
                     "remaining_budget": EMPLOYER_BUDGET,
                 },
-                # "action_mask": np.zeros(flatdim(self.action_space(agent)))
+                "action_mask": np.zeros(flatdim(self.action_space(agent)))
             }
             for agent in self.agents
         }
@@ -200,6 +197,9 @@ class JobSearchEnvironment(ParallelEnv):
         self._candidate_stregnths = {candidate: random.randint(0, MAX_CANDIDATE_STRENGTH) for candidate in self._candidates}
         
         observations = self.game_state
+        
+        # Initialize action masks based on initial game_state
+        self._update_action_masks()
         
         if not return_info:
             return observations
@@ -236,12 +236,11 @@ class JobSearchEnvironment(ParallelEnv):
                     # Update employer observation
                     # Update job applicants
                     self.game_state[employer]["observation"]["job_applicants"][candidate] = 1
-                    # Update candidate strength
+                    # Update record of candidate strength
                     self.game_state[employer]["observation"]["candidate_strengths"][candidate] = self._candidate_stregnths[agent]
                     # Update candidate observation
+                    # Remove from job openings
                     self.game_state[candidate]["observation"]["job_openings"][employer] = 0
-                    # TODO: Action mask -> cannot apply to this same employer
-                    # TODO: One difference between the game state and observations: candidate might not be able to see their own strength
                 elif action == ACCEPT_OFFER:
                     # Get value of offer
                     offer_value, _ = self.game_state[employer]["observation"]["outstanding_offers"][candidate]
@@ -410,6 +409,13 @@ class JobSearchEnvironment(ParallelEnv):
         return observations, rewards, terminations, truncations, infos
     
     def _update_action_masks(self):
+        """Using the current game_state attribute, update action masks for each agent
+        
+        Action masks determine which actions are allowed
+
+        Returns:
+            None
+        """        
         candidate_employers_mask = np.concatenate(np.ones(len(CANDIDATE_ACTIONS)), np.ones(len(self._employers)), np.zeros(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1))
         
         # employer_actions_mask = np.concatenate(np.ones(len(EMPLOYER_ACTIONS)), np.zeros(len(self._candidates)), np.zeros(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1))
@@ -485,3 +491,4 @@ class JobSearchEnvironment(ParallelEnv):
                     NOTE: What if candidates accept offer, and no longer have budget remaining for other candidate offers? 
                     Instead of allowing offers to be made without subtracting from budget, instead subtract that amount from budget, and add back in if offer is declined, or offer expires
                     """
+            self.game_state[agent]["action_mask"] = action_mask
