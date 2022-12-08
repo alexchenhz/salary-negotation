@@ -9,6 +9,8 @@
 - [ ] Create RL agents to play the game
 - [ ] Edit render() function to make terminal output prettier
 - [ ] Revise documentation, find interesting parameters and examples to run with results
+- [ ] Write up
+- [ ] Motivation and intro, related works, discussion of approach (why choosing this), results, next steps/future work
 
 ## Job search environment
 

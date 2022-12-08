@@ -10,8 +10,8 @@ from pettingzoo import ParallelEnv
 from pettingzoo.utils import wrappers
 from pettingzoo.test import parallel_api_test
 
-NUM_CANDIDATES = 1
-NUM_EMPLOYERS = 1
+NUM_CANDIDATES = 5
+NUM_EMPLOYERS = 5
 EMPLOYER_BUDGET = 100
 MAX_NUM_ITERS = 10
 
