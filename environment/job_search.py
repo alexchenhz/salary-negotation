@@ -1,15 +1,14 @@
 import functools
 import random
 
-import gymnasium
 import numpy as np
-from gymnasium.spaces import Discrete, Dict, Tuple, Text
+from gymnasium.spaces import Discrete, Dict, Tuple
 
 from gymnasium.spaces.utils import flatten, flatdim
 
 from pettingzoo import ParallelEnv
-from pettingzoo.utils import parallel_to_aec, wrappers
-
+from pettingzoo.utils import wrappers
+from pettingzoo.test import parallel_api_test
 
 NUM_CANDIDATES = 1
 NUM_EMPLOYERS = 1
@@ -409,13 +408,13 @@ class JobSearchEnvironment(ParallelEnv):
         terminations = {}
         for agent in self.agents:
             if "candidate" in agent:
-                terminations[agent] = any(value != 0 for value in self.game_state[candidate]["observation"]["accepted_offer"].values())
+                terminations[agent] = any(value != 0 for value in self.game_state[agent]["observation"]["accepted_offer"].values())
             else:
-                terminations[agent] = self.game_state[employer]["observation"]["remaining_budget"] <= 0 or (
+                terminations[agent] = self.game_state[agent]["observation"]["remaining_budget"] <= 0 or (
                     len(self._candidates) == 
-                        (sum(map(lambda x: x == 1, self.game_state[employer]["observation"]["accepted_offers"].values()))
-                        + (sum(map(lambda x: x != (0,0), self.game_state[employer]["observation"]["declined_offers"].values())))
-                        + (sum(map(lambda x: x != (0,0), self.game_state[employer]["observation"]["rejected_offers"].values())))
+                        (sum(map(lambda x: x == 1, self.game_state[agent]["observation"]["accepted_offers"].values()))
+                        + (sum(map(lambda x: x != (0,0), self.game_state[agent]["observation"]["declined_offers"].values())))
+                        + (sum(map(lambda x: x != (0,0), self.game_state[agent]["observation"]["rejected_offers"].values())))
                     ))
         
         # Check truncation conditions (overwrites termination conditions)
@@ -510,3 +509,6 @@ class JobSearchEnvironment(ParallelEnv):
                         action_mask = np.zeros(flatdim(space))
                         break
             self.game_state[agent]["action_mask"] = action_mask.astype(int)
+            
+if __name__ == "__main__":
+    parallel_api_test(JobSearchEnvironment(), num_cycles=1_000_000)

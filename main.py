@@ -1,6 +1,11 @@
 import environment.job_search as environment
 import random
 
+
+
+if __name__ == "__main__":
+    
+
 env = environment.env(render_mode="human")
 
 env.reset()
