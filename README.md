@@ -3,9 +3,9 @@
 ## Action items (temporary, delete this section when done)
 
 - [x] Debug step function in environment
-  - [ ] Finish up to do's in step()
+- [x] Finish up to do's in step()
+- [x] Get action masking working
 - [ ] Create non-RL agents to play the game (random actions)
-  - [ ] Get action masking working
 - [ ] Create RL agents to play the game
 - [ ] Edit render() function to make terminal output prettier
 - [ ] Revise documentation, find interesting parameters and examples to run with results

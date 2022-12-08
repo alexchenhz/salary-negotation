@@ -250,8 +250,9 @@ class JobSearchEnvironment(ParallelEnv):
                     self.game_state[employer]["observation"]["outstanding_offers"][candidate] = (0, 0)
                     # Add to accepted offers
                     self.game_state[employer]["observation"]["accepted_offers"][candidate] = 1
-                    # Reduce budget
-                    self.game_state[employer]["observation"]["remaining_budget"] -= offer_value
+                    # NOTE: Decided to subtract offer value from the time offer is made
+                    # # Reduce budget
+                    # self.game_state[employer]["observation"]["remaining_budget"] -= offer_value
                     
                     # Update candidate observations
                     # Remove from current offers
@@ -268,8 +269,6 @@ class JobSearchEnvironment(ParallelEnv):
                             self.game_state[e]["observation"]["outstanding_offers"][candidate] = (0, 0)
                             # Offer from candidate's current offers
                             self.game_state[candidate]["observation"]["current_offers"][e] = (0, 0)
-                    # Update action mask -> this agent is done, so no remaining actions
-                    candidate_action_mask = np.zeros(flatdim(self.action_space(candidate)))
                     
                     # Update candidate reward
                     rewards[candidate] += offer_value / ((1 + DISCOUNT_RATE) ** self.num_iters)
@@ -284,6 +283,8 @@ class JobSearchEnvironment(ParallelEnv):
                     self.game_state[employer]["observation"]["outstanding_offers"][candidate] = (0, 0)
                     # Add to declined offers
                     self.game_state[employer]["observation"]["declined_offers"][candidate] = (1, offer_value)
+                    # Add offer value back to budget
+                    self.game_state[employer]["observation"]["remaining_budget"] += offer_value
                     
                     # Update candidate observations
                     # Remove from current offers
@@ -296,6 +297,8 @@ class JobSearchEnvironment(ParallelEnv):
                     self.game_state[employer]["observation"]["outstanding_offers"][candidate] = (0, 0)
                     # Add to counter offers
                     self.game_state[employer]["observation"]["counter_offers"][candidate] = (new_offer_value, new_deadline)
+                    # Add offer value back to budget
+                    self.game_state[employer]["observation"]["remaining_budget"] += offer_value
                     
                     # Update candidate observations
                     # Remove from current offers
@@ -318,11 +321,15 @@ class JobSearchEnvironment(ParallelEnv):
 
                     # NOTE: No candidate observations to update
                 elif action == MAKE_OFFER:
+                    # NOTE: Instead of allowing offers to be made without subtracting from budget, instead subtract that amount from budget, and add back in if offer is declined, or offer expires
+
                     # Update employer observations
                     # Remove from applicants
                     self.game_state[employer]["observation"]["job_applicants"][candidate] = 0
                     # Update outstanding offers
                     self.game_state[employer]["observation"]["outstanding_offers"][candidate] = (new_offer_value, new_deadline)
+                    # Subtract offer value from remaining budget
+                    self.game_state[employer]["observation"]["remaining_budget"] -= new_offer_value
                     
                     # Update candidate observations
                     # Add to current offers
@@ -336,6 +343,8 @@ class JobSearchEnvironment(ParallelEnv):
                     self.game_state[employer]["observation"]["counter_offers"][candidate] = (0, 0)
                     # Update outstanding offers
                     self.game_state[employer]["observation"]["outstanding_offers"][candidate] = (offer_value, deadline)
+                    # Subtract offer value from remaining budget
+                    self.game_state[employer]["observation"]["remaining_budget"] -= new_offer_value
                     
                     # Update candidate observations
                     # Remove from counter offers
@@ -360,6 +369,7 @@ class JobSearchEnvironment(ParallelEnv):
                     raise(ValueError, "Invalid employer action")
             # TODO: Clean up all outstanding offers that have expired
             # TODO: Move expired offers to declined/rejected field, as appropriate
+            # TODO: For expired outstanding_offers, add the offer values back to the budget (a soft decline of offer)
             # Check candidate offers
             for e in self._employers:
                 _, deadline = self.game_state[candidate]["observation"]["current_offers"][e]
@@ -478,7 +488,9 @@ class JobSearchEnvironment(ParallelEnv):
                     # If any counter offers exist
                     if self.game_state[agent]["observation"]["counter_offers"][candidate] != (0, 0):
                         counter_offer_value, counter_offer_deadline = self.game_state[agent]["observation"]["current_offers"][employer]
-                        action_mask = np.logical_or(action_mask, np.logical_and(flatten(space, (ACCEPT_COUNTER_OFFER, candidate_index, 0, 0)), employer_candidates_mask))
+                        # Can only accept the counter offer if offer value is less than or equal to remaining budget
+                        if counter_offer_value <= remaining_budget:
+                            action_mask = np.logical_or(action_mask, np.logical_and(flatten(space, (ACCEPT_COUNTER_OFFER, candidate_index, 0, 0)), employer_candidates_mask))
                         action_mask = np.logical_or(action_mask, np.logical_and(flatten(space, (REJECT_COUNTER_OFFER, candidate_index, 0, 0)), employer_candidates_mask))
                         action_mask = np.logical_or(action_mask, np.logical_and(flatten(space, (MAKE_OFFER, candidate_index, 0, 0)), employer_candidates_mask))
                         counter_offer_details = get_employer_offer_values_and_deadlines(candidate_strength, remaining_budget, counter_offer_value, counter_offer_deadline)
@@ -487,8 +499,4 @@ class JobSearchEnvironment(ParallelEnv):
                     if remaining_budget == 0:
                         action_mask = np.zeros(flatdim(space))
                         break
-                    """
-                    NOTE: What if candidates accept offer, and no longer have budget remaining for other candidate offers? 
-                    Instead of allowing offers to be made without subtracting from budget, instead subtract that amount from budget, and add back in if offer is declined, or offer expires
-                    """
             self.game_state[agent]["action_mask"] = action_mask
