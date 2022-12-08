@@ -371,8 +371,8 @@ class JobSearchEnvironment(ParallelEnv):
                 if deadline < self.num_iters:
                     self.game_state[employer]["observation"]["counter_offers"][c] = (0, 0)
 
-            # TODO: After each iteration, update action masks based on observations for employer/candidate
-            self._update_action_masks()
+        # Update all action masks based on updated observations/game state
+        self._update_action_masks()
 
         """
         Check termination conditions 
