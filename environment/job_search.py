@@ -105,24 +105,7 @@ class JobSearchEnvironment(ParallelEnv):
                 ))
             for agent in self.possible_agents
         }
-        # self._action_spaces = {
-        #     agent:
-        #         Dict({
-        #             "apply_to_job": Discrete(len(self._employers)), # index of the employer
-        #             "accept_offer": Discrete(len(self._employers)), # index of the employer
-        #             "negotiate_offer": Tuple((Discrete(len(self._employers)), Discrete(100), Discrete(100))), # (Index of the employer, 
-        #             "reject_offer": Discrete(len(self._employers))
-        #         }) if "candidate" in agent else
-        #         Dict({
-        #             "reject_applicant": Discrete(len(self._candidates)),
-        #             "make_offer": Tuple((Discrete(len(self._candidates)), Discrete(100), Discrete(100))),
-        #             "accept_counter_offer": Discrete(len(self._candidates)),
-        #             "reject_counter_offer": Discrete(len(self._candidates))
-        #         })
-        #     for agent in self.possible_agents
-        # }
-        
-        # Define observation spaces
+
         self._observation_spaces = {
             agent: 
                 Dict(
@@ -135,9 +118,8 @@ class JobSearchEnvironment(ParallelEnv):
                 }) if "candidate" in agent else
                 Dict(
                 {
-                    # TODO: Add field for candidate strength (initialized to 0)
-                    "candidate_strengths": Dict({candidate: Discrete(MAX_CANDIDATE_STRENGTH + 1) for candidate in self._candidates}),
-                    "job_applicants": Dict({candidate: Discrete(2) for candidate in self._candidates}), # (1 = applied, 0-9 = strength of candidate higher is better)
+                    "candidate_strengths": Dict({candidate: Discrete(MAX_CANDIDATE_STRENGTH + 1) for candidate in self._candidates}), # Candidate strengths  (higher is better, will only be populated after a candidate applies)
+                    "job_applicants": Dict({candidate: Discrete(2) for candidate in self._candidates}), # 1 = applied
                     "outstanding_offers": Dict({candidate: Tuple((Discrete(EMPLOYER_BUDGET + 1), Discrete(MAX_NUM_ITERS + 1))) for candidate in self._candidates}), # for each candidate: (offer value, deadline); (0,0) = no offer
                     "accepted_offers": Dict({candidate: Discrete(2) for candidate in self._candidates}), # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
                     "declined_offers": Dict({candidate: Tuple((Discrete(2), Discrete(EMPLOYER_BUDGET + 1))) for candidate in self._candidates}), # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
@@ -292,6 +274,8 @@ class JobSearchEnvironment(ParallelEnv):
                     # Add to rejected offers
                     self.game_state[candidate]["observation"]["rejected_offers"][employer] = (1, offer_value)
                 elif action == NEGOTIATE:
+                    # Get value of offer
+                    offer_value, _ = self.game_state[employer]["observation"]["outstanding_offers"][candidate]
                     # Update employer observations
                     # Remove from outstanding offers
                     self.game_state[employer]["observation"]["outstanding_offers"][candidate] = (0, 0)
@@ -326,6 +310,8 @@ class JobSearchEnvironment(ParallelEnv):
                     # Update employer observations
                     # Remove from applicants
                     self.game_state[employer]["observation"]["job_applicants"][candidate] = 0
+                    # Remove from counter offers (if applicable)
+                    self.game_state[employer]["observation"]["counter_offers"][candidate] = (0, 0)
                     # Update outstanding offers
                     self.game_state[employer]["observation"]["outstanding_offers"][candidate] = (new_offer_value, new_deadline)
                     # Subtract offer value from remaining budget
@@ -334,6 +320,8 @@ class JobSearchEnvironment(ParallelEnv):
                     # Update candidate observations
                     # Add to current offers
                     self.game_state[candidate]["observation"]["current_offers"][employer] = (new_offer_value, new_deadline)
+                    # Remove from counter offers (if applicable)
+                    self.game_state[candidate]["observation"]["counter_offers"][employer] = (0, 0)
                 elif action == ACCEPT_COUNTER_OFFER:
                     # Get offer value and deadline
                     offer_value, deadline = self.game_state[employer]["observation"]["counter_offers"][candidate]
@@ -367,18 +355,43 @@ class JobSearchEnvironment(ParallelEnv):
                     # self.game_state[candidate]["observation"]["counter_offers"][employer] = (0, 0)
                 else:
                     raise(ValueError, "Invalid employer action")
-            # TODO: Clean up all outstanding offers that have expired
-            # TODO: Move expired offers to declined/rejected field, as appropriate
-            # TODO: For expired outstanding_offers, add the offer values back to the budget (a soft decline of offer)
-            # Check candidate offers
-            for e in self._employers:
-                _, deadline = self.game_state[candidate]["observation"]["current_offers"][e]
-                if deadline < self.num_iters:
-                    self.game_state[candidate]["observation"]["current_offers"][e] = (0, 0)
-            for c in self._candidates:
-                _, deadline = self.game_state[employer]["observation"]["counter_offers"][c]
-                if deadline < self.num_iters:
-                    self.game_state[employer]["observation"]["counter_offers"][c] = (0, 0)
+            # Clean up all outstanding offers and counter offers that have expired
+            # Move expired offers to declined/rejected field, as appropriate
+            if "candidate" in agent:
+                # Check candidate offers
+                for e in self._employers:
+                    # Remove all expired current offers
+                    offer_value, deadline = self.game_state[candidate]["observation"]["current_offers"][e]
+                    if offer_value and deadline < self.num_iters:
+                        self.game_state[candidate]["observation"]["current_offers"][e] = (0, 0)
+                        self.game_state[candidate]["observation"]["rejected_offers"][e] = (1, offer_value)
+                        self.game_state[e]["observation"]["outstanding_offers"][candidate] = (0, 0)
+                        self.game_state[e]["observation"]["declined_offers"][candidate] = (1, offer_value)
+                        self.game_state[e]["observation"]["remaining_budget"] += new_offer_value
+                    # Remove all expired counter offers
+                    offer_value, deadline = self.game_state[candidate]["observation"]["counter_offers"][e]
+                    if offer_value and deadline < self.num_iters:
+                        self.game_state[candidate]["observation"]["counter_offers"][e] = (0, 0)
+                        self.game_state[candidate]["observation"]["rejected_offers"][e] = (1, offer_value)
+                        self.game_state[e]["observation"]["counter_offers"][candidate] = (0, 0)
+                        self.game_state[e]["observation"]["rejected_offers"][candidate] = (1, offer_value)
+            else:
+                for c in self._candidates:
+                    # Remove expired outstanding offers
+                    offer_value, deadline = self.game_state[employer]["observation"]["outstanding_offers"][c]
+                    if offer_value and deadline < self.num_iters:
+                        self.game_state[c]["observation"]["current_offers"][employer] = (0, 0)
+                        self.game_state[c]["observation"]["rejected_offers"][employer] = (1, offer_value)
+                        self.game_state[employer]["observation"]["outstanding_offers"][c] = (0, 0)
+                        self.game_state[employer]["observation"]["declined_offers"][c] = (1, offer_value)
+                        self.game_state[employer]["observation"]["remaining_budget"] += new_offer_value
+                    # Remove expired counter offers
+                    offer_value, deadline = self.game_state[employer]["observation"]["counter_offers"][c]
+                    if offer_value and deadline < self.num_iters:
+                        self.game_state[c]["observation"]["counter_offers"][employer] = (0, 0)
+                        self.game_state[c]["observation"]["rejected_offers"][employer] = (1, offer_value)
+                        self.game_state[employer]["observation"]["counter_offers"][c] = (0, 0)
+                        self.game_state[employer]["observation"]["rejected_offers"][c] = (1, offer_value)
 
         # Update all action masks based on updated observations/game state
         self._update_action_masks()
@@ -426,29 +439,26 @@ class JobSearchEnvironment(ParallelEnv):
         Returns:
             None
         """        
-        candidate_employers_mask = np.concatenate(np.ones(len(CANDIDATE_ACTIONS)), np.ones(len(self._employers)), np.zeros(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1))
+        candidate_employers_mask = np.concatenate((np.ones(len(CANDIDATE_ACTIONS)), np.ones(len(self._employers)), np.zeros(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1)))
         
-        # employer_actions_mask = np.concatenate(np.ones(len(EMPLOYER_ACTIONS)), np.zeros(len(self._candidates)), np.zeros(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1))
-        employer_candidates_mask = np.concatenate(np.ones(len(EMPLOYER_ACTIONS)), np.ones(len(self._candidates)), np.zeros(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1))
-        employer_offer_values_mask = np.concatenate(np.ones(len(EMPLOYER_ACTIONS)), np.zeros(len(self._candidates)), np.ones(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1))
-        employer_deadlines_mask = np.concatenate(np.ones(len(EMPLOYER_ACTIONS)), np.zeros(len(self._candidates)), np.zeros(EMPLOYER_BUDGET + 1), np.ones(MAX_NUM_ITERS + 1))
+        employer_candidates_mask = np.concatenate((np.ones(len(EMPLOYER_ACTIONS)), np.ones(len(self._candidates)), np.zeros(EMPLOYER_BUDGET + 1), np.zeros(MAX_NUM_ITERS + 1)))
         
         # Possible negotiating values
         def get_candidate_counter_offer_values_and_deadlines(current_offer_value, current_deadline):
             # Candidate will counter with values strictly greater than current offer
-            offer_values = np.concatenate(np.zeros(current_offer_value + 1), np.ones(EMPLOYER_BUDGET + 1 - (current_offer_value + 1)))
+            offer_values = np.concatenate((np.zeros(current_offer_value + 1), np.ones(EMPLOYER_BUDGET + 1 - (current_offer_value + 1))))
             # Candidate will counter with deadline greater than or equal to current deadline
-            deadlines = np.concatenate(np.zeros(current_deadline), np.ones(MAX_NUM_ITERS + 1 - current_deadline))
-            counter_offer_details = np.concatenate(np.zeros(len(CANDIDATE_ACTIONS)), np.zeros(len(self._employers)), offer_values, deadlines)
+            deadlines = np.concatenate((np.zeros(current_deadline), np.ones(MAX_NUM_ITERS + 1 - current_deadline)))
+            counter_offer_details = np.concatenate((np.zeros(len(CANDIDATE_ACTIONS)), np.zeros(len(self._employers)), offer_values, deadlines))
             assert counter_offer_details.size == candidate_employers_mask.size
             return counter_offer_details
 
         def get_employer_offer_values_and_deadlines(candidate_strength, remaining_budget, counter_offer_value=(EMPLOYER_BUDGET+1), counter_offer_deadline=self.num_iters):
             # Employer will only offer value weakly less than candidate strength or remaining budget, whichever is smaller
-            offer_values = np.concatenate(np.ones(min(candidate_strength, remaining_budget, counter_offer_value) + 1), np.zeros(EMPLOYER_BUDGET + 1 - (min(candidate_strength, remaining_budget, counter_offer_value) + 1)))
+            offer_values = np.concatenate((np.ones(min(candidate_strength, remaining_budget, counter_offer_value) + 1), np.zeros(EMPLOYER_BUDGET + 1 - (min(candidate_strength, remaining_budget, counter_offer_value) + 1))))
             # Employer will only offer deadline in the future
-            deadlines = np.concatenate(np.zeros(counter_offer_deadline), np.ones(MAX_NUM_ITERS + 1 - counter_offer_deadline))
-            offer_details = np.concatenate(np.zeros(len(EMPLOYER_ACTIONS)), np.zeros(len(self._candidates)), offer_values, deadlines)
+            deadlines = np.concatenate((np.zeros(counter_offer_deadline), np.ones(MAX_NUM_ITERS + 1 - counter_offer_deadline)))
+            offer_details = np.concatenate((np.zeros(len(EMPLOYER_ACTIONS)), np.zeros(len(self._candidates)), offer_values, deadlines))
             assert offer_details.size == employer_candidates_mask.size
             return offer_details
         
@@ -487,7 +497,7 @@ class JobSearchEnvironment(ParallelEnv):
                         action_mask = np.logical_or(action_mask, offer_details)
                     # If any counter offers exist
                     if self.game_state[agent]["observation"]["counter_offers"][candidate] != (0, 0):
-                        counter_offer_value, counter_offer_deadline = self.game_state[agent]["observation"]["current_offers"][employer]
+                        counter_offer_value, counter_offer_deadline = self.game_state[agent]["observation"]["counter_offers"][candidate]
                         # Can only accept the counter offer if offer value is less than or equal to remaining budget
                         if counter_offer_value <= remaining_budget:
                             action_mask = np.logical_or(action_mask, np.logical_and(flatten(space, (ACCEPT_COUNTER_OFFER, candidate_index, 0, 0)), employer_candidates_mask))
@@ -499,4 +509,4 @@ class JobSearchEnvironment(ParallelEnv):
                     if remaining_budget == 0:
                         action_mask = np.zeros(flatdim(space))
                         break
-            self.game_state[agent]["action_mask"] = action_mask
+            self.game_state[agent]["action_mask"] = action_mask.astype(int)
