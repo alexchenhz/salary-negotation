@@ -10,8 +10,8 @@ from pettingzoo import ParallelEnv
 from pettingzoo.utils import wrappers
 from pettingzoo.test import parallel_api_test
 
-NUM_CANDIDATES = 3
-NUM_EMPLOYERS = 3
+NUM_CANDIDATES = 1
+NUM_EMPLOYERS = 1
 EMPLOYER_BUDGET = 100
 MAX_NUM_ITERS = 10
 
@@ -726,7 +726,7 @@ class JobSearchEnvironment(ParallelEnv):
                 np.ones(len(self._candidates)),
                 np.zeros(
                     max(len(self._employers), len(self._candidates))
-                    - len(self._employers)
+                    - len(self._candidates)
                 ),
                 np.zeros(EMPLOYER_BUDGET + 1),
                 np.zeros(MAX_NUM_ITERS + 1),
@@ -754,7 +754,7 @@ class JobSearchEnvironment(ParallelEnv):
             counter_offer_details = np.concatenate(
                 (
                     np.zeros(len(CANDIDATE_ACTIONS)),
-                    np.zeros(len(self._employers)),
+                    np.zeros(max(len(self._employers), len(self._candidates))),
                     offer_values,
                     deadlines,
                 )
@@ -799,7 +799,7 @@ class JobSearchEnvironment(ParallelEnv):
             offer_details = np.concatenate(
                 (
                     np.zeros(len(EMPLOYER_ACTIONS)),
-                    np.zeros(len(self._candidates)),
+                    np.zeros(max(len(self._employers), len(self._candidates))),
                     offer_values,
                     deadlines,
                 )
