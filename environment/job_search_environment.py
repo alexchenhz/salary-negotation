@@ -92,13 +92,7 @@ class JobSearchEnvironment(ParallelEnv):
             agent: 
                 Tuple((
                     Discrete(len(CANDIDATE_ACTIONS)), 
-                    Discrete(len(self._employers)), 
-                    Discrete(EMPLOYER_BUDGET + 1), 
-                    Discrete(MAX_NUM_ITERS + 1)
-                )) if "candidate" in agent else
-                Tuple((
-                    Discrete(len(EMPLOYER_ACTIONS)),
-                    Discrete(len(self._candidates)),
+                    Discrete(max(len(self._employers), len(self._candidates))), 
                     Discrete(EMPLOYER_BUDGET + 1), 
                     Discrete(MAX_NUM_ITERS + 1)
                 ))
@@ -106,7 +100,7 @@ class JobSearchEnvironment(ParallelEnv):
         }
 
         self._observation_spaces = {
-            agent: 
+            agent:  
                 Dict(
                 {
                     "job_openings": Dict({employer: Discrete(2)for employer in self._employers}), # for each employer: 0 = not hiring, 1 = still hiring

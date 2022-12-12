@@ -1,10 +1,10 @@
-import environment.job_search as environment
+import environment.job_search_environment as environment
 import random
 import numpy as np
 
 from gymnasium.spaces.utils import flatdim, unflatten
 
-from environment.job_search import NUM_CANDIDATES, NUM_EMPLOYERS, EMPLOYER_BUDGET, MAX_NUM_ITERS, CANDIDATE_ACTIONS, EMPLOYER_ACTIONS
+from environment.job_search_environment import NUM_CANDIDATES, NUM_EMPLOYERS, EMPLOYER_BUDGET, MAX_NUM_ITERS, CANDIDATE_ACTIONS, EMPLOYER_ACTIONS
 
 def sample_action(env, obs, agent):
     agent_obs = obs[agent]

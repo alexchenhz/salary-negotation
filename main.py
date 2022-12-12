@@ -1,4 +1,4 @@
-import environment.job_search as environment
+import environment.job_search_environment as environment
 import argparse
 import os
 import random
