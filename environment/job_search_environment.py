@@ -112,103 +112,112 @@ class JobSearchEnvironment(ParallelEnv):
         self._observation_spaces = {
             agent: Dict(
                 {
-                    "job_openings": Dict(
-                        {employer: Discrete(2) for employer in self._employers}
-                    ),  # for each employer: 0 = not hiring, 1 = still hiring
-                    "accepted_offer": Dict(
+                    "candidate_obs": Dict(
                         {
-                            employer: Discrete(EMPLOYER_BUDGET + 1)
-                            for employer in self._employers
+                            "job_openings": Dict(
+                                {employer: Discrete(2) for employer in self._employers}
+                            ),  # for each employer: 0 = not hiring, 1 = still hiring
+                            "accepted_offer": Dict(
+                                {
+                                    employer: Discrete(EMPLOYER_BUDGET + 1)
+                                    for employer in self._employers
+                                }
+                            ),
+                            "current_offers": Dict(
+                                {
+                                    employer: Tuple(
+                                        (
+                                            Discrete(EMPLOYER_BUDGET + 1),
+                                            Discrete(MAX_NUM_ITERS + 1),
+                                        )
+                                    )
+                                    for employer in self._employers
+                                }
+                            ),  # for each employer: (offer value, deadline); (0,0) = no offer
+                            "rejected_offers": Dict(
+                                {
+                                    employer: Tuple(
+                                        (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
+                                    )
+                                    for employer in self._employers
+                                }
+                            ),  # for each employer: 0 = not rejected/1 = rejected, value of rejected offer
+                            "counter_offers": Dict(
+                                {
+                                    employer: Tuple(
+                                        (
+                                            Discrete(EMPLOYER_BUDGET + 1),
+                                            Discrete(MAX_NUM_ITERS + 1),
+                                        )
+                                    )
+                                    for employer in self._employers
+                                }
+                            ),  # for each employer: (counter offer value, deadline)
                         }
                     ),
-                    "current_offers": Dict(
+                    "employer_obs": Dict(
                         {
-                            employer: Tuple(
-                                (
-                                    Discrete(EMPLOYER_BUDGET + 1),
-                                    Discrete(MAX_NUM_ITERS + 1),
-                                )
-                            )
-                            for employer in self._employers
+                            "candidate_strengths": Dict(
+                                {
+                                    candidate: Discrete(MAX_CANDIDATE_STRENGTH + 1)
+                                    for candidate in self._candidates
+                                }
+                            ),  # Candidate strengths  (higher is better, will only be populated after a candidate applies)
+                            "job_applicants": Dict(
+                                {
+                                    candidate: Discrete(2)
+                                    for candidate in self._candidates
+                                }
+                            ),  # 1 = applied
+                            "outstanding_offers": Dict(
+                                {
+                                    candidate: Tuple(
+                                        (
+                                            Discrete(EMPLOYER_BUDGET + 1),
+                                            Discrete(MAX_NUM_ITERS + 1),
+                                        )
+                                    )
+                                    for candidate in self._candidates
+                                }
+                            ),  # for each candidate: (offer value, deadline); (0,0) = no offer
+                            "accepted_offers": Dict(
+                                {
+                                    candidate: Discrete(2)
+                                    for candidate in self._candidates
+                                }
+                            ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
+                            "declined_offers": Dict(
+                                {
+                                    candidate: Tuple(
+                                        (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
+                                    )
+                                    for candidate in self._candidates
+                                }
+                            ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
+                            "counter_offers": Dict(
+                                {
+                                    candidate: Tuple(
+                                        (
+                                            Discrete(EMPLOYER_BUDGET + 1),
+                                            Discrete(MAX_NUM_ITERS + 1),
+                                        )
+                                    )
+                                    for candidate in self._candidates
+                                }
+                            ),  # for each candidate: offer value from offer made by candidate, deadline
+                            "rejected_offers": Dict(
+                                {
+                                    candidate: Tuple(
+                                        (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
+                                    )
+                                    for candidate in self._candidates
+                                }
+                            ),  # for each candidate: 0 = not rejected/1 = rejected, offer value of counter offer that was rejected (rejected by employer)
+                            "remaining_budget": Discrete(
+                                EMPLOYER_BUDGET + 1
+                            ),  # each employer will only have a budget of EMPLOYER_BUDGET
                         }
-                    ),  # for each employer: (offer value, deadline); (0,0) = no offer
-                    "rejected_offers": Dict(
-                        {
-                            employer: Tuple(
-                                (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
-                            )
-                            for employer in self._employers
-                        }
-                    ),  # for each employer: 0 = not rejected/1 = rejected, value of rejected offer
-                    "counter_offers": Dict(
-                        {
-                            employer: Tuple(
-                                (
-                                    Discrete(EMPLOYER_BUDGET + 1),
-                                    Discrete(MAX_NUM_ITERS + 1),
-                                )
-                            )
-                            for employer in self._employers
-                        }
-                    ),  # for each employer: (counter offer value, deadline)
-                }
-            )
-            if "candidate" in agent
-            else Dict(
-                {
-                    "candidate_strengths": Dict(
-                        {
-                            candidate: Discrete(MAX_CANDIDATE_STRENGTH + 1)
-                            for candidate in self._candidates
-                        }
-                    ),  # Candidate strengths  (higher is better, will only be populated after a candidate applies)
-                    "job_applicants": Dict(
-                        {candidate: Discrete(2) for candidate in self._candidates}
-                    ),  # 1 = applied
-                    "outstanding_offers": Dict(
-                        {
-                            candidate: Tuple(
-                                (
-                                    Discrete(EMPLOYER_BUDGET + 1),
-                                    Discrete(MAX_NUM_ITERS + 1),
-                                )
-                            )
-                            for candidate in self._candidates
-                        }
-                    ),  # for each candidate: (offer value, deadline); (0,0) = no offer
-                    "accepted_offers": Dict(
-                        {candidate: Discrete(2) for candidate in self._candidates}
-                    ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
-                    "declined_offers": Dict(
-                        {
-                            candidate: Tuple(
-                                (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
-                            )
-                            for candidate in self._candidates
-                        }
-                    ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
-                    "counter_offers": Dict(
-                        {
-                            candidate: Tuple(
-                                (
-                                    Discrete(EMPLOYER_BUDGET + 1),
-                                    Discrete(MAX_NUM_ITERS + 1),
-                                )
-                            )
-                            for candidate in self._candidates
-                        }
-                    ),  # for each candidate: offer value from offer made by candidate, deadline
-                    "rejected_offers": Dict(
-                        {
-                            candidate: Tuple(
-                                (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
-                            )
-                            for candidate in self._candidates
-                        }
-                    ),  # for each candidate: 0 = not rejected/1 = rejected, offer value of counter offer that was rejected (rejected by employer)
-                    "remaining_budget": Discrete(
-                        EMPLOYER_BUDGET + 1
-                    ),  # each employer will only have a budget of EMPLOYER_BUDGET
+                    ),
                 }
             )
             for agent in self.possible_agents
@@ -236,16 +245,42 @@ class JobSearchEnvironment(ParallelEnv):
         self.game_state = {
             agent: {
                 "observation": {
-                    "job_openings": {employer: 1 for employer in self._employers},
-                    "accepted_offer": {employer: 0 for employer in self._employers},
-                    "current_offers": {
-                        employer: (0, 0) for employer in self._employers
+                    "candidate_obs": {
+                        "job_openings": {employer: 1 for employer in self._employers},
+                        "accepted_offer": {employer: 0 for employer in self._employers},
+                        "current_offers": {
+                            employer: (0, 0) for employer in self._employers
+                        },
+                        "rejected_offers": {
+                            employer: (0, 0) for employer in self._employers
+                        },
+                        "counter_offers": {
+                            employer: (0, 0) for employer in self._employers
+                        },
                     },
-                    "rejected_offers": {
-                        employer: (0, 0) for employer in self._employers
-                    },
-                    "counter_offers": {
-                        employer: (0, 0) for employer in self._employers
+                    "employer_obs": {
+                        "candidate_strengths": {
+                            candidate: 0 for candidate in self._candidates
+                        },
+                        "job_applicants": {
+                            candidate: 0 for candidate in self._candidates
+                        },
+                        "outstanding_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "accepted_offers": {
+                            candidate: 0 for candidate in self._candidates
+                        },
+                        "declined_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "counter_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "rejected_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "remaining_budget": EMPLOYER_BUDGET,
                     },
                 },
                 "action_mask": np.zeros(flatdim(self.action_space(agent))),
@@ -253,24 +288,43 @@ class JobSearchEnvironment(ParallelEnv):
             if "candidate" in agent
             else {
                 "observation": {
-                    "candidate_strengths": {
-                        candidate: 0 for candidate in self._candidates
+                    "candidate_obs": {
+                        "job_openings": {employer: 1 for employer in self._employers},
+                        "accepted_offer": {employer: 0 for employer in self._employers},
+                        "current_offers": {
+                            employer: (0, 0) for employer in self._employers
+                        },
+                        "rejected_offers": {
+                            employer: (0, 0) for employer in self._employers
+                        },
+                        "counter_offers": {
+                            employer: (0, 0) for employer in self._employers
+                        },
                     },
-                    "job_applicants": {candidate: 0 for candidate in self._candidates},
-                    "outstanding_offers": {
-                        candidate: (0, 0) for candidate in self._candidates
+                    "employer_obs": {
+                        "candidate_strengths": {
+                            candidate: 0 for candidate in self._candidates
+                        },
+                        "job_applicants": {
+                            candidate: 0 for candidate in self._candidates
+                        },
+                        "outstanding_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "accepted_offers": {
+                            candidate: 0 for candidate in self._candidates
+                        },
+                        "declined_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "counter_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "rejected_offers": {
+                            candidate: (0, 0) for candidate in self._candidates
+                        },
+                        "remaining_budget": EMPLOYER_BUDGET,
                     },
-                    "accepted_offers": {candidate: 0 for candidate in self._candidates},
-                    "declined_offers": {
-                        candidate: (0, 0) for candidate in self._candidates
-                    },
-                    "counter_offers": {
-                        candidate: (0, 0) for candidate in self._candidates
-                    },
-                    "rejected_offers": {
-                        candidate: (0, 0) for candidate in self._candidates
-                    },
-                    "remaining_budget": EMPLOYER_BUDGET,
                 },
                 "action_mask": np.zeros(flatdim(self.action_space(agent))),
             }
@@ -321,52 +375,52 @@ class JobSearchEnvironment(ParallelEnv):
                 elif action == APPLY:
                     # Update employer observation
                     # Update job applicants
-                    self.game_state[employer]["observation"]["job_applicants"][
-                        candidate
-                    ] = 1
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "job_applicants"
+                    ][candidate] = 1
                     # Update record of candidate strength
-                    self.game_state[employer]["observation"]["candidate_strengths"][
-                        candidate
-                    ] = self._candidate_stregnths[agent]
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "candidate_strengths"
+                    ][candidate] = self._candidate_stregnths[agent]
                     # Update candidate observation
                     # Remove from job openings
-                    self.game_state[candidate]["observation"]["job_openings"][
-                        employer
-                    ] = 0
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "job_openings"
+                    ][employer] = 0
                 elif action == ACCEPT_OFFER:
                     # Get value of offer
                     offer_value, _ = self.game_state[employer]["observation"][
-                        "outstanding_offers"
-                    ][candidate]
+                        "employer_obs"
+                    ]["outstanding_offers"][candidate]
 
                     # Update employer observations
                     # Remove from outstanding offers
-                    self.game_state[employer]["observation"]["outstanding_offers"][
-                        candidate
-                    ] = (0, 0)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "outstanding_offers"
+                    ][candidate] = (0, 0)
                     # Add to accepted offers
-                    self.game_state[employer]["observation"]["accepted_offers"][
-                        candidate
-                    ] = 1
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "accepted_offers"
+                    ][candidate] = 1
                     # NOTE: Decided to subtract offer value from the time offer is made
                     # # Reduce budget
-                    # self.game_state[employer]["observation"]["remaining_budget"] -= offer_value
+                    # self.game_state[employer]["observation"]["employer_obs"]["remaining_budget"] -= offer_value
 
                     # Update candidate observations
                     # Remove from current offers
-                    self.game_state[candidate]["observation"]["current_offers"][
-                        employer
-                    ] = (0, 0)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "current_offers"
+                    ][employer] = (0, 0)
                     # Add to accepted offer
-                    self.game_state[candidate]["observation"]["accepted_offer"][
-                        employer
-                    ] = offer_value
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "accepted_offer"
+                    ][employer] = offer_value
 
                     # Update game state to reject all other offers that the candidate has
                     for e in self._employers:
-                        if self.game_state[candidate]["observation"]["current_offers"][
-                            e
-                        ] != (0, 0):
+                        if self.game_state[candidate]["observation"]["candidate_obs"][
+                            "current_offers"
+                        ][e] != (0, 0):
                             # Add offer to employer declined overs
                             self.game_state[e]["observation"]["declined_offers"][
                                 candidate
@@ -378,9 +432,9 @@ class JobSearchEnvironment(ParallelEnv):
                                 candidate
                             ] = (0, 0)
                             # Offer from candidate's current offers
-                            self.game_state[candidate]["observation"]["current_offers"][
-                                e
-                            ] = (0, 0)
+                            self.game_state[candidate]["observation"]["candidate_obs"][
+                                "current_offers"
+                            ][e] = (0, 0)
 
                     # Update candidate reward
                     rewards[candidate] += offer_value / (
@@ -393,60 +447,60 @@ class JobSearchEnvironment(ParallelEnv):
                 elif action == REJECT_OFFER:
                     # Get value of offer
                     offer_value, _ = self.game_state[employer]["observation"][
-                        "outstanding_offers"
-                    ][candidate]
+                        "employer_obs"
+                    ]["outstanding_offers"][candidate]
 
                     # Update employer observations
                     # Remove from outstanding offers
-                    self.game_state[employer]["observation"]["outstanding_offers"][
-                        candidate
-                    ] = (0, 0)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "outstanding_offers"
+                    ][candidate] = (0, 0)
                     # Add to declined offers
-                    self.game_state[employer]["observation"]["declined_offers"][
-                        candidate
-                    ] = (1, offer_value)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "declined_offers"
+                    ][candidate] = (1, offer_value)
                     # Add offer value back to budget
-                    self.game_state[employer]["observation"][
+                    self.game_state[employer]["observation"]["employer_obs"][
                         "remaining_budget"
                     ] += offer_value
 
                     # Update candidate observations
                     # Remove from current offers
-                    self.game_state[candidate]["observation"]["current_offers"][
-                        employer
-                    ] = (0, 0)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "current_offers"
+                    ][employer] = (0, 0)
                     # Add to rejected offers
-                    self.game_state[candidate]["observation"]["rejected_offers"][
-                        employer
-                    ] = (1, offer_value)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "rejected_offers"
+                    ][employer] = (1, offer_value)
                 elif action == NEGOTIATE:
                     # Get value of offer
                     offer_value, _ = self.game_state[employer]["observation"][
-                        "outstanding_offers"
-                    ][candidate]
+                        "employer_obs"
+                    ]["outstanding_offers"][candidate]
                     # Update employer observations
                     # Remove from outstanding offers
-                    self.game_state[employer]["observation"]["outstanding_offers"][
-                        candidate
-                    ] = (0, 0)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "outstanding_offers"
+                    ][candidate] = (0, 0)
                     # Add to counter offers
-                    self.game_state[employer]["observation"]["counter_offers"][
-                        candidate
-                    ] = (new_offer_value, new_deadline)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "counter_offers"
+                    ][candidate] = (new_offer_value, new_deadline)
                     # Add offer value back to budget
-                    self.game_state[employer]["observation"][
+                    self.game_state[employer]["observation"]["employer_obs"][
                         "remaining_budget"
                     ] += offer_value
 
                     # Update candidate observations
                     # Remove from current offers
-                    self.game_state[candidate]["observation"]["current_offers"][
-                        employer
-                    ] = (0, 0)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "current_offers"
+                    ][employer] = (0, 0)
                     # Add to counter offers
-                    self.game_state[candidate]["observation"]["counter_offers"][
-                        employer
-                    ] = (new_offer_value, new_deadline)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "counter_offers"
+                    ][employer] = (new_offer_value, new_deadline)
                 else:
                     raise (ValueError, "Invalid candidate action")
             else:
@@ -457,13 +511,13 @@ class JobSearchEnvironment(ParallelEnv):
                 elif action == REJECT_APPLICANT:
                     # Update employer observations
                     # Remove from applicants
-                    self.game_state[employer]["observation"]["job_applicants"][
-                        candidate
-                    ] = 0
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "job_applicants"
+                    ][candidate] = 0
                     # Add to rejected offers with an offer value of 0 (offer never made)
-                    self.game_state[employer]["observation"]["rejected_offers"][
-                        candidate
-                    ] = (1, 0)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "rejected_offers"
+                    ][candidate] = (1, 0)
 
                     # NOTE: No candidate observations to update
                 elif action == MAKE_OFFER:
@@ -471,80 +525,80 @@ class JobSearchEnvironment(ParallelEnv):
 
                     # Update employer observations
                     # Remove from applicants
-                    self.game_state[employer]["observation"]["job_applicants"][
-                        candidate
-                    ] = 0
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "job_applicants"
+                    ][candidate] = 0
                     # Remove from counter offers (if applicable)
-                    self.game_state[employer]["observation"]["counter_offers"][
-                        candidate
-                    ] = (0, 0)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "counter_offers"
+                    ][candidate] = (0, 0)
                     # Update outstanding offers
-                    self.game_state[employer]["observation"]["outstanding_offers"][
-                        candidate
-                    ] = (new_offer_value, new_deadline)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "outstanding_offers"
+                    ][candidate] = (new_offer_value, new_deadline)
                     # Subtract offer value from remaining budget
-                    self.game_state[employer]["observation"][
+                    self.game_state[employer]["observation"]["employer_obs"][
                         "remaining_budget"
                     ] -= new_offer_value
 
                     # Update candidate observations
                     # Add to current offers
-                    self.game_state[candidate]["observation"]["current_offers"][
-                        employer
-                    ] = (new_offer_value, new_deadline)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "current_offers"
+                    ][employer] = (new_offer_value, new_deadline)
                     # Remove from counter offers (if applicable)
-                    self.game_state[candidate]["observation"]["counter_offers"][
-                        employer
-                    ] = (0, 0)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "counter_offers"
+                    ][employer] = (0, 0)
                 elif action == ACCEPT_COUNTER_OFFER:
                     # Get offer value and deadline
                     offer_value, deadline = self.game_state[employer]["observation"][
-                        "counter_offers"
-                    ][candidate]
+                        "employer_obs"
+                    ]["counter_offers"][candidate]
 
                     # Update employer observations
                     # Remove from counter offers
-                    self.game_state[employer]["observation"]["counter_offers"][
-                        candidate
-                    ] = (0, 0)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "counter_offers"
+                    ][candidate] = (0, 0)
                     # Update outstanding offers
-                    self.game_state[employer]["observation"]["outstanding_offers"][
-                        candidate
-                    ] = (offer_value, deadline)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "outstanding_offers"
+                    ][candidate] = (offer_value, deadline)
                     # Subtract offer value from remaining budget
-                    self.game_state[employer]["observation"][
+                    self.game_state[employer]["observation"]["employer_obs"][
                         "remaining_budget"
                     ] -= new_offer_value
 
                     # Update candidate observations
                     # Remove from counter offers
-                    self.game_state[candidate]["observation"]["counter_offers"][
-                        employer
-                    ] = (0, 0)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "counter_offers"
+                    ][employer] = (0, 0)
                     # Add to current offers
-                    self.game_state[candidate]["observation"]["current_offers"][
-                        employer
-                    ] = (offer_value, deadline)
+                    self.game_state[candidate]["observation"]["candidate_obs"][
+                        "current_offers"
+                    ][employer] = (offer_value, deadline)
                 elif action == REJECT_COUNTER_OFFER:
                     # Get offer value and deadline
                     offer_value, deadline = self.game_state[employer]["observation"][
-                        "counter_offers"
-                    ][candidate]
+                        "employer_obs"
+                    ]["counter_offers"][candidate]
 
                     # Update employer observations
                     # Remove from counter offers
-                    self.game_state[employer]["observation"]["counter_offers"][
-                        candidate
-                    ] = (0, 0)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "counter_offers"
+                    ][candidate] = (0, 0)
                     # NOTE: employer rejects candidate, does NOT revert back to original offer
                     # Update rejected offers
-                    self.game_state[employer]["observation"]["rejected_offers"][
-                        candidate
-                    ] = (1, offer_value)
+                    self.game_state[employer]["observation"]["employer_obs"][
+                        "rejected_offers"
+                    ][candidate] = (1, offer_value)
 
                     # Update candidate observations
                     # Remove from counter offers
-                    # self.game_state[candidate]["observation"]["counter_offers"][employer] = (0, 0)
+                    # self.game_state[candidate]["observation"]["candidate_obs"]["counter_offers"][employer] = (0, 0)
                 else:
                     raise (ValueError, "Invalid employer action")
             # Clean up all outstanding offers and counter offers that have expired
@@ -554,15 +608,15 @@ class JobSearchEnvironment(ParallelEnv):
                 for e in self._employers:
                     # Remove all expired current offers
                     offer_value, deadline = self.game_state[candidate]["observation"][
-                        "current_offers"
-                    ][e]
+                        "candidate_obs"
+                    ]["current_offers"][e]
                     if offer_value and deadline < self.num_iters:
-                        self.game_state[candidate]["observation"]["current_offers"][
-                            e
-                        ] = (0, 0)
-                        self.game_state[candidate]["observation"]["rejected_offers"][
-                            e
-                        ] = (1, offer_value)
+                        self.game_state[candidate]["observation"]["candidate_obs"][
+                            "current_offers"
+                        ][e] = (0, 0)
+                        self.game_state[candidate]["observation"]["candidate_obs"][
+                            "rejected_offers"
+                        ][e] = (1, offer_value)
                         self.game_state[e]["observation"]["outstanding_offers"][
                             candidate
                         ] = (0, 0)
@@ -574,15 +628,15 @@ class JobSearchEnvironment(ParallelEnv):
                         ] += new_offer_value
                     # Remove all expired counter offers
                     offer_value, deadline = self.game_state[candidate]["observation"][
-                        "counter_offers"
-                    ][e]
+                        "candidate_obs"
+                    ]["counter_offers"][e]
                     if offer_value and deadline < self.num_iters:
-                        self.game_state[candidate]["observation"]["counter_offers"][
-                            e
-                        ] = (0, 0)
-                        self.game_state[candidate]["observation"]["rejected_offers"][
-                            e
-                        ] = (1, offer_value)
+                        self.game_state[candidate]["observation"]["candidate_obs"][
+                            "counter_offers"
+                        ][e] = (0, 0)
+                        self.game_state[candidate]["observation"]["candidate_obs"][
+                            "rejected_offers"
+                        ][e] = (1, offer_value)
                         self.game_state[e]["observation"]["counter_offers"][
                             candidate
                         ] = (0, 0)
@@ -593,8 +647,8 @@ class JobSearchEnvironment(ParallelEnv):
                 for c in self._candidates:
                     # Remove expired outstanding offers
                     offer_value, deadline = self.game_state[employer]["observation"][
-                        "outstanding_offers"
-                    ][c]
+                        "employer_obs"
+                    ]["outstanding_offers"][c]
                     if offer_value and deadline < self.num_iters:
                         self.game_state[c]["observation"]["current_offers"][
                             employer
@@ -602,19 +656,19 @@ class JobSearchEnvironment(ParallelEnv):
                         self.game_state[c]["observation"]["rejected_offers"][
                             employer
                         ] = (1, offer_value)
-                        self.game_state[employer]["observation"]["outstanding_offers"][
-                            c
-                        ] = (0, 0)
-                        self.game_state[employer]["observation"]["declined_offers"][
-                            c
-                        ] = (1, offer_value)
-                        self.game_state[employer]["observation"][
+                        self.game_state[employer]["observation"]["employer_obs"][
+                            "outstanding_offers"
+                        ][c] = (0, 0)
+                        self.game_state[employer]["observation"]["employer_obs"][
+                            "declined_offers"
+                        ][c] = (1, offer_value)
+                        self.game_state[employer]["observation"]["employer_obs"][
                             "remaining_budget"
                         ] += new_offer_value
                     # Remove expired counter offers
                     offer_value, deadline = self.game_state[employer]["observation"][
-                        "counter_offers"
-                    ][c]
+                        "employer_obs"
+                    ]["counter_offers"][c]
                     if offer_value and deadline < self.num_iters:
                         self.game_state[c]["observation"]["counter_offers"][
                             employer
@@ -622,12 +676,12 @@ class JobSearchEnvironment(ParallelEnv):
                         self.game_state[c]["observation"]["rejected_offers"][
                             employer
                         ] = (1, offer_value)
-                        self.game_state[employer]["observation"]["counter_offers"][
-                            c
-                        ] = (0, 0)
-                        self.game_state[employer]["observation"]["rejected_offers"][
-                            c
-                        ] = (1, offer_value)
+                        self.game_state[employer]["observation"]["employer_obs"][
+                            "counter_offers"
+                        ][c] = (0, 0)
+                        self.game_state[employer]["observation"]["employer_obs"][
+                            "rejected_offers"
+                        ][c] = (1, offer_value)
 
         # Update all action masks based on updated observations/game state
         self._update_action_masks()
@@ -647,12 +701,12 @@ class JobSearchEnvironment(ParallelEnv):
             if "candidate" in agent:
                 terminations[agent] = any(
                     value != 0
-                    for value in self.game_state[agent]["observation"][
+                    for value in self.game_state[agent]["observation"]["candidate_obs"][
                         "accepted_offer"
                     ].values()
                 )
             else:
-                terminations[agent] = self.game_state[agent]["observation"][
+                terminations[agent] = self.game_state[agent]["observation"]["employer_obs"][
                     "remaining_budget"
                 ] <= 0 or (
                     len(self._candidates)
@@ -660,7 +714,7 @@ class JobSearchEnvironment(ParallelEnv):
                         sum(
                             map(
                                 lambda x: x == 1,
-                                self.game_state[agent]["observation"][
+                                self.game_state[agent]["observation"]["employer_obs"][
                                     "accepted_offers"
                                 ].values(),
                             )
@@ -669,7 +723,7 @@ class JobSearchEnvironment(ParallelEnv):
                             sum(
                                 map(
                                     lambda x: x != (0, 0),
-                                    self.game_state[agent]["observation"][
+                                    self.game_state[agent]["observation"]["employer_obs"][
                                         "declined_offers"
                                     ].values(),
                                 )
@@ -679,7 +733,7 @@ class JobSearchEnvironment(ParallelEnv):
                             sum(
                                 map(
                                     lambda x: x != (0, 0),
-                                    self.game_state[agent]["observation"][
+                                    self.game_state[agent]["observation"]["employer_obs"][
                                         "rejected_offers"
                                     ].values(),
                                 )
@@ -814,7 +868,7 @@ class JobSearchEnvironment(ParallelEnv):
                 for employer_index, employer in enumerate(self._employers):
                     # Job opening -> agent allowed to apply for all open jobs
                     if (
-                        self.game_state[agent]["observation"]["job_openings"][employer]
+                        self.game_state[agent]["observation"]["candidate_obs"]["job_openings"][employer]
                         == 1
                     ):
                         action_mask = np.logical_or(
@@ -826,17 +880,17 @@ class JobSearchEnvironment(ParallelEnv):
                         )
                     # Accepted offer -> no actions allowed
                     if (
-                        self.game_state[agent]["observation"]["accepted_offer"][
+                        self.game_state[agent]["observation"]["candidate_obs"]["accepted_offer"][
                             employer
                         ]
                         != 0
                     ):
                         action_mask = np.zeros(flatdim(space))
                         break
-                    if self.game_state[agent]["observation"]["current_offers"][
+                    if self.game_state[agent]["observation"]["candidate_obs"]["current_offers"][
                         employer
                     ] != (0, 0):
-                        current_offer_value, current_deadline = self.game_state[agent][
+                        current_offer_value, current_deadline = self.game_state[agent]["candidate_obs"][
                             "observation"
                         ]["current_offers"][employer]
                         # Candidate can accept offer
@@ -870,16 +924,16 @@ class JobSearchEnvironment(ParallelEnv):
                         )
                         action_mask = np.logical_or(action_mask, counter_offer_details)
             else:
-                remaining_budget = self.game_state[agent]["observation"][
+                remaining_budget = self.game_state[agent]["observation"]["employer_obs"][
                     "remaining_budget"
                 ]
                 for candidate_index, candidate in enumerate(self._candidates):
-                    candidate_strength = self.game_state[agent]["observation"][
+                    candidate_strength = self.game_state[agent]["observation"]["employer_obs"][
                         "candidate_strengths"
                     ][candidate]
                     # Job applicant -> agent can extend offer or reject candidate
                     if (
-                        self.game_state[agent]["observation"]["job_applicants"][
+                        self.game_state[agent]["observation"]["employer_obs"]["job_applicants"][
                             candidate
                         ]
                         != 0
@@ -906,7 +960,7 @@ class JobSearchEnvironment(ParallelEnv):
                         )
                         action_mask = np.logical_or(action_mask, offer_details)
                     # If any counter offers exist
-                    if self.game_state[agent]["observation"]["counter_offers"][
+                    if self.game_state[agent]["observation"]["employer_obs"]["counter_offers"][
                         candidate
                     ] != (0, 0):
                         counter_offer_value, counter_offer_deadline = self.game_state[
