@@ -2,5 +2,3 @@ pettingzoo
 supersuit
 torch
 ray
-stable-baselines3[extra]
-git+https://github.com/carlosluis/stable-baselines3@fix_tests
