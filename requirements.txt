@@ -5,3 +5,4 @@ ray
 ray[tune]
 ray[rllib]
 jupyter
+gym==0.22.0
