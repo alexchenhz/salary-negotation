@@ -2,3 +2,6 @@ pettingzoo
 supersuit
 torch
 ray
+ray[tune]
+ray[rllib]
+jupyter

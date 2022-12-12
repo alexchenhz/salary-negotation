@@ -192,20 +192,13 @@ def _class_getstate(obj):
 
         registry = clsdict.pop('_abc_registry', None)
         if registry is None:
-            if hasattr(abc, '_get_dump'):
-                # in Python3.7+, the abc caches and registered subclasses of a
-                # class are bundled into the single _abc_impl attribute
-                clsdict.pop('_abc_impl', None)
-                (registry, _, _, _) = abc._get_dump(obj)
+            # in Python3.7+, the abc caches and registered subclasses of a
+            # class are bundled into the single _abc_impl attribute
+            clsdict.pop('_abc_impl', None)
+            (registry, _, _, _) = abc._get_dump(obj)
 
-                clsdict["_abc_impl"] = [subclass_weakref()
-                                        for subclass_weakref in registry]
-            else:
-                # FIXME(suquark): The upstream cloudpickle cannot work in Ray
-                # because sometimes both '_abc_registry' and '_get_dump' does
-                # not exist. Some strange typing objects may cause this issue.
-                # Here the workaround just set "_abc_impl" to None.
-                clsdict["_abc_impl"] = None
+            clsdict["_abc_impl"] = [subclass_weakref()
+                                    for subclass_weakref in registry]
         else:
             # In the above if clause, registry is a set of weakrefs -- in
             # this case, registry is a WeakSet
