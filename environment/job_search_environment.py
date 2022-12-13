@@ -1,14 +1,13 @@
 import functools
 import random
+from collections import OrderedDict
 
 import numpy as np
-from gym.spaces import Discrete, Dict, Tuple
-
-from gym.spaces.utils import flatten, flatdim
-
+from gym.spaces import Dict, Discrete, Tuple, Box
+from gym.spaces.utils import flatdim, flatten
 from pettingzoo import ParallelEnv
-from pettingzoo.utils import wrappers
 from pettingzoo.test import parallel_api_test
+from pettingzoo.utils import wrappers
 
 NUM_CANDIDATES = 1
 NUM_EMPLOYERS = 1
@@ -90,6 +89,7 @@ class JobSearchEnvironment(ParallelEnv):
         self._candidates = ["candidate_" + str(r) for r in range(NUM_CANDIDATES)]
         self._employers = ["employer_" + str(r) for r in range(NUM_EMPLOYERS)]
         self.possible_agents = self._candidates + self._employers
+        self.agents = self.possible_agents[:]
 
         # Map agent names to numbers, 0 through (number of agents) - 1
         self.agent_name_mapping = dict(
@@ -97,7 +97,7 @@ class JobSearchEnvironment(ParallelEnv):
         )
 
         # Define action spaces
-        self._action_spaces = {
+        self.action_spaces = {
             agent: Tuple(
                 (
                     Discrete(len(CANDIDATE_ACTIONS)),
@@ -109,119 +109,146 @@ class JobSearchEnvironment(ParallelEnv):
             for agent in self.possible_agents
         }
 
-        self._observation_spaces = {
+        self.observation_spaces = {
             agent: Dict(
                 {
-                    "candidate_obs": Dict(
+                    "observation": Dict(
                         {
-                            "job_openings": Dict(
-                                {employer: Discrete(2) for employer in self._employers}
-                            ),  # for each employer: 0 = not hiring, 1 = still hiring
-                            "accepted_offer": Dict(
+                            "candidate_obs": Dict(
                                 {
-                                    employer: Discrete(EMPLOYER_BUDGET + 1)
-                                    for employer in self._employers
+                                    "job_openings": Dict(
+                                        {
+                                            employer: Discrete(2)
+                                            for employer in self._employers
+                                        }
+                                    ),  # for each employer: 0 = not hiring, 1 = still hiring
+                                    "accepted_offer": Dict(
+                                        {
+                                            employer: Discrete(EMPLOYER_BUDGET + 1)
+                                            for employer in self._employers
+                                        }
+                                    ),
+                                    "current_offers": Dict(
+                                        {
+                                            employer: Tuple(
+                                                (
+                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                )
+                                            )
+                                            for employer in self._employers
+                                        }
+                                    ),  # for each employer: (offer value, deadline); (0,0) = no offer
+                                    "rejected_offers": Dict(
+                                        {
+                                            employer: Tuple(
+                                                (
+                                                    Discrete(2),
+                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                )
+                                            )
+                                            for employer in self._employers
+                                        }
+                                    ),  # for each employer: 0 = not rejected/1 = rejected, value of rejected offer
+                                    "counter_offers": Dict(
+                                        {
+                                            employer: Tuple(
+                                                (
+                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                )
+                                            )
+                                            for employer in self._employers
+                                        }
+                                    ),  # for each employer: (counter offer value, deadline)
                                 }
                             ),
-                            "current_offers": Dict(
+                            "employer_obs": Dict(
                                 {
-                                    employer: Tuple(
-                                        (
-                                            Discrete(EMPLOYER_BUDGET + 1),
-                                            Discrete(MAX_NUM_ITERS + 1),
-                                        )
-                                    )
-                                    for employer in self._employers
+                                    "candidate_strengths": Dict(
+                                        {
+                                            candidate: Discrete(
+                                                MAX_CANDIDATE_STRENGTH + 1
+                                            )
+                                            for candidate in self._candidates
+                                        }
+                                    ),  # Candidate strengths  (higher is better, will only be populated after a candidate applies)
+                                    "job_applicants": Dict(
+                                        {
+                                            candidate: Discrete(2)
+                                            for candidate in self._candidates
+                                        }
+                                    ),  # 1 = applied
+                                    "outstanding_offers": Dict(
+                                        {
+                                            candidate: Tuple(
+                                                (
+                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                )
+                                            )
+                                            for candidate in self._candidates
+                                        }
+                                    ),  # for each candidate: (offer value, deadline); (0,0) = no offer
+                                    "accepted_offers": Dict(
+                                        {
+                                            candidate: Discrete(2)
+                                            for candidate in self._candidates
+                                        }
+                                    ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
+                                    "declined_offers": Dict(
+                                        {
+                                            candidate: Tuple(
+                                                (
+                                                    Discrete(2),
+                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                )
+                                            )
+                                            for candidate in self._candidates
+                                        }
+                                    ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
+                                    "counter_offers": Dict(
+                                        {
+                                            candidate: Tuple(
+                                                (
+                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                )
+                                            )
+                                            for candidate in self._candidates
+                                        }
+                                    ),  # for each candidate: offer value from offer made by candidate, deadline
+                                    "rejected_offers": Dict(
+                                        {
+                                            candidate: Tuple(
+                                                (
+                                                    Discrete(2),
+                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                )
+                                            )
+                                            for candidate in self._candidates
+                                        }
+                                    ),  # for each candidate: 0 = not rejected/1 = rejected, offer value of counter offer that was rejected (rejected by employer)
+                                    "remaining_budget": Discrete(
+                                        EMPLOYER_BUDGET + 1
+                                    ),  # each employer will only have a budget of EMPLOYER_BUDGET
                                 }
-                            ),  # for each employer: (offer value, deadline); (0,0) = no offer
-                            "rejected_offers": Dict(
-                                {
-                                    employer: Tuple(
-                                        (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
-                                    )
-                                    for employer in self._employers
-                                }
-                            ),  # for each employer: 0 = not rejected/1 = rejected, value of rejected offer
-                            "counter_offers": Dict(
-                                {
-                                    employer: Tuple(
-                                        (
-                                            Discrete(EMPLOYER_BUDGET + 1),
-                                            Discrete(MAX_NUM_ITERS + 1),
-                                        )
-                                    )
-                                    for employer in self._employers
-                                }
-                            ),  # for each employer: (counter offer value, deadline)
+                            ),
                         }
                     ),
-                    "employer_obs": Dict(
-                        {
-                            "candidate_strengths": Dict(
-                                {
-                                    candidate: Discrete(MAX_CANDIDATE_STRENGTH + 1)
-                                    for candidate in self._candidates
-                                }
-                            ),  # Candidate strengths  (higher is better, will only be populated after a candidate applies)
-                            "job_applicants": Dict(
-                                {
-                                    candidate: Discrete(2)
-                                    for candidate in self._candidates
-                                }
-                            ),  # 1 = applied
-                            "outstanding_offers": Dict(
-                                {
-                                    candidate: Tuple(
-                                        (
-                                            Discrete(EMPLOYER_BUDGET + 1),
-                                            Discrete(MAX_NUM_ITERS + 1),
-                                        )
-                                    )
-                                    for candidate in self._candidates
-                                }
-                            ),  # for each candidate: (offer value, deadline); (0,0) = no offer
-                            "accepted_offers": Dict(
-                                {
-                                    candidate: Discrete(2)
-                                    for candidate in self._candidates
-                                }
-                            ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
-                            "declined_offers": Dict(
-                                {
-                                    candidate: Tuple(
-                                        (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
-                                    )
-                                    for candidate in self._candidates
-                                }
-                            ),  # for each candidate: 0 = not declined/1 = declined, offer value of declined offer (declined by candidate)
-                            "counter_offers": Dict(
-                                {
-                                    candidate: Tuple(
-                                        (
-                                            Discrete(EMPLOYER_BUDGET + 1),
-                                            Discrete(MAX_NUM_ITERS + 1),
-                                        )
-                                    )
-                                    for candidate in self._candidates
-                                }
-                            ),  # for each candidate: offer value from offer made by candidate, deadline
-                            "rejected_offers": Dict(
-                                {
-                                    candidate: Tuple(
-                                        (Discrete(2), Discrete(EMPLOYER_BUDGET + 1))
-                                    )
-                                    for candidate in self._candidates
-                                }
-                            ),  # for each candidate: 0 = not rejected/1 = rejected, offer value of counter offer that was rejected (rejected by employer)
-                            "remaining_budget": Discrete(
-                                EMPLOYER_BUDGET + 1
-                            ),  # each employer will only have a budget of EMPLOYER_BUDGET
-                        }
+                    "action_mask": Box(
+                        0.0, 1.0, shape=(flatdim(self.action_space(agent)),)
                     ),
                 }
             )
             for agent in self.possible_agents
         }
+
+        # # Get first observation space, assuming all agents have equal space
+        # self.observation_space = self.observation_spaces[self.agents[0]]
+
+        # # Get first action space, assuming all agents have equal space
+        # self.action_space = self.action_spaces[self.agents[0]]
 
         self.game_state = None
         self.candidate_stregnths = None
@@ -231,11 +258,11 @@ class JobSearchEnvironment(ParallelEnv):
     @functools.lru_cache(maxsize=None)
     def observation_space(self, agent):
         # gymnasium spaces are defined and documented here: https://gymnasium.farama.org/api/spaces/
-        return self._observation_spaces[agent]
+        return self.observation_spaces[agent]
 
     @functools.lru_cache(maxsize=None)
     def action_space(self, agent):
-        return self._action_spaces[agent]
+        return self.action_spaces[agent]
 
     def reset(self, seed=None, return_info=False, options=None):
         self.agents = self.possible_agents[:]
