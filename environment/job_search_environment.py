@@ -253,6 +253,7 @@ class JobSearchEnvironment(ParallelEnv):
 
         self.game_state = None
         self.candidate_stregnths = None
+        self.dones = None
 
     # this cache ensures that same space object is returned for the same agent
     # allows action space seeding to work as expected
@@ -363,6 +364,8 @@ class JobSearchEnvironment(ParallelEnv):
             candidate: random.randint(0, MAX_CANDIDATE_STRENGTH)
             for candidate in self._candidates
         }
+
+        self.dones = {agent: False for agent in self.agents}
 
         observations = self.game_state
 
@@ -782,10 +785,12 @@ class JobSearchEnvironment(ParallelEnv):
 
         # # Check truncation conditions (overwrites termination conditions)
         # truncations = {agent: self.num_iters >= MAX_NUM_ITERS for agent in self.agents}
-        
+
         dones = {}
-        
+
         for agent in self.agents:
+            if self.dones[agent]:
+                continue
             if self.num_iters >= MAX_NUM_ITERS:
                 dones[agent] = True
             elif "candidate" in agent:
@@ -796,9 +801,9 @@ class JobSearchEnvironment(ParallelEnv):
                     ].values()
                 )
             else:
-                dones[agent] = self.game_state[agent]["observation"][
-                    "employer_obs"
-                ]["remaining_budget"] <= 0 or (
+                dones[agent] = self.game_state[agent]["observation"]["employer_obs"][
+                    "remaining_budget"
+                ] <= 0 or (
                     len(self._candidates)
                     == (
                         sum(
@@ -831,7 +836,7 @@ class JobSearchEnvironment(ParallelEnv):
                         )
                     )
                 )
-        
+
         self.num_iters += 1
 
         observations = self.game_state
@@ -950,6 +955,7 @@ class JobSearchEnvironment(ParallelEnv):
             )
             assert offer_details.size == employer_candidates_mask.size
             return offer_details
+
         # TODO: All agents should be allowed to do "no action"
         for agent in self.agents:
             space = self.action_space(agent)
@@ -1097,7 +1103,7 @@ class JobSearchEnvironment(ParallelEnv):
                     if remaining_budget == 0:
                         action_mask = np.zeros(flatdim(space))
                         break
-                    
+
             # No matter what, either player should be able to take no action
             action_mask[0] = True
             self.game_state[agent]["action_mask"] = action_mask.astype(int)
