@@ -2,9 +2,9 @@ import functools
 import random
 
 import numpy as np
-from gymnasium.spaces import Discrete, Dict, Tuple
+from gym.spaces import Discrete, Dict, Tuple
 
-from gymnasium.spaces.utils import flatten, flatdim
+from gym.spaces.utils import flatten, flatdim
 
 from pettingzoo import ParallelEnv
 from pettingzoo.utils import wrappers
