@@ -1,6 +1,7 @@
 import functools
 import random
-from collections import OrderedDict
+import logging
+
 
 import numpy as np
 from gym.spaces import Dict, Discrete, Tuple, Box
@@ -386,11 +387,17 @@ class JobSearchEnvironment(ParallelEnv):
         """
         if not actions:
             self.agents = []
-            return {}, {}, {}, {}, {}
+            return {}, {}, {}, {}
 
         rewards = {agent: 0 for agent in self.agents}
 
+        print("the agents are", self.agents)
+        print("the actions are", actions)
+        print("the observations are", self.game_state)
+
         for agent in self.agents:
+            if agent not in actions:
+                continue
             action, target_index, new_offer_value, new_deadline = actions[agent]
             # print(action)
             # print(flatten(self.action_space(agent), (action, target_index, new_offer_value, new_deadline)))
@@ -727,17 +734,69 @@ class JobSearchEnvironment(ParallelEnv):
         have either accepted an offer, declined an offer, or had their counter offer 
         rejected
         """
-        terminations = {}
+        # terminations = {}
+        # for agent in self.agents:
+        #     if "candidate" in agent:
+        #         terminations[agent] = any(
+        #             value != 0
+        #             for value in self.game_state[agent]["observation"]["candidate_obs"][
+        #                 "accepted_offer"
+        #             ].values()
+        #         )
+        #     else:
+        #         terminations[agent] = self.game_state[agent]["observation"][
+        #             "employer_obs"
+        #         ]["remaining_budget"] <= 0 or (
+        #             len(self._candidates)
+        #             == (
+        #                 sum(
+        #                     map(
+        #                         lambda x: x == 1,
+        #                         self.game_state[agent]["observation"]["employer_obs"][
+        #                             "accepted_offers"
+        #                         ].values(),
+        #                     )
+        #                 )
+        #                 + (
+        #                     sum(
+        #                         map(
+        #                             lambda x: x != (0, 0),
+        #                             self.game_state[agent]["observation"][
+        #                                 "employer_obs"
+        #                             ]["declined_offers"].values(),
+        #                         )
+        #                     )
+        #                 )
+        #                 + (
+        #                     sum(
+        #                         map(
+        #                             lambda x: x != (0, 0),
+        #                             self.game_state[agent]["observation"][
+        #                                 "employer_obs"
+        #                             ]["rejected_offers"].values(),
+        #                         )
+        #                     )
+        #                 )
+        #             )
+        #         )
+
+        # # Check truncation conditions (overwrites termination conditions)
+        # truncations = {agent: self.num_iters >= MAX_NUM_ITERS for agent in self.agents}
+        
+        dones = {}
+        
         for agent in self.agents:
-            if "candidate" in agent:
-                terminations[agent] = any(
+            if self.num_iters >= MAX_NUM_ITERS:
+                dones[agent] = True
+            elif "candidate" in agent:
+                dones[agent] = any(
                     value != 0
                     for value in self.game_state[agent]["observation"]["candidate_obs"][
                         "accepted_offer"
                     ].values()
                 )
             else:
-                terminations[agent] = self.game_state[agent]["observation"][
+                dones[agent] = self.game_state[agent]["observation"][
                     "employer_obs"
                 ]["remaining_budget"] <= 0 or (
                     len(self._candidates)
@@ -772,9 +831,7 @@ class JobSearchEnvironment(ParallelEnv):
                         )
                     )
                 )
-
-        # Check truncation conditions (overwrites termination conditions)
-        truncations = {agent: self.num_iters >= MAX_NUM_ITERS for agent in self.agents}
+        
         self.num_iters += 1
 
         observations = self.game_state
@@ -782,7 +839,9 @@ class JobSearchEnvironment(ParallelEnv):
         # Get dummy infos (not used)
         infos = {agent: {} for agent in self.agents}
 
-        return observations, rewards, terminations, truncations, infos
+        return observations, rewards, dones, infos
+
+        # return observations, rewards, terminations, truncations, infos
 
     def _update_action_masks(self):
         """Using the current game_state attribute, update action masks for each agent
@@ -891,7 +950,7 @@ class JobSearchEnvironment(ParallelEnv):
             )
             assert offer_details.size == employer_candidates_mask.size
             return offer_details
-
+        # TODO: All agents should be allowed to do "no action"
         for agent in self.agents:
             space = self.action_space(agent)
             action_mask = np.zeros(flatdim(space))
@@ -1038,6 +1097,9 @@ class JobSearchEnvironment(ParallelEnv):
                     if remaining_budget == 0:
                         action_mask = np.zeros(flatdim(space))
                         break
+                    
+            # No matter what, either player should be able to take no action
+            action_mask[0] = True
             self.game_state[agent]["action_mask"] = action_mask.astype(int)
 
 
