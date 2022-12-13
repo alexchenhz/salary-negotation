@@ -393,10 +393,12 @@ class JobSearchEnvironment(ParallelEnv):
             return {}, {}, {}, {}
 
         rewards = {agent: 0 for agent in self.agents}
-
+        print("---")
         print("the agents are", self.agents)
         print("the actions are", actions)
         print("the observations are", self.game_state)
+        print("the done agents are", self.dones)
+        print("---")
 
         for agent in self.agents:
             if agent not in actions:
@@ -836,6 +838,7 @@ class JobSearchEnvironment(ParallelEnv):
                         )
                     )
                 )
+            self.dones[agent] = self.dones[agent] or dones[agent]
 
         self.num_iters += 1
 
@@ -914,9 +917,10 @@ class JobSearchEnvironment(ParallelEnv):
         def get_employer_offer_values_and_deadlines(
             candidate_strength,
             remaining_budget,
-            counter_offer_value=(EMPLOYER_BUDGET + 1),
+            counter_offer_value=(EMPLOYER_BUDGET + 1), # FIXME: Should be EMPLOYER_BUDGET (?)
             counter_offer_deadline=self.num_iters,
         ):
+            print("vals:", candidate_strength, remaining_budget, counter_offer_value)
             # Employer will only offer value weakly less than candidate strength or remaining budget, whichever is smaller
             offer_values = np.concatenate(
                 (
@@ -1025,6 +1029,7 @@ class JobSearchEnvironment(ParallelEnv):
                 remaining_budget = self.game_state[agent]["observation"][
                     "employer_obs"
                 ]["remaining_budget"]
+                print("remaining budget:", remaining_budget)
                 for candidate_index, candidate in enumerate(self._candidates):
                     candidate_strength = self.game_state[agent]["observation"][
                         "employer_obs"
