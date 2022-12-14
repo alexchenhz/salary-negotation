@@ -10,10 +10,10 @@ from pettingzoo import ParallelEnv
 from pettingzoo.test import parallel_api_test
 from pettingzoo.utils import wrappers
 
-NUM_CANDIDATES = 3
-NUM_EMPLOYERS = 3
+NUM_CANDIDATES = 5
+NUM_EMPLOYERS = 5
 EMPLOYER_BUDGET = 100
-MAX_NUM_ITERS = 1000
+MAX_NUM_ITERS = 100
 
 NO_ACTION = 0
 APPLY = 1
@@ -393,11 +393,11 @@ class JobSearchEnvironment(ParallelEnv):
             return {}, {}, {}, {}
 
         rewards = {agent: 0 for agent in self.agents}
-        # print(("------------------vvv------------------")
-        # print(("the agents are", self.agents)
-        # print(("the actions are", actions)
-        # print(("the observations are", self.game_state)
-        # print(("the done agents are", self.dones)
+        # print("------------------vvv------------------")
+        # print("the agents are", self.agents)
+        # print("the actions are", actions)
+        # print("the observations are", self.game_state)
+        # print("the done agents are", self.dones)
 
         for agent in self.agents:
             if agent not in actions:
@@ -426,6 +426,9 @@ class JobSearchEnvironment(ParallelEnv):
                         "job_openings"
                     ][employer] = 0
                 elif action == ACCEPT_OFFER:
+                    # TODO: Cannot accept an offer that does not exist
+                    # Either action mask with multiple target indices (accept index, reject index, apply index, etc.), OR check here and do nothing
+
                     # Get value of offer
                     offer_value, _ = self.game_state[employer]["observation"][
                         "employer_obs"
@@ -459,16 +462,23 @@ class JobSearchEnvironment(ParallelEnv):
                         if self.game_state[candidate]["observation"]["candidate_obs"][
                             "current_offers"
                         ][e] != (0, 0):
+                            declined_offer_value, _ = self.game_state[candidate][
+                                "observation"
+                            ]["candidate_obs"]["current_offers"][e]
                             # Add offer to employer declined overs
                             self.game_state[e]["observation"]["employer_obs"][
                                 "declined_offers"
-                            ][candidate] = self.game_state[e]["observation"][
-                                "employer_obs"
-                            ][
-                                "outstanding_offers"
-                            ][
-                                candidate
-                            ]
+                            ][candidate] = (1, declined_offer_value)
+                            # FIXME: Bug here, declined_offers has different format
+                            # self.game_state[e]["observation"]["employer_obs"][
+                            #     "declined_offers"
+                            # ][candidate] = self.game_state[e]["observation"][
+                            #     "employer_obs"
+                            # ][
+                            #     "outstanding_offers"
+                            # ][
+                            #     candidate
+                            # ]
                             # Delete outstanding offer
                             self.game_state[e]["observation"]["employer_obs"][
                                 "outstanding_offers"
@@ -623,9 +633,9 @@ class JobSearchEnvironment(ParallelEnv):
                     ][employer] = (counter_offer_value, new_deadline)
                 elif action == REJECT_COUNTER_OFFER:
                     # Get offer value and deadline
-                    counter_offer_value, deadline = self.game_state[employer]["observation"][
-                        "employer_obs"
-                    ]["counter_offers"][candidate]
+                    counter_offer_value, deadline = self.game_state[employer][
+                        "observation"
+                    ]["employer_obs"]["counter_offers"][candidate]
 
                     # Update employer observations
                     # Remove from counter offers
@@ -838,7 +848,6 @@ class JobSearchEnvironment(ParallelEnv):
             if dones[agent]:
                 self.dones.add(agent)
 
-
         dones = {}
         dones["__all__"] = len(self.dones) == self.num_agents
 
@@ -848,8 +857,8 @@ class JobSearchEnvironment(ParallelEnv):
 
         # Get dummy infos (not used)
         infos = {agent: {} for agent in self.agents}
-        
-        # print(("return dones:", dones)
+
+        # print("return dones:", dones)
 
         return observations, rewards, dones, infos
 
@@ -1032,7 +1041,7 @@ class JobSearchEnvironment(ParallelEnv):
                 remaining_budget = self.game_state[agent]["observation"][
                     "employer_obs"
                 ]["remaining_budget"]
-                # print(("remaining budget:", remaining_budget)
+                # print("remaining budget:", remaining_budget)
                 for candidate_index, candidate in enumerate(self._candidates):
                     candidate_strength = self.game_state[agent]["observation"][
                         "employer_obs"
@@ -1114,6 +1123,8 @@ class JobSearchEnvironment(ParallelEnv):
 
             # All agents should be able to take no action
             action_mask[0] = True
+            # Make sure action mask is the correct size
+            assert action_mask.size == flatdim(space)
             self.game_state[agent]["action_mask"] = action_mask.astype(int)
 
 
