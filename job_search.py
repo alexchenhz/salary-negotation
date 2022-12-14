@@ -10,6 +10,7 @@ from ray.rllib.env.wrappers.pettingzoo_env import ParallelPettingZooEnv
 from ray.rllib.models import ModelCatalog
 from ray.tune.logger import pretty_print
 from ray.tune.registry import register_env
+from ray.rllib.agents.ppo import ppo
 
 import environment.job_search_environment as job_search_env
 from models.job_search_model import JobSearchModelV0
@@ -18,17 +19,9 @@ from models.job_search_model import JobSearchModelV0
 def get_cli_args():
     """Create CLI parser and return parsed arguments"""
     parser = argparse.ArgumentParser()
-
-    # example-specific args
+    
     parser.add_argument(
-        "--no-masking",
-        action="store_true",
-        help="Do NOT mask invalid actions. This will likely lead to errors.",
-    )
-
-    # general args
-    parser.add_argument(
-        "--run", type=str, default="APPO", help="The RLlib-registered algorithm to use."
+        "--run", type=str, default="PPO", help="The RLlib-registered algorithm to use."
     )
     parser.add_argument("--num-cpus", type=int, default=0)
     
@@ -48,7 +41,7 @@ def get_cli_args():
     parser.add_argument(
         "--stop-reward",
         type=float,
-        default=None,
+        default=1000,
         help="Reward at which we stop training.",
     )
     parser.add_argument(
@@ -111,14 +104,13 @@ if __name__ == "__main__":
     stop = {
         "training_iteration": args.stop_iters,
         "timesteps_total": args.stop_timesteps,
-        "episode_reward_mean": args.stop_reward,
+        # "episode_reward_mean": args.stop_reward,
     }
 
     tune.run(
-        "PPO",
-        name="PPO",
-        stop={"timesteps_total": 10000},
-        checkpoint_freq=10,
+        ppo.PPOTrainer,
+        stop=stop,
+        checkpoint_freq=5,
         local_dir="./ray_results/" + env_name,
         config=config,
         num_samples=args.num_samples,
