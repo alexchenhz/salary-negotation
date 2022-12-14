@@ -31,6 +31,8 @@ def get_cli_args():
         "--run", type=str, default="APPO", help="The RLlib-registered algorithm to use."
     )
     parser.add_argument("--num-cpus", type=int, default=0)
+    
+    parser.add_argument("--num-gpus", type=int, default=0)
 
     parser.add_argument("--eager-tracing", action="store_true")
     
@@ -93,7 +95,7 @@ if __name__ == "__main__":
         .environment(env=env_name, clip_actions=False)
         .debugging(log_level="ERROR")
         .framework(framework="torch")
-        .resources(num_gpus=int(os.environ.get("RLLIB_NUM_GPUS", "0")))
+        .resources(num_gpus=args.num_gpus)
         .training(
             model={
                 "custom_model": JobSearchModelV0,

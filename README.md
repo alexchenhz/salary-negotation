@@ -1,5 +1,26 @@
 # The job search game
 
+## Quick start
+
+Activate the virtual environment.
+
+```bash
+source venv/bin/activate
+
+```
+
+Install the required packages.
+
+```bash
+pip install -r requirements.txt
+```
+
+Train the agents. See the `job_search.py` file for CLI flags and args.
+
+```bash
+python job_search.py
+```
+
 ## Action items (temporary, delete this section when done)
 
 - [x] Debug step function in environment
