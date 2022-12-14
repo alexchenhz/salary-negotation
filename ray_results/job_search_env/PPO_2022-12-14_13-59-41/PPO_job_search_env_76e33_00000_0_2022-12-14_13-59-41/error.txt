@@ -1,0 +1,69 @@
+Failure # 1 (occurred at 2022-12-14_14-00-15)
+Traceback (most recent call last):
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/execution/ray_trial_executor.py", line 1070, in get_next_executor_event
+    future_result = ray.get(ready_future)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/worker.py", line 2311, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::PPO.__init__()[39m (pid=1039301, ip=128.36.108.32, repr=PPO)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/algorithm.py", line 441, in __init__
+    super().__init__(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/trainable/trainable.py", line 169, in __init__
+    self.setup(copy.deepcopy(self.config))
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/algorithm.py", line 566, in setup
+    self.workers = WorkerSet(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/evaluation/worker_set.py", line 169, in __init__
+    self._setup(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/evaluation/worker_set.py", line 259, in _setup
+    self._local_worker = self._make_worker(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/evaluation/worker_set.py", line 941, in _make_worker
+    worker = cls(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/evaluation/rollout_worker.py", line 712, in __init__
+    self._build_policy_map(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/evaluation/rollout_worker.py", line 1970, in _build_policy_map
+    self.policy_map.create_policy(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/policy/policy_map.py", line 146, in create_policy
+    policy = create_policy_for_framework(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/utils/policy.py", line 126, in create_policy_for_framework
+    return policy_class(observation_space, action_space, merged_config)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/ppo/ppo_torch_policy.py", line 67, in __init__
+    self._initialize_loss_from_dummy_batch()
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/policy/policy.py", line 1261, in _initialize_loss_from_dummy_batch
+    actions, state_outs, extra_outs = self.compute_actions_from_input_dict(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/policy/torch_policy_v2.py", line 493, in compute_actions_from_input_dict
+    return self._compute_action_helper(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/utils/threading.py", line 32, in wrapper
+    raise e
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/utils/threading.py", line 24, in wrapper
+    return func(self, *a, **k)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/policy/torch_policy_v2.py", line 1049, in _compute_action_helper
+    dist_inputs, state_out = self.model(input_dict, state_batches, seq_lens)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/modelv2.py", line 247, in __call__
+    restored["obs"] = restore_original_dimensions(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/modelv2.py", line 411, in restore_original_dimensions
+    return _unpack_obs(obs, original_space, tensorlib=tensorlib)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/modelv2.py", line 440, in _unpack_obs
+    prep = get_preprocessor(space)(space)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 41, in __init__
+    self.shape = self._init_shape(obs_space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 275, in _init_shape
+    preprocessor = preprocessor_class(space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 41, in __init__
+    self.shape = self._init_shape(obs_space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 275, in _init_shape
+    preprocessor = preprocessor_class(space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 41, in __init__
+    self.shape = self._init_shape(obs_space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 275, in _init_shape
+    preprocessor = preprocessor_class(space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 41, in __init__
+    self.shape = self._init_shape(obs_space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 275, in _init_shape
+    preprocessor = preprocessor_class(space, self._options)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/models/preprocessors.py", line 44, in __init__
+    self._obs_for_type_matching = self._obs_space.sample()
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/gym/spaces/discrete.py", line 28, in sample
+    return self.start + self.np_random.randint(self.n)
+AttributeError: 'numpy.random._generator.Generator' object has no attribute 'randint'
+
