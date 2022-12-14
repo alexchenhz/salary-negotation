@@ -7,7 +7,6 @@ from ray.rllib.agents.ppo import ppo
 from ray.rllib.algorithms.ppo import PPOConfig, PPOTorchPolicy
 from ray.rllib.env.wrappers.pettingzoo_env import ParallelPettingZooEnv
 from ray.rllib.models import ModelCatalog
-from ray.rllib.policy.policy import PolicySpec
 from ray.tune.registry import register_env
 
 import environment.job_search_environment as job_search_env
@@ -23,10 +22,6 @@ def get_cli_args():
     )
     parser.add_argument("--num-cpus", type=int, default=0)
 
-    parser.add_argument("--num-gpus", type=int, default=0)
-
-    parser.add_argument("--eager-tracing", action="store_true")
-
     parser.add_argument(
         "--stop-iters", type=int, default=5, help="Number of iterations to train."
     )
@@ -40,7 +35,7 @@ def get_cli_args():
         "--checkpoint-freq",
         type=int,
         default=1,
-        help="Number of iterations between checkpoint saves"
+        help="Number of iterations between checkpoint saves",
     )
     parser.add_argument(
         "--stop-reward",
@@ -108,7 +103,7 @@ if __name__ == "__main__":
                     "custom_model_config": {},
                 }
             },
-        )
+        ),
     }
 
     def policy_mapping_fn(agent_id, episode, worker, **kwargs):
@@ -117,16 +112,24 @@ if __name__ == "__main__":
     config = (
         PPOConfig()
         .environment(env=env_name, clip_actions=False)
+        # .rollouts(observation_filter="MeanStdFilter")
         .debugging(log_level="ERROR")
         .framework(framework="torch")
-        .resources(num_gpus=args.num_gpus)
+        .resources(num_gpus=int(os.environ.get("RLLIB_NUM_GPUS", "0")))
         .training(
+            # model={"vf_share_layers": True},
+            # vf_loss_coeff=0.01,
+            # num_sgd_iter=6,
             model={
                 "custom_model": JobSearchModelV0,
                 "custom_model_config": {},
             }
         )
-        # .multi_agent(policies=policies, policy_mapping_fn=policy_mapping_fn)
+        .multi_agent(
+            policies=policies,
+            policy_mapping_fn=policy_mapping_fn,
+            policies_to_train=["candidate_policy", "employer_policy"],
+        )
     ).to_dict()
 
     # Set observation space and action space (all agents should have the same spaces)
