@@ -846,6 +846,8 @@ class JobSearchEnvironment(ParallelEnv):
 
         # Get dummy infos (not used)
         infos = {agent: {} for agent in self.agents}
+        
+        print("return vals:", observations, rewards, dones, infos)
 
         return observations, rewards, dones, infos
 
