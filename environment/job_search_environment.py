@@ -652,10 +652,7 @@ class JobSearchEnvironment(ParallelEnv):
                         self.game_state[employer]["observation"]["employer_obs"][
                             "rejected_offers"
                         ][candidate] = (1, counter_offer_value)
-
-                        # Update candidate observations
-                        # Remove from counter offers
-                        # self.game_state[candidate]["observation"]["candidate_obs"]["counter_offers"][employer] = (0, 0)
+                        # NOTE: No candidate observations to update -> "ghosting"/soft rejection behavior
                 else:
                     raise (ValueError, "Invalid employer action")
             # Clean up all outstanding offers and counter offers that have expired
