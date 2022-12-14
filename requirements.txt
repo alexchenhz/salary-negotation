@@ -1,7 +1,7 @@
 pettingzoo
 supersuit
 torch
-ray
+ray==2.1.0
 ray[tune]
 ray[rllib]
 jupyter
