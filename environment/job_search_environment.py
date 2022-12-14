@@ -749,59 +749,16 @@ class JobSearchEnvironment(ParallelEnv):
         2. For employers, terminate when no budget remaining OR all candidates 
         have either accepted an offer, declined an offer, or had their counter offer 
         rejected
+        
+        Check truncation conditions (overwrites termination conditions)
+        
+        Store both in dones dictionary
         """
-        # terminations = {}
-        # for agent in self.agents:
-        #     if "candidate" in agent:
-        #         terminations[agent] = any(
-        #             value != 0
-        #             for value in self.game_state[agent]["observation"]["candidate_obs"][
-        #                 "accepted_offer"
-        #             ].values()
-        #         )
-        #     else:
-        #         terminations[agent] = self.game_state[agent]["observation"][
-        #             "employer_obs"
-        #         ]["remaining_budget"] <= 0 or (
-        #             len(self._candidates)
-        #             == (
-        #                 sum(
-        #                     map(
-        #                         lambda x: x == 1,
-        #                         self.game_state[agent]["observation"]["employer_obs"][
-        #                             "accepted_offers"
-        #                         ].values(),
-        #                     )
-        #                 )
-        #                 + (
-        #                     sum(
-        #                         map(
-        #                             lambda x: x != (0, 0),
-        #                             self.game_state[agent]["observation"][
-        #                                 "employer_obs"
-        #                             ]["declined_offers"].values(),
-        #                         )
-        #                     )
-        #                 )
-        #                 + (
-        #                     sum(
-        #                         map(
-        #                             lambda x: x != (0, 0),
-        #                             self.game_state[agent]["observation"][
-        #                                 "employer_obs"
-        #                             ]["rejected_offers"].values(),
-        #                         )
-        #                     )
-        #                 )
-        #             )
-        #         )
-
-        # # Check truncation conditions (overwrites termination conditions)
-        # truncations = {agent: self.num_iters >= MAX_NUM_ITERS for agent in self.agents}
-
         dones = {}
 
         for agent in self.agents:
+            if agent in self.dones:
+                continue
             if self.num_iters >= MAX_NUM_ITERS:
                 dones[agent] = True
             elif "candidate" in agent:
@@ -849,7 +806,7 @@ class JobSearchEnvironment(ParallelEnv):
                 )
             if dones[agent]:
                 self.dones.add(agent)
-
+        # Need to set special __all__ key  when all agents done, otherwise keep going
         dones = {}
         dones["__all__"] = len(self.dones) == self.num_agents
 
@@ -934,7 +891,6 @@ class JobSearchEnvironment(ParallelEnv):
             counter_offer_deadline=self.num_iters,
         ):
             assert remaining_budget >= 0
-            # print("vals:", candidate_strength, remaining_budget, counter_offer_value)
             # Employer will only offer value weakly less than candidate strength or remaining budget, whichever is smaller
             offer_values = np.concatenate(
                 (
@@ -1049,7 +1005,6 @@ class JobSearchEnvironment(ParallelEnv):
                 remaining_budget = self.game_state[agent]["observation"][
                     "employer_obs"
                 ]["remaining_budget"]
-                # print("remaining budget:", remaining_budget)
                 for candidate_index, candidate in enumerate(self._candidates):
                     candidate_strength = self.game_state[agent]["observation"][
                         "employer_obs"
@@ -1134,7 +1089,3 @@ class JobSearchEnvironment(ParallelEnv):
             # Make sure action mask is the correct size
             assert action_mask.size == flatdim(space)
             self.game_state[agent]["action_mask"] = action_mask.astype(int)
-
-
-if __name__ == "__main__":
-    parallel_api_test(JobSearchEnvironment(), num_cycles=1_000_000)
