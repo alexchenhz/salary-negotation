@@ -5,12 +5,12 @@
 - [x] Debug step function in environment
 - [x] Finish up to do's in step()
 - [x] Get action masking working
-- [ ] Create non-RL agents to play the game (random actions)
-- [ ] Create RL agents to play the game
+- [x] Create non-RL agents to play the game (random actions)
+- [x] Create RL agents to play the game
 - [ ] Edit render() function to make terminal output prettier
 - [ ] Revise documentation, find interesting parameters and examples to run with results
 - [ ] Write up
-- [ ] Motivation and intro, related works, discussion of approach (why choosing this), results, next steps/future work
+  - [ ] Motivation and intro, related works, discussion of approach (why choosing this), results, next steps/future work
 
 ## Job search environment
 

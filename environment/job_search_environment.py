@@ -426,76 +426,62 @@ class JobSearchEnvironment(ParallelEnv):
                         "job_openings"
                     ][employer] = 0
                 elif action == ACCEPT_OFFER:
-                    # TODO: Cannot accept an offer that does not exist
-                    # Either action mask with multiple target indices (accept index, reject index, apply index, etc.), OR check here and do nothing
-
                     # Get value of offer
                     offer_value, _ = self.game_state[employer]["observation"][
                         "employer_obs"
                     ]["outstanding_offers"][candidate]
 
-                    # Update employer observations
-                    # Remove from outstanding offers
-                    self.game_state[employer]["observation"]["employer_obs"][
-                        "outstanding_offers"
-                    ][candidate] = (0, 0)
-                    # Add to accepted offers
-                    self.game_state[employer]["observation"]["employer_obs"][
-                        "accepted_offers"
-                    ][candidate] = 1
-                    # NOTE: Decided to subtract offer value from the time offer is made
-                    # # Reduce budget
-                    # self.game_state[employer]["observation"]["employer_obs"]["remaining_budget"] -= offer_value
+                    # Cannot accept an offer that does not exist
+                    if offer_value != 0:
+                        # Update employer observations
+                        # Remove from outstanding offers
+                        self.game_state[employer]["observation"]["employer_obs"][
+                            "outstanding_offers"
+                        ][candidate] = (0, 0)
+                        # Add to accepted offers
+                        self.game_state[employer]["observation"]["employer_obs"][
+                            "accepted_offers"
+                        ][candidate] = 1
 
-                    # Update candidate observations
-                    # Remove from current offers
-                    self.game_state[candidate]["observation"]["candidate_obs"][
-                        "current_offers"
-                    ][employer] = (0, 0)
-                    # Add to accepted offer
-                    self.game_state[candidate]["observation"]["candidate_obs"][
-                        "accepted_offer"
-                    ][employer] = offer_value
-
-                    # Update game state to reject all other offers that the candidate has
-                    for e in self._employers:
-                        if self.game_state[candidate]["observation"]["candidate_obs"][
+                        # Update candidate observations
+                        # Remove from current offers
+                        self.game_state[candidate]["observation"]["candidate_obs"][
                             "current_offers"
-                        ][e] != (0, 0):
-                            declined_offer_value, _ = self.game_state[candidate][
-                                "observation"
-                            ]["candidate_obs"]["current_offers"][e]
-                            # Add offer to employer declined overs
-                            self.game_state[e]["observation"]["employer_obs"][
-                                "declined_offers"
-                            ][candidate] = (1, declined_offer_value)
-                            # FIXME: Bug here, declined_offers has different format
-                            # self.game_state[e]["observation"]["employer_obs"][
-                            #     "declined_offers"
-                            # ][candidate] = self.game_state[e]["observation"][
-                            #     "employer_obs"
-                            # ][
-                            #     "outstanding_offers"
-                            # ][
-                            #     candidate
-                            # ]
-                            # Delete outstanding offer
-                            self.game_state[e]["observation"]["employer_obs"][
-                                "outstanding_offers"
-                            ][candidate] = (0, 0)
-                            # Offer from candidate's current offers
-                            self.game_state[candidate]["observation"]["candidate_obs"][
-                                "current_offers"
-                            ][e] = (0, 0)
+                        ][employer] = (0, 0)
+                        # Add to accepted offer
+                        self.game_state[candidate]["observation"]["candidate_obs"][
+                            "accepted_offer"
+                        ][employer] = offer_value
 
-                    # Update candidate reward
-                    rewards[candidate] += offer_value / (
-                        (1 + DISCOUNT_RATE) ** self.num_iters
-                    )
-                    # Update employer reward
-                    rewards[employer] += (
-                        self._candidate_stregnths[candidate] - offer_value
-                    ) / ((1 + DISCOUNT_RATE) ** self.num_iters)
+                        # Update game state to reject all other offers that the candidate has
+                        for e in self._employers:
+                            if self.game_state[candidate]["observation"][
+                                "candidate_obs"
+                            ]["current_offers"][e] != (0, 0):
+                                declined_offer_value, _ = self.game_state[candidate][
+                                    "observation"
+                                ]["candidate_obs"]["current_offers"][e]
+                                # Add offer to employer declined overs
+                                self.game_state[e]["observation"]["employer_obs"][
+                                    "declined_offers"
+                                ][candidate] = (1, declined_offer_value)
+                                # Delete outstanding offer
+                                self.game_state[e]["observation"]["employer_obs"][
+                                    "outstanding_offers"
+                                ][candidate] = (0, 0)
+                                # Offer from candidate's current offers
+                                self.game_state[candidate]["observation"][
+                                    "candidate_obs"
+                                ]["current_offers"][e] = (0, 0)
+
+                        # Update candidate reward
+                        rewards[candidate] += offer_value / (
+                            (1 + DISCOUNT_RATE) ** self.num_iters
+                        )
+                        # Update employer reward
+                        rewards[employer] += (
+                            self._candidate_stregnths[candidate] - offer_value
+                        ) / ((1 + DISCOUNT_RATE) ** self.num_iters)
                 elif action == REJECT_OFFER:
                     # Get value of offer
                     rejected_offer_value, _ = self.game_state[employer]["observation"][
@@ -861,8 +847,6 @@ class JobSearchEnvironment(ParallelEnv):
         # print("return dones:", dones)
 
         return observations, rewards, dones, infos
-
-        # return observations, rewards, terminations, truncations, infos
 
     def _update_action_masks(self):
         """Using the current game_state attribute, update action masks for each agent
