@@ -10,10 +10,10 @@ from pettingzoo import ParallelEnv
 from pettingzoo.test import parallel_api_test
 from pettingzoo.utils import wrappers
 
-NUM_CANDIDATES = 1
-NUM_EMPLOYERS = 1
+NUM_CANDIDATES = 3
+NUM_EMPLOYERS = 3
 EMPLOYER_BUDGET = 100
-MAX_NUM_ITERS = 10
+MAX_NUM_ITERS = 1000
 
 NO_ACTION = 0
 APPLY = 1
@@ -393,11 +393,11 @@ class JobSearchEnvironment(ParallelEnv):
             return {}, {}, {}, {}
 
         rewards = {agent: 0 for agent in self.agents}
-        print("------------------vvv------------------")
-        print("the agents are", self.agents)
-        print("the actions are", actions)
-        print("the observations are", self.game_state)
-        print("the done agents are", self.dones)
+        # print(("------------------vvv------------------")
+        # print(("the agents are", self.agents)
+        # print(("the actions are", actions)
+        # print(("the observations are", self.game_state)
+        # print(("the done agents are", self.dones)
 
         for agent in self.agents:
             if agent not in actions:
@@ -594,7 +594,7 @@ class JobSearchEnvironment(ParallelEnv):
                     ][employer] = (0, 0)
                 elif action == ACCEPT_COUNTER_OFFER:
                     # Get offer value and deadline
-                    counter_offer_value, deadline = self.game_state[employer]["observation"][
+                    counter_offer_value, _ = self.game_state[employer]["observation"][
                         "employer_obs"
                     ]["counter_offers"][candidate]
 
@@ -606,7 +606,7 @@ class JobSearchEnvironment(ParallelEnv):
                     # Update outstanding offers
                     self.game_state[employer]["observation"]["employer_obs"][
                         "outstanding_offers"
-                    ][candidate] = (counter_offer_value, deadline)
+                    ][candidate] = (counter_offer_value, new_deadline)
                     # Subtract counter offer value from remaining budget
                     self.game_state[employer]["observation"]["employer_obs"][
                         "remaining_budget"
@@ -620,7 +620,7 @@ class JobSearchEnvironment(ParallelEnv):
                     # Add to current offers
                     self.game_state[candidate]["observation"]["candidate_obs"][
                         "current_offers"
-                    ][employer] = (offer_value, deadline)
+                    ][employer] = (counter_offer_value, new_deadline)
                 elif action == REJECT_COUNTER_OFFER:
                     # Get offer value and deadline
                     counter_offer_value, deadline = self.game_state[employer]["observation"][
@@ -849,7 +849,7 @@ class JobSearchEnvironment(ParallelEnv):
         # Get dummy infos (not used)
         infos = {agent: {} for agent in self.agents}
         
-        print("return dones:", dones)
+        # print(("return dones:", dones)
 
         return observations, rewards, dones, infos
 
@@ -921,10 +921,10 @@ class JobSearchEnvironment(ParallelEnv):
         def get_employer_offer_values_and_deadlines(
             candidate_strength,
             remaining_budget,
-            counter_offer_value=(EMPLOYER_BUDGET + 1), # FIXME: Should be EMPLOYER_BUDGET (?)
+            counter_offer_value=(EMPLOYER_BUDGET + 1),
             counter_offer_deadline=self.num_iters,
         ):
-            print("vals:", candidate_strength, remaining_budget, counter_offer_value)
+            # print("vals:", candidate_strength, remaining_budget, counter_offer_value)
             # Employer will only offer value weakly less than candidate strength or remaining budget, whichever is smaller
             offer_values = np.concatenate(
                 (
@@ -949,8 +949,8 @@ class JobSearchEnvironment(ParallelEnv):
             # Employer will only offer deadline in the future
             deadlines = np.concatenate(
                 (
-                    np.zeros(counter_offer_deadline),
-                    np.ones(MAX_NUM_ITERS + 1 - counter_offer_deadline),
+                    np.zeros(counter_offer_deadline + 1),
+                    np.ones(MAX_NUM_ITERS + 1 - (counter_offer_deadline + 1)),
                 )
             )
             offer_details = np.concatenate(
@@ -964,7 +964,6 @@ class JobSearchEnvironment(ParallelEnv):
             assert offer_details.size == employer_candidates_mask.size
             return offer_details
 
-        # TODO: All agents should be allowed to do "no action"
         for agent in self.agents:
             space = self.action_space(agent)
             action_mask = np.zeros(flatdim(space))
@@ -1033,7 +1032,7 @@ class JobSearchEnvironment(ParallelEnv):
                 remaining_budget = self.game_state[agent]["observation"][
                     "employer_obs"
                 ]["remaining_budget"]
-                print("remaining budget:", remaining_budget)
+                # print(("remaining budget:", remaining_budget)
                 for candidate_index, candidate in enumerate(self._candidates):
                     candidate_strength = self.game_state[agent]["observation"][
                         "employer_obs"
@@ -1113,7 +1112,7 @@ class JobSearchEnvironment(ParallelEnv):
                         action_mask = np.zeros(flatdim(space))
                         break
 
-            # No matter what, either player should be able to take no action
+            # All agents should be able to take no action
             action_mask[0] = True
             self.game_state[agent]["action_mask"] = action_mask.astype(int)
 
