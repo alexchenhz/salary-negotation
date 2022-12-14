@@ -393,12 +393,11 @@ class JobSearchEnvironment(ParallelEnv):
             return {}, {}, {}, {}
 
         rewards = {agent: 0 for agent in self.agents}
-        print("---")
+        print("------------------vvv------------------")
         print("the agents are", self.agents)
         print("the actions are", actions)
         print("the observations are", self.game_state)
         print("the done agents are", self.dones)
-        print("---")
 
         for agent in self.agents:
             if agent not in actions:
@@ -668,7 +667,7 @@ class JobSearchEnvironment(ParallelEnv):
                         ][candidate] = (1, offer_value)
                         self.game_state[e]["observation"]["employer_obs"][
                             "remaining_budget"
-                        ] += new_offer_value
+                        ] += offer_value
                     # Remove all expired counter offers
                     offer_value, deadline = self.game_state[candidate]["observation"][
                         "candidate_obs"
@@ -707,7 +706,7 @@ class JobSearchEnvironment(ParallelEnv):
                         ][c] = (1, offer_value)
                         self.game_state[employer]["observation"]["employer_obs"][
                             "remaining_budget"
-                        ] += new_offer_value
+                        ] += offer_value
                     # Remove expired counter offers
                     offer_value, deadline = self.game_state[employer]["observation"][
                         "employer_obs"
@@ -839,6 +838,8 @@ class JobSearchEnvironment(ParallelEnv):
             if dones[agent]:
                 self.dones.add(agent)
 
+
+        dones = {}
         dones["__all__"] = len(self.dones) == self.num_agents
 
         self.num_iters += 1
