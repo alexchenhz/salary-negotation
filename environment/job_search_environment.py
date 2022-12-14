@@ -13,7 +13,7 @@ from pettingzoo.utils import wrappers
 NUM_CANDIDATES = 5
 NUM_EMPLOYERS = 5
 EMPLOYER_BUDGET = 100
-MAX_NUM_ITERS = 100
+MAX_NUM_ITERS = 10
 
 NO_ACTION = 0
 APPLY = 1
