@@ -12,7 +12,7 @@ Thank you to Dr. James Glenn for advising me on this project.
 
 ## Abstract
 
-In this project, we explore the use of reinforcement learning to train candidate and employer agents to choose actions that maximize their respective payoffs in the job search and salary negotiation process. To do this, we first used the PettingZoo open source library to create a multi agent reinforcement learning environment that models this process. Breaking down the job search and salary negotiation process into steps, each candidate agent can choose to apply to a position, accept an offer, reject an offer, or negotiate an offer, and each employer agent can choose to reject an applicant, make an offer, accept a counter offer, or reject a counter offer. Each agent also has its own observations, which reflect an agent’s knowledge of the overall game state. This environment allowed us to simulate the interactions between candidate and employer agents as they make decisions and negotiate salaries based on their objectives and rewards. Next, we used the Ray RLlib open source library to train reinforcement learning agents to optimize their decision-making in this environment. The candidate agents were trained to maximize their offer values, while the employer agents were trained to maximize the difference between candidate strengths and offer values. Our results show that these trained agents exhibit improved decision-making compared to random agents and simple strategy agents, resulting in an increase in reward value. This suggests that reinforcement learning can be a powerful tool for modeling and optimizing the job search and salary negotiation process. This project lays the groundwork for further experimentation and modeling of the job matching process.
+In this project, we explore the use of reinforcement learning to train candidate and employer agents to choose actions that maximize their respective payoffs in the job search and salary negotiation process. To do this, we first used the PettingZoo open source library to create a multi-agent reinforcement learning environment that models this process. Breaking down the job search and salary negotiation process into steps, each candidate agent can choose to apply to a position, accept an offer, reject an offer, or negotiate an offer, and each employer agent can choose to reject an applicant, make an offer, accept a counter offer, or reject a counter offer. Each agent also has its own observations, which reflect an agent’s knowledge of the overall game state. This environment allowed us to simulate the interactions between candidate and employer agents as they make decisions and negotiate salaries based on their objectives and rewards. Next, we used the Ray RLlib open source library to train reinforcement learning agents to optimize their decision-making in this environment. The candidate agents were trained to maximize their offer values, while the employer agents were trained to maximize the difference between candidate strength values and offer values. Our results show that these trained agents exhibit improved decision-making when played against agents with a random strategy, resulting in an increase in reward value. This suggests that reinforcement learning can be a powerful tool for modeling and optimizing the job search and salary negotiation process. This project opens an opportunity for further experimentation and modeling of the job matching process.
 
 ## Final Project Report PDF
 
@@ -54,7 +54,7 @@ Train the agents. See the `job_search.py` file for all CLI flags and args. Note 
 python job_search.py --num-candidates <int> --num-employers <int> --max-budget <int> --max-num-iters <int>
 ```
 
-This will create a new directory `ray_results` which will store the information from training the reinforcement learning policies.
+This will create a new directory `ray_results` which will store the information from training the reinforcement learning policies. An example of the training data output is provided in `ray_results_example`, trained on an environment with 5 candidates, 5 employers, a maximum budget of 200, and a max number of iterations of 40.
 
 By default, this will use the TensorFlow job search model. Use TensorBoard to view the training metrics.
 
@@ -145,4 +145,4 @@ An employer agent will receive a reward equal to the strength of the candidate m
 
 $$r_{e} = (s_{c} - v_{o})/(1 + r)^{t}$$
 
-We will assume the discount rate to be 0.05.
+We assume the discount rate to be 0.05.
