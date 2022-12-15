@@ -262,6 +262,10 @@ class JobSearchEnvironment(ParallelEnv):
         return self.action_spaces[agent]
 
     def reset(self, seed=None, return_info=False, options=None):
+        """Reset the game state to the initial state.
+        
+        Returns the initial agent observations.
+        """        
         self.agents = self.possible_agents[:]
         self.num_iters = 0
 

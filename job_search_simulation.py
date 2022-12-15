@@ -1,5 +1,5 @@
 import argparse
-
+import random
 import ray
 from ray.rllib.agents.ppo import ppo
 from ray.rllib.algorithms.algorithm import Algorithm
@@ -10,6 +10,8 @@ from ray.tune.registry import register_env
 
 import environment.job_search_environment as job_search_env
 from models.job_search_model import JobSearchModelV0, TFJobSearchModelV0
+from environment.job_search_environment import CANDIDATE_ACTIONS, EMPLOYER_ACTIONS
+import numpy as np
 
 tf1, tf, tfv = try_import_tf()
 
@@ -46,31 +48,24 @@ def get_cli_args():
     return args
 
 
-class JobSearchSimulation:
-    def load(self, path):
-        """
-        Load a trained RLlib agent from the specified path. Call this before testing a trained agent.
-        :param path: Path pointing to the agent's saved checkpoint (only used for RLlib agents)
-        """
-        self.agent = ppo.PPOTrainer(config=self.config, env=self.env_class)
-        self.agent.restore(path)
-
-    def test(self):
-        """Test trained agent for a single episode. Return the episode reward"""
-        # instantiate env class
-        env = self.env_class(self.env_config)
-
-        # run until episode ends
-        episode_reward = 0
-        done = False
-        obs = env.reset()
-        while not done:
-            action = self.agent.compute_action(obs)
-            obs, reward, done, info = env.step(action)
-            episode_reward += reward
-
-        return episode_reward
-
+def random_action(env, obs, agent):
+    agent_obs = obs[agent]
+    num_actions = len(CANDIDATE_ACTIONS) if "candidate" in agent else len(EMPLOYER_ACTIONS)
+    num_targets = max(env.num_candidates, env.num_employers)
+    # Check if action mask exists
+    if isinstance(agent_obs, dict) and "action_mask" in agent_obs:
+        action_mask = agent_obs["action_mask"]
+        legal_actions = np.flatnonzero(action_mask[0:num_actions])
+        legal_targets = np.flatnonzero(action_mask[num_actions: num_actions + num_targets])
+        legal_offer_values = np.flatnonzero(action_mask[num_actions + num_targets: num_actions + num_targets + env.employer_budget + 1])
+        legal_deadlines = np.flatnonzero(action_mask[num_actions + num_targets + env.employer_budget + 1: num_actions + num_targets + env.employer_budget + 1 + env.max_num_iters + 1])
+        # print(legal_actions)
+        action = random.choice(legal_actions) if legal_actions.any() else 0 
+        target = random.choice(legal_targets) if legal_targets.any() else 0
+        offer_value = random.choice(legal_offer_values) if legal_offer_values.any() else 0
+        deadline = random.choice(legal_deadlines) if legal_deadlines.any() else 0
+        return action, target, offer_value, deadline
+    return env.action_space(agent).sample()
 
 if __name__ == "__main__":
     args = get_cli_args()
@@ -103,12 +98,26 @@ if __name__ == "__main__":
     }
     env = job_search_env.env(env_config=env_config, render_mode="human")
 
-    env.reset()
+    observations = env.reset()
 
     if not args.checkpoint_path:
         raise ValueError("Must specify a checkpoint path with flag --checkpoint-path")
     algo = Algorithm.from_checkpoint(
         args.checkpoint_path, ["candidate_policy", "employer_policy"]
     )
+    
+    while True:
+        actions = {
+            agent: random_action(env, observations, agent) for agent in env.agents
+        }
+        print(actions)
+        observations, rewards, dones, _ = env.step(actions)
+        
+        print(observations)
+        
+        if any([dones[key] for key in dones.keys()]):
+            print(rewards)
+            break
+    
     # algo.compute_single_action(policy_id="candidate_policy")
     ray.shutdown()

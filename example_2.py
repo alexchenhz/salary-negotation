@@ -28,7 +28,7 @@ def sample_action(env, obs, agent):
 if __name__ == "__main__":
     env = environment.env(render_mode="human")
 
-    env.reset()
+    observations = env.reset()
 
     # Initial testing
 
