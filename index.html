@@ -1,0 +1,97 @@
+<h1 id="applying-multi-agent-reinforcement-learning-to-candidate-employer-job-matching-and-salary-negotiations">Applying Multi Agent Reinforcement Learning to Candidate/Employer Job Matching and Salary Negotiations</h1>
+<p>Alexander H. Chen</p>
+<p>Yale University</p>
+<p>CSEC 491 Senior Project</p>
+<p>December 15, 2022</p>
+<p>Thank you to Dr. James Glenn for advising me on this project.</p>
+<h2 id="abstract">Abstract</h2>
+<p>In this project, we explore the use of reinforcement learning to train candidate and employer agents to choose actions that maximize their respective payoffs in the job search and salary negotiation process. To do this, we first used the PettingZoo open source library to create a multi-agent reinforcement learning environment that models this process. Breaking down the job search and salary negotiation process into steps, each candidate agent can choose to apply to a position, accept an offer, reject an offer, or negotiate an offer, and each employer agent can choose to reject an applicant, make an offer, accept a counter offer, or reject a counter offer. Each agent also has its own observations, which reflect an agent’s knowledge of the overall game state. This environment allowed us to simulate the interactions between candidate and employer agents as they make decisions and negotiate salaries based on their objectives and rewards. Next, we used the Ray RLlib open source library to train reinforcement learning agents to optimize their decision-making in this environment. The candidate agents were trained to maximize their offer values, while the employer agents were trained to maximize the difference between candidate strength values and offer values. Our results show that these trained agents exhibit improved decision-making when played against agents with a random strategy, resulting in an increase in reward value. This suggests that reinforcement learning can be a powerful tool for modeling and optimizing the job search and salary negotiation process. This project opens an opportunity for further experimentation and modeling of the job matching process.</p>
+<h2 id="final-project-report-pdf">Final Project Report PDF</h2>
+<p><a href="./CSEC%20491%20Final%20Project%20Report.pdf">CSEC 491 Final Project Report</a></p>
+<h2 id="original-project-description-pdf">Original Project Description PDF</h2>
+<p><a href="./CSEC%20491%20Project%20Description%20-%20Alexander%20Chen.pdf">CSEC 491 Project Description - Alexander Chen</a></p>
+<h2 id="repository-readme">Repository README</h2>
+<p>Repository can also be found on <a href="https://github.com/alexchenhz/salary-negotation">GitHub</a>.</p>
+<h3 id="getting-started">Getting started</h3>
+<p>Running with <code>python==3.10.8</code>.</p>
+<p>Create a new virtual environment.</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">python3</span> -m venv ./venv
+</code></pre>
+<p>Activate the virtual environment.</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">source</span> venv<span class="hljs-regexp">/bin/</span>activate
+</code></pre>
+<p>Install the required packages. This project primarily depends on <code>pettingzoo</code> and <code>ray</code>, in addition to other packages.</p>
+<pre><code class="lang-bash">pip <span class="hljs-keyword">install</span> -r requirements.txt
+</code></pre>
+<p>Train the agents. See the <code>job_search.py</code> file for all CLI flags and args. Note this assumes the training is run on the Zoo with 16 CPU cores (using 4 workers + 1 local worker per trial, so requires 5 CPU cores per trial running in parallel). I also had issues running Ray on my M1 MacBook, so best to stick to x86 for now.</p>
+<pre><code class="lang-bash"><span class="hljs-keyword">python</span> job_search.<span class="hljs-keyword">py</span> --num-candidates <span class="hljs-symbol">&lt;int&gt;</span> --num-employers <span class="hljs-symbol">&lt;int&gt;</span> --<span class="hljs-built_in">max</span>-budget <span class="hljs-symbol">&lt;int&gt;</span> --<span class="hljs-built_in">max</span>-num-iters <span class="hljs-symbol">&lt;int&gt;</span>
+</code></pre>
+<p>This will create a new directory <code>ray_results</code> which will store the information from training the reinforcement learning policies. An example of the training data output is provided in <code>ray_results_example</code>, trained on an environment with 5 candidates, 5 employers, a maximum budget of 200, and a max number of iterations of 40.</p>
+<p>By default, this will use the TensorFlow job search model. Use TensorBoard to view the training metrics.</p>
+<pre><code class="lang-bash">tensorboard --logdir ray_results<span class="hljs-regexp">/job_search_env/</span>&lt;path <span class="hljs-keyword">to</span> results&gt;
+</code></pre>
+<h3 id="simulate-a-job-search-game-play-through">Simulate a job search game play-through</h3>
+<p>Get the path to the latest checkpoint file of the training you want to use.</p>
+<pre><code class="lang-bash">python job_search_simulation.py --checkpoint-path ray_results/job_search_env/.../checkpoint_XXXXXX --num-candidates &lt;<span class="hljs-keyword">int</span>&gt; --num-employers &lt;<span class="hljs-keyword">int</span>&gt; --<span class="hljs-built_in">max</span>-budget &lt;<span class="hljs-keyword">int</span>&gt; --<span class="hljs-built_in">max</span>-num-iters &lt;<span class="hljs-keyword">int</span>&gt; --candidate-algo &lt;<span class="hljs-built_in">random</span>/rl&gt; --employer-algo &lt;<span class="hljs-built_in">random</span>/rl&gt;
+</code></pre>
+<p>Note, you will want to ensure the parameters for the environment are the same as the ones used to train the model your are using.</p>
+<h3 id="repository-structure">Repository structure</h3>
+<pre><code class="lang-bash">    .
+    ├── archive
+    ├── environment
+    │   ├── job_search_environment<span class="hljs-selector-class">.py</span>
+    ├── index<span class="hljs-selector-class">.md</span>
+    ├── job_search<span class="hljs-selector-class">.py</span>
+    ├── job_search_simulation<span class="hljs-selector-class">.py</span>
+    ├── models
+    │   ├── job_search_model<span class="hljs-selector-class">.py</span>
+    ├── ray_results
+    ├── README<span class="hljs-selector-class">.md</span>
+    ├── requirements<span class="hljs-selector-class">.txt</span>
+    └── venv
+</code></pre>
+<h4 id="-job_search_environment-py-"><code>job_search_environment.py</code></h4>
+<p><code>game_state</code> (observations)</p>
+<p>Each candidate agent should be able to observe:</p>
+<ul>
+<li>job openings (which employer agents are still hiring)</li>
+<li>their current offers (with offer value and expiration)</li>
+<li>their rejected offers (with offer value)</li>
+<li>their counter offers (counter offer value, also store original offer details)</li>
+</ul>
+<p>Each employer agent should be able to observe:</p>
+<ul>
+<li>candidate strengths (after candidate applies, store how strong the candidate is)</li>
+<li>job applicants (which candidates have applied for the job)</li>
+<li>outstanding offers (candidate, offer value, and expiration)</li>
+<li>declined offers (candidate, offer value)</li>
+<li>counter offers (new offers made from candidates, with offer value)</li>
+<li>rejected counter offers (counter offers the employer agent has rejected)</li>
+<li>remaining budget (employer will have a limitted amount of resoures to allocate across all job offers, cannot pay everyone as high of a number as possible)</li>
+</ul>
+<p><code>step</code></p>
+<p>At each step, agents should take an action.</p>
+<p>Candidate actions:</p>
+<ul>
+<li>No action</li>
+<li>Apply to job</li>
+<li>Accept offer</li>
+<li>Decline offer</li>
+<li>Negotiate offer (make a counter-offer)</li>
+</ul>
+<p>Employer actions:</p>
+<ul>
+<li>No action</li>
+<li>Reject applicant</li>
+<li>Make offer (or make counter counter-offer)</li>
+<li>Accept counter-offer</li>
+<li>Reject counter-offer</li>
+</ul>
+<p>Each agent can only execute one action per <code>step()</code>.</p>
+<p>Expired offers or counter offers will be removed automatically each <code>step()</code> and considered rejected/declined.</p>
+<h5 id="rewards">Rewards</h5>
+<p>A candidate agent will receive a reward equal to the value of their accepted offer divided by the discount rate raised to the power of the number of iterations of the game that have passed.</p>
+<p>$$r<em>{c} = v</em>{o} / (1 + r)^{t}$$</p>
+<p>An employer agent will receive a reward equal to the strength of the candidate minus the value of the offer, all divided by the discount rate raised to the power of the number of iterations of the game that have passed.</p>
+<p>$$r<em>{e} = (s</em>{c} - v_{o})/(1 + r)^{t}$$</p>
+<p>We assume the discount rate to be 0.05.</p>

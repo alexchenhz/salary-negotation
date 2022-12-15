@@ -16,7 +16,7 @@ In this project, we explore the use of reinforcement learning to train candidate
 
 ## Final Project Report PDF
 
-
+[CSEC 491 Final Project Report](./CSEC%20491%20Final%20Project%20Report.pdf)
 
 ## Original Project Description PDF
 
