@@ -573,9 +573,16 @@ class JobSearchEnvironment(ParallelEnv):
                         # NOTE: No candidate observations to update -> "ghosting"/soft rejection behavior
                 elif action == MAKE_OFFER:
                     # NOTE: Instead of allowing offers to be made without subtracting from budget, instead subtract that amount from budget, and add back in if offer is declined, or offer expires
-                    if self.game_state[employer]["observation"]["employer_obs"][
-                        "job_applicants"
-                    ][candidate]:
+                    if (
+                        self.game_state[employer]["observation"]["employer_obs"][
+                            "job_applicants"
+                        ][candidate]
+                        and self.game_state[employer]["observation"]["employer_obs"][
+                            "remaining_budget"
+                        ]
+                        - new_offer_value
+                        >= 0
+                    ):
                         # Update employer observations
                         # Remove from applicants
                         self.game_state[employer]["observation"]["employer_obs"][
@@ -608,7 +615,14 @@ class JobSearchEnvironment(ParallelEnv):
                     counter_offer_value, _ = self.game_state[employer]["observation"][
                         "employer_obs"
                     ]["counter_offers"][candidate]
-                    if counter_offer_value:
+                    if (
+                        counter_offer_value
+                        and self.game_state[employer]["observation"]["employer_obs"][
+                            "remaining_budget"
+                        ]
+                        - counter_offer_value
+                        >= 0
+                    ):
                         # Update employer observations
                         # Remove from counter offers
                         self.game_state[employer]["observation"]["employer_obs"][
