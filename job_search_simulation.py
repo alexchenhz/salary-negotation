@@ -24,7 +24,10 @@ def get_cli_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--num-candidates", type=int, default=5, help="Number of candidate agents."
+        "--num-candidates",
+        type=int,
+        default=5,
+        help="Number of candidate agents. Note this needs to match the original parameters used to train the RL agent.",
     )
 
     parser.add_argument(
@@ -42,18 +45,24 @@ def get_cli_args():
     )
 
     parser.add_argument(
-        "--num-employers", type=int, default=5, help="Number of employer agents."
+        "--num-employers",
+        type=int,
+        default=5,
+        help="Number of employer agents. Note this needs to match the original parameters used to train the RL agent.",
     )
 
     parser.add_argument(
         "--max-num-iters",
         type=int,
         default=10,
-        help="Maximum number of iterations for the job search environment.",
+        help="Maximum number of iterations for the job search environment. Note this needs to match the original parameters used to train the RL agent.",
     )
 
     parser.add_argument(
-        "--max-budget", type=int, default=100, help="Maximum budget for each employer."
+        "--max-budget",
+        type=int,
+        default=100,
+        help="Maximum budget for each employer. Note this needs to match the original parameters used to train the RL agent.",
     )
 
     parser.add_argument(
@@ -156,9 +165,17 @@ if __name__ == "__main__":
             if "candidate" in agent:
                 if args.candidate_algo == "random":
                     actions[agent] = random_action(env, observations, agent)
+                elif args.candidate_algo == "rl":
+                    actions[agent] = algo.compute_single_action(
+                        observations[agent], policy_id="candidate_policy"
+                    )
             else:
                 if args.employer_algo == "random":
                     actions[agent] = random_action(env, observations, agent)
+                elif args.employer_algo == "rl":
+                    algo.compute_single_action(
+                        observations[agent], policy_id="employer_policy"
+                    )
         observations, rewards, dones, _ = env.step(actions)
         print("*" * get_terminal_size()[0])
         print("Actions taken:")
@@ -176,5 +193,4 @@ if __name__ == "__main__":
         if any([dones[key] for key in dones.keys()]):
             break
 
-    # algo.compute_single_action(policy_id="candidate_policy")
     ray.shutdown()

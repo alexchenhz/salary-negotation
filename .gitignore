@@ -1,1 +1,5 @@
 ray_results/
+stdouts/
+.python-version
+.vscode/
+--pycache__/
