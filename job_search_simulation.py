@@ -8,6 +8,9 @@ from ray.rllib.models import ModelCatalog
 from ray.rllib.utils.framework import try_import_tf, try_import_torch
 from ray.tune.registry import register_env
 
+from shutil import get_terminal_size
+import pprint
+
 import environment.job_search_environment as job_search_env
 from models.job_search_model import JobSearchModelV0, TFJobSearchModelV0
 from environment.job_search_environment import CANDIDATE_ACTIONS, EMPLOYER_ACTIONS
@@ -22,6 +25,20 @@ def get_cli_args():
 
     parser.add_argument(
         "--num-candidates", type=int, default=5, help="Number of candidate agents."
+    )
+
+    parser.add_argument(
+        "--candidate-algo",
+        choices=["random", "accept-first", "rl"],
+        default="random",
+        help="The algo for the candidate agent.",
+    )
+
+    parser.add_argument(
+        "--employer-algo",
+        choices=["random", "rl"],
+        default="random",
+        help="The algo for the employer agent.",
     )
 
     parser.add_argument(
@@ -50,22 +67,49 @@ def get_cli_args():
 
 def random_action(env, obs, agent):
     agent_obs = obs[agent]
-    num_actions = len(CANDIDATE_ACTIONS) if "candidate" in agent else len(EMPLOYER_ACTIONS)
+    num_actions = (
+        len(CANDIDATE_ACTIONS) if "candidate" in agent else len(EMPLOYER_ACTIONS)
+    )
     num_targets = max(env.num_candidates, env.num_employers)
     # Check if action mask exists
     if isinstance(agent_obs, dict) and "action_mask" in agent_obs:
         action_mask = agent_obs["action_mask"]
         legal_actions = np.flatnonzero(action_mask[0:num_actions])
-        legal_targets = np.flatnonzero(action_mask[num_actions: num_actions + num_targets])
-        legal_offer_values = np.flatnonzero(action_mask[num_actions + num_targets: num_actions + num_targets + env.employer_budget + 1])
-        legal_deadlines = np.flatnonzero(action_mask[num_actions + num_targets + env.employer_budget + 1: num_actions + num_targets + env.employer_budget + 1 + env.max_num_iters + 1])
+        legal_targets = np.flatnonzero(
+            action_mask[num_actions : num_actions + num_targets]
+        )
+        legal_offer_values = np.flatnonzero(
+            action_mask[
+                num_actions
+                + num_targets : num_actions
+                + num_targets
+                + env.employer_budget
+                + 1
+            ]
+        )
+        legal_deadlines = np.flatnonzero(
+            action_mask[
+                num_actions
+                + num_targets
+                + env.employer_budget
+                + 1 : num_actions
+                + num_targets
+                + env.employer_budget
+                + 1
+                + env.max_num_iters
+                + 1
+            ]
+        )
         # print(legal_actions)
-        action = random.choice(legal_actions) if legal_actions.any() else 0 
+        action = random.choice(legal_actions) if legal_actions.any() else 0
         target = random.choice(legal_targets) if legal_targets.any() else 0
-        offer_value = random.choice(legal_offer_values) if legal_offer_values.any() else 0
+        offer_value = (
+            random.choice(legal_offer_values) if legal_offer_values.any() else 0
+        )
         deadline = random.choice(legal_deadlines) if legal_deadlines.any() else 0
         return action, target, offer_value, deadline
     return env.action_space(agent).sample()
+
 
 if __name__ == "__main__":
     args = get_cli_args()
@@ -105,19 +149,32 @@ if __name__ == "__main__":
     algo = Algorithm.from_checkpoint(
         args.checkpoint_path, ["candidate_policy", "employer_policy"]
     )
-    
+
     while True:
-        actions = {
-            agent: random_action(env, observations, agent) for agent in env.agents
-        }
-        print(actions)
+        actions = {}
+        for agent in env.agents:
+            if "candidate" in agent:
+                if args.candidate_algo == "random":
+                    actions[agent] = random_action(env, observations, agent)
+            else:
+                if args.employer_algo == "random":
+                    actions[agent] = random_action(env, observations, agent)
         observations, rewards, dones, _ = env.step(actions)
-        
-        print(observations)
-        
+        print("*" * get_terminal_size()[0])
+        print("Actions taken:")
+        pprint.pprint(
+            {
+                k: (CANDIDATE_ACTIONS[v[0]],) + (v[1], v[2], v[3])
+                if "candidate" in k
+                else (EMPLOYER_ACTIONS[v[0]],) + (v[1], v[2], v[3])
+                for k, v in actions.items()
+            },
+            compact=True,
+        )
+        env.render()
+
         if any([dones[key] for key in dones.keys()]):
-            print(rewards)
             break
-    
+
     # algo.compute_single_action(policy_id="candidate_policy")
     ray.shutdown()

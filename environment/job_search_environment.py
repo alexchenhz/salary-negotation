@@ -1,6 +1,8 @@
 import functools
 import random
+import pprint
 
+from shutil import get_terminal_size
 
 import numpy as np
 from gym.spaces import Dict, Discrete, Tuple, Box
@@ -249,6 +251,7 @@ class JobSearchEnvironment(ParallelEnv):
         self.game_state = None
         self.candidate_stregnths = None
         self.dones = None
+        self.cummulative_rewards = None
 
     # this cache ensures that same space object is returned for the same agent
     # allows action space seeding to work as expected
@@ -263,9 +266,9 @@ class JobSearchEnvironment(ParallelEnv):
 
     def reset(self, seed=None, return_info=False, options=None):
         """Reset the game state to the initial state.
-        
+
         Returns the initial agent observations.
-        """        
+        """
         self.agents = self.possible_agents[:]
         self.num_iters = 0
 
@@ -365,6 +368,7 @@ class JobSearchEnvironment(ParallelEnv):
         }
 
         self.dones = set()
+        self.cummulative_rewards = {agent: 0 for agent in self.agents}
 
         observations = self.game_state
 
@@ -379,7 +383,40 @@ class JobSearchEnvironment(ParallelEnv):
 
     def render(self):
         """Render the current game state in a more readable format"""
-        pass
+
+        def _filter_nested_dict(node, exclude_term):
+            if not isinstance(node, dict):
+                if (not isinstance(node, tuple)) or node != exclude_term:
+                    return node
+                else:
+                    return None
+            else:
+                dupe_node = {}
+                for key, val in node.items():
+                    cur_node = _filter_nested_dict(val, exclude_term)
+                    if cur_node:
+                        dupe_node[key] = cur_node
+                return dupe_node or None
+
+        print("-" * get_terminal_size()[0])
+        print("Game iteration #: ", self.num_iters)
+        print("These agents are done: ", self.dones)
+        print("Current cummulative rewards: ", self.cummulative_rewards)
+        print("Current game state observations:")
+        for agent in self.agents:
+            print(agent + "'s observations")
+            if "candidate" in agent:
+                pprint.pprint(
+                    _filter_nested_dict(
+                        self.game_state[agent]["observation"]["candidate_obs"], (0, 0)
+                    )
+                )
+            else:
+                pprint.pprint(
+                    _filter_nested_dict(
+                        self.game_state[agent]["observation"]["employer_obs"], (0, 0)
+                    )
+                )
 
     def step(self, actions):
         """
@@ -586,6 +623,10 @@ class JobSearchEnvironment(ParallelEnv):
                         ]
                         - new_offer_value
                         >= 0
+                        and self.game_state[employer]["observation"]["employer_obs"][
+                            "candidate_strengths"
+                        ][candidate]
+                        >= new_offer_value
                     ):
                         # Update employer observations
                         # Remove from applicants
@@ -626,6 +667,10 @@ class JobSearchEnvironment(ParallelEnv):
                         ]
                         - counter_offer_value
                         >= 0
+                        and self.game_state[employer]["observation"]["employer_obs"][
+                            "candidate_strengths"
+                        ][candidate]
+                        >= counter_offer_value
                     ):
                         # Update employer observations
                         # Remove from counter offers
@@ -832,7 +877,9 @@ class JobSearchEnvironment(ParallelEnv):
         # Get dummy infos (not used)
         infos = {agent: {} for agent in self.agents}
 
-        # print("return dones:", dones)
+        # Update cummulative rewards
+        for agent in self.agents:
+            self.cummulative_rewards[agent] += rewards[agent]
 
         return observations, rewards, dones, infos
 
