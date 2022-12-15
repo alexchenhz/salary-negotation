@@ -62,17 +62,6 @@ def get_cli_args():
         help="Number of iterations between checkpoint saves",
     )
     parser.add_argument(
-        "--stop-reward",
-        type=float,
-        default=1000,
-        help="Reward at which we stop training.",
-    )
-    parser.add_argument(
-        "--local-mode",
-        action="store_true",
-        help="Init Ray in local mode for easier debugging.",
-    )
-    parser.add_argument(
         "--num-samples",
         type=int,
         default=1,
