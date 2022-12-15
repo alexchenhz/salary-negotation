@@ -1,0 +1,1718 @@
+nohup: ignoring input
+
+E1214 22:12:52.496036609  503293 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E1214 22:12:52.524207806  503293 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E1214 22:12:54.072365917  503293 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+E1214 22:12:54.103485562  503293 fork_posix.cc:70]           Fork support is only compatible with the epoll1 and poll polling strategies
+2022-12-14 22:12:54,224	INFO worker.py:1528 -- Started a local Ray instance.
+[2m[36m(pid=504750)[0m 
+[2m[36m(PPO pid=504750)[0m 2022-12-14 22:13:05,534	INFO algorithm.py:2292 -- Executing eagerly (framework='tf2'), with eager_tracing=False. For production workloads, make sure to set eager_tracing=True  in order to match the speed of tf-static-graph (framework='tf'). For debugging purposes, `eager_tracing=False` is the best choice.
+[2m[36m(PPO pid=504750)[0m 2022-12-14 22:13:05,535	INFO algorithm.py:457 -- Current log_level is ERROR. For more information, set 'log_level': 'INFO' / 'DEBUG' or use the -v and -vv flags.
+[2m[36m(pid=505391)[0m 
+[2m[36m(pid=505392)[0m 
+[2m[36m(pid=505393)[0m 
+[2m[36m(pid=505394)[0m 
+[2m[36m(PPO pid=504750)[0m 2022-12-14 22:13:19,142	INFO trainable.py:164 -- Trainable.setup took 13.618 seconds. If your trainable is slow to initialize, consider setting reuse_actors=True to reduce actor creation overheads.
+[2m[36m(PPO pid=504750)[0m 2022-12-14 22:13:19,142	WARNING util.py:66 -- Install gputil for GPU system monitoring.
+[2m[36m(RolloutWorker pid=505391)[0m /usr/lib64/python3.10/site-packages/numpy/core/_methods.py:179: RuntimeWarning: overflow encountered in reduce
+[2m[36m(RolloutWorker pid=505391)[0m   ret = umr_sum(arr, axis, dtype, out, keepdims, where=where)
+[2m[36m(pid=506287)[0m 
+[2m[36m(PPO pid=506287)[0m 2022-12-14 22:13:32,474	INFO algorithm.py:2292 -- Executing eagerly (framework='tf2'), with eager_tracing=False. For production workloads, make sure to set eager_tracing=True  in order to match the speed of tf-static-graph (framework='tf'). For debugging purposes, `eager_tracing=False` is the best choice.
+[2m[36m(PPO pid=506287)[0m 2022-12-14 22:13:32,481	INFO algorithm.py:457 -- Current log_level is ERROR. For more information, set 'log_level': 'INFO' / 'DEBUG' or use the -v and -vv flags.
+[2m[36m(pid=506881)[0m 
+[2m[36m(pid=506884)[0m 
+[2m[36m(pid=506882)[0m 
+[2m[36m(pid=506883)[0m 
+[2m[36m(PPO pid=506287)[0m 2022-12-14 22:13:57,288	INFO trainable.py:164 -- Trainable.setup took 24.839 seconds. If your trainable is slow to initialize, consider setting reuse_actors=True to reduce actor creation overheads.
+[2m[36m(PPO pid=506287)[0m 2022-12-14 22:13:57,288	WARNING util.py:66 -- Install gputil for GPU system monitoring.
+[2m[36m(RolloutWorker pid=506881)[0m /usr/lib64/python3.10/site-packages/numpy/core/_methods.py:179: RuntimeWarning: overflow encountered in reduce
+[2m[36m(RolloutWorker pid=506881)[0m   ret = umr_sum(arr, axis, dtype, out, keepdims, where=where)
+[2m[36m(pid=507843)[0m 
+[2m[36m(PPO pid=507843)[0m 2022-12-14 22:14:14,508	INFO algorithm.py:2292 -- Executing eagerly (framework='tf2'), with eager_tracing=False. For production workloads, make sure to set eager_tracing=True  in order to match the speed of tf-static-graph (framework='tf'). For debugging purposes, `eager_tracing=False` is the best choice.
+[2m[36m(PPO pid=507843)[0m 2022-12-14 22:14:14,513	INFO algorithm.py:457 -- Current log_level is ERROR. For more information, set 'log_level': 'INFO' / 'DEBUG' or use the -v and -vv flags.
+[2m[36m(pid=508624)[0m 
+[2m[36m(pid=508626)[0m 
+[2m[36m(pid=508625)[0m 
+[2m[36m(pid=508623)[0m 
+[2m[36m(PPO pid=507843)[0m 2022-12-14 22:14:44,187	INFO trainable.py:164 -- Trainable.setup took 29.695 seconds. If your trainable is slow to initialize, consider setting reuse_actors=True to reduce actor creation overheads.
+[2m[36m(PPO pid=507843)[0m 2022-12-14 22:14:44,187	WARNING util.py:66 -- Install gputil for GPU system monitoring.
+[2m[36m(RolloutWorker pid=508623)[0m /usr/lib64/python3.10/site-packages/numpy/core/_methods.py:179: RuntimeWarning: overflow encountered in reduce
+[2m[36m(RolloutWorker pid=508623)[0m   ret = umr_sum(arr, axis, dtype, out, keepdims, where=where)
+[2m[36m(RolloutWorker pid=506883)[0m *** SIGBUS received at time=1671074348 on cpu 6 ***
+[2m[36m(RolloutWorker pid=506883)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7fd7ff769a7f while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=506883)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7fd7ff769a7f while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=506883)[0m PC: @     0x7fd7ff769a7f  (unknown)  __memmove_evex_unaligned_erms
+[2m[36m(RolloutWorker pid=506883)[0m     @     0x7fd7ff63ea30  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m     @          0x1239b00  1348934072  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m     @     0x7fd7feddc0f0  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m     @ 0x3de907894810c083  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m [2022-12-14 22:19:08,864 E 506883 512836] logging.cc:361: *** SIGBUS received at time=1671074348 on cpu 6 ***
+[2m[36m(RolloutWorker pid=506883)[0m [2022-12-14 22:19:08,865 E 506883 512836] logging.cc:361: PC: @     0x7fd7ff769a7f  (unknown)  __memmove_evex_unaligned_erms
+[2m[36m(RolloutWorker pid=506883)[0m [2022-12-14 22:19:08,876 E 506883 512836] logging.cc:361:     @     0x7fd7ff63ea30  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m [2022-12-14 22:19:08,884 E 506883 512836] logging.cc:361:     @          0x1239b00  1348934072  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m [2022-12-14 22:19:08,908 E 506883 512836] logging.cc:361:     @     0x7fd7feddc0f0  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m [2022-12-14 22:19:08,915 E 506883 512836] logging.cc:361:     @ 0x3de907894810c083  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=506883)[0m Fatal Python error: Bus error
+[2m[36m(RolloutWorker pid=506883)[0m 
+[2m[36m(RolloutWorker pid=506883)[0m 
+[2m[36m(RolloutWorker pid=506883)[0m Extension modules: msgpack._cmsgpack, setproctitle, numpy.core._multiarray_umath, numpy.core._multiarray_tests, numpy.linalg._umath_linalg, numpy.fft._pocketfft_internal, numpy.random._common, numpy.random.bit_generator, numpy.random._bounded_integers, numpy.random._mt19937, numpy.random.mtrand, numpy.random._philox, numpy.random._pcg64, numpy.random._sfc64, numpy.random._generator, google.protobuf.pyext._message, psutil._psutil_linux, psutil._psutil_posix, grpc._cython.cygrpc, yaml._yaml, ray._raylet, pvectorc, _brotli, simplejson._speedups, lz4._version, lz4.frame._frame, tensorflow.python.framework.fast_tensor_util, h5py._errors, h5py.defs, h5py._objects, h5py.h5, h5py.h5r, h5py.utils, h5py.h5s, h5py.h5ac, h5py.h5p, h5py.h5t, h5py._conv, h5py.h5z, h5py._proxy, h5py.h5a, h5py.h5d, h5py.h5ds, h5py.h5g, h5py.h5i, h5py.h5f, h5py.h5fd, h5py.h5pl, h5py.h5o, h5py.h5l, h5py._selector, scipy._lib._ccallback_c, scipy.sparse._sparsetools, scipy.sparse._csparsetools, scipy.sparse.csgraph._tools, scipy.sparse.csgraph._shortest_path, scipy.sparse.csgraph._traversal, scipy.sparse.csgraph._min_spanning_tree, scipy.sparse.csgraph._flow, scipy.sparse.csgraph._matching, scipy.sparse.csgraph._reordering, pandas._libs.tslibs.dtypes, pandas._libs.tslibs.base, pandas._libs.tslibs.np_datetime, pandas._libs.tslibs.nattype, pandas._libs.tslibs.timezones, pandas._libs.tslibs.ccalendar, pandas._libs.tslibs.tzconversion, pandas._libs.tslibs.strptime, pandas._libs.tslibs.fields, pandas._libs.tslibs.timedeltas, pandas._libs.tslibs.timestamps, pandas._libs.properties, pandas._libs.tslibs.offsets, pandas._libs.tslibs.parsing, pandas._libs.tslibs.conversion, pandas._libs.tslibs.period, pandas._libs.tslibs.vectorized, pandas._libs.ops_dispatch, pandas._libs.missing, pandas._libs.hashtable, pandas._libs.algos, pandas._libs.interval, pandas._libs.tslib, pandas._libs.lib, pandas._libs.hashing, pandas._libs.ops, numexpr.interpreter, bottleneck.reduce, bottleneck.nonreduce, bottleneck.nonreduce_axis, bottleneck.move, pandas._libs.arrays, pandas._libs.index, pandas._libs.join, pandas._libs.sparse, pandas._libs.reduction, pandas._libs.indexing, pandas._libs.internals, pandas._libs.writers, pandas._libs.window.aggregations, pandas._libs.window.indexers, pandas._libs.reshape, pandas._libs.groupby, pandas._libs.parsers, pandas._libs.json, pandas._libs.testing, PIL._imaging, scipy.ndimage._nd_image, scipy.special._ufuncs_cxx, scipy.special._ufuncs, scipy.special._specfun, scipy.linalg._fblas, scipy.linalg._flapack, scipy.linalg._cythonized_array_utils, scipy.linalg._flinalg, scipy.linalg._solve_toeplitz, scipy.linalg._matfuncs_sqrtm_triu, scipy.linalg.cython_blas, scipy.linalg.cython_lapack, scipy.linalg._decomp_update, scipy.special._comb, scipy.special._ellip_harm_2, _ni_label, scipy.ndimage._ni_label, torch._C, torch._C._fft, torch._C._linalg, torch._C._nested, torch._C._nn, torch._C._sparse, torch._C._special, skimage._shared.geometry, skimage.util._remap, matplotlib._c_internal_utils, matplotlib._path, kiwisolver._cext, matplotlib._image, scipy.spatial._ckdtree, scipy._lib.messagestream, scipy.spatial._qhull, scipy.spatial._voronoi, scipy.spatial._distance_wrap, scipy.spatial._hausdorff, scipy.spatial.transform._rotation, skimage.draw._draw, skimage.transform._hough_transform, scipy.interpolate._fitpack, scipy.interpolate.dfitpack, scipy.interpolate._bspl, scipy.interpolate._ppoly, scipy.interpolate.interpnd, scipy.interpolate._rbfinterp_pythran, skimage.transform._warps_cy, skimage.measure._find_contours_cy, skimage.measure._marching_cubes_lewiner_cy, skimage.measure._marching_cubes_classic_cy, skimage.measure._moments_cy, scipy.signal._sigtools, scipy._lib._uarray._uarray, scipy.signal._max_len_seq_inner, scipy.signal._upfirdn_apply, scipy.signal._spline, scipy.sparse.linalg._isolve._iterative, scipy.sparse.linalg._dsolve._superlu, scipy.sparse.linalg._eigen.arpack._arpack, scipy.optimize._minpack2, scipy.optimize._group_columns, scipy.optimize._trlib._trlib, numpy.linalg.lapack_lite, scipy.optimize._lbfgsb, _moduleTNC, scipy.optimize._moduleTNC, scipy.optimize._cobyla, scipy.optimize._slsqp, scipy.optimize._minpack, scipy.optimize._lsq.givens_elimination, scipy.optimize._zeros, scipy.optimize.__nnls, scipy.optimize._highs.cython.src._highs_wrapper, scipy.optimize._highs._highs_wrapper, scipy.optimize._highs.cython.src._highs_constants, scipy.optimize._highs._highs_constants, scipy.linalg._interpolative, scipy.optimize._bglu_dense, scipy.optimize._lsap_module, scipy.integrate._odepack, scipy.integrate._quadpack, scipy.integrate._vode, scipy.integrate._dop, scipy.integrate._lsoda, scipy.signal._sosfilt, scipy.signal._spectral, scipy.special.cython_special, scipy.stats._stats, beta_ufunc, scipy.stats._boost.beta_ufunc, binom_ufunc, scipy.stats._boost.binom_ufunc, nbinom_ufunc, scipy.stats._boost.nbinom_ufunc, hypergeom_ufunc, scipy.stats._boost.hypergeom_ufunc, scipy.stats._biasedurn, scipy.stats._hypotests_pythran, scipy.stats._statlib, scipy.stats._mvn, scipy.stats._sobol, scipy.stats._qmc_cy, scipy.stats._unuran.unuran_wrapper, scipy.signal._peak_finding_utils, skimage.measure._pnpoly, skimage.measure._ccomp, skimage.transform._radon_transform (total: 214)
+Running with following CLI args: Namespace(num_candidates=5, num_employers=10, max_num_iters=40, max_budget=200, run='PPO', num_cpus=0, framework='tf2', stop_iters=20, stop_timesteps=1500000, checkpoint_freq=1, stop_reward=1000, local_mode=False, num_samples=3)
+== Status ==
+Current time: 2022-12-14 22:13:19 (running for 00:00:22.82)
+Memory usage on this node: 19.2/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 5.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (2 PENDING, 1 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | PENDING  |                      |
+| PPO_job_search_env_5f00e_00002 | PENDING  |                      |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:13:57 (running for 00:01:00.99)
+Memory usage on this node: 27.9/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 10.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (1 PENDING, 2 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | PENDING  |                      |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:14:44 (running for 00:01:47.88)
+Memory usage on this node: 36.6/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:14:49 (running for 00:01:52.91)
+Memory usage on this node: 36.9/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:14:54 (running for 00:01:57.91)
+Memory usage on this node: 37.9/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:14:59 (running for 00:02:02.93)
+Memory usage on this node: 40.3/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:04 (running for 00:02:07.93)
+Memory usage on this node: 39.7/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:09 (running for 00:02:12.96)
+Memory usage on this node: 42.1/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:14 (running for 00:02:17.96)
+Memory usage on this node: 41.3/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:19 (running for 00:02:22.99)
+Memory usage on this node: 41.3/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:24 (running for 00:02:27.99)
+Memory usage on this node: 41.7/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:29 (running for 00:02:33.02)
+Memory usage on this node: 42.9/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:34 (running for 00:02:38.02)
+Memory usage on this node: 44.5/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:39 (running for 00:02:43.04)
+Memory usage on this node: 47.0/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:44 (running for 00:02:48.05)
+Memory usage on this node: 47.1/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:49 (running for 00:02:53.07)
+Memory usage on this node: 48.0/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:54 (running for 00:02:58.07)
+Memory usage on this node: 49.0/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:15:59 (running for 00:03:03.14)
+Memory usage on this node: 48.6/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:04 (running for 00:03:08.15)
+Memory usage on this node: 49.4/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:09 (running for 00:03:13.17)
+Memory usage on this node: 50.4/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:14 (running for 00:03:18.17)
+Memory usage on this node: 49.8/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:19 (running for 00:03:23.20)
+Memory usage on this node: 49.9/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:24 (running for 00:03:28.20)
+Memory usage on this node: 51.2/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:29 (running for 00:03:33.22)
+Memory usage on this node: 52.4/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:34 (running for 00:03:38.22)
+Memory usage on this node: 53.0/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:39 (running for 00:03:43.24)
+Memory usage on this node: 52.1/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:44 (running for 00:03:48.24)
+Memory usage on this node: 53.4/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:49 (running for 00:03:53.28)
+Memory usage on this node: 54.6/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:54 (running for 00:03:58.28)
+Memory usage on this node: 54.0/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:16:59 (running for 00:04:03.30)
+Memory usage on this node: 54.4/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:04 (running for 00:04:08.30)
+Memory usage on this node: 53.5/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:09 (running for 00:04:13.32)
+Memory usage on this node: 54.8/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:14 (running for 00:04:18.33)
+Memory usage on this node: 55.4/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:19 (running for 00:04:23.36)
+Memory usage on this node: 57.5/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:24 (running for 00:04:28.36)
+Memory usage on this node: 58.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:29 (running for 00:04:33.38)
+Memory usage on this node: 57.9/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:34 (running for 00:04:38.39)
+Memory usage on this node: 59.2/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:39 (running for 00:04:43.43)
+Memory usage on this node: 59.3/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:44 (running for 00:04:48.44)
+Memory usage on this node: 58.3/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:49 (running for 00:04:53.47)
+Memory usage on this node: 59.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:54 (running for 00:04:58.48)
+Memory usage on this node: 59.8/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:17:59 (running for 00:05:03.50)
+Memory usage on this node: 60.6/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:04 (running for 00:05:08.51)
+Memory usage on this node: 60.9/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:09 (running for 00:05:13.53)
+Memory usage on this node: 61.6/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:14 (running for 00:05:18.54)
+Memory usage on this node: 61.6/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:19 (running for 00:05:23.56)
+Memory usage on this node: 60.8/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:24 (running for 00:05:28.56)
+Memory usage on this node: 61.0/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:29 (running for 00:05:33.58)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:34 (running for 00:05:38.59)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:39 (running for 00:05:43.61)
+Memory usage on this node: 61.9/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:44 (running for 00:05:48.61)
+Memory usage on this node: 61.2/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:49 (running for 00:05:53.63)
+Memory usage on this node: 59.5/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:18:54 (running for 00:05:58.64)
+Memory usage on this node: 60.5/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:00 (running for 00:06:03.66)
+Memory usage on this node: 61.8/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:05 (running for 00:06:08.67)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:10 (running for 00:06:13.70)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:15 (running for 00:06:18.70)
+Memory usage on this node: 61.6/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+[2m[36m(RolloutWorker pid=508625)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7ffa0f569743 while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=508625)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7ffa0f5693e5 while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=508625)[0m *** SIGBUS received at time=1671074408 on cpu 9 ***
+[2m[36m(RolloutWorker pid=508625)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7ffa0f569743 while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=508625)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7ffa0f569743 while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=508625)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7ffa0f569743 while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=508625)[0m [failure_signal_handler.cc : 331] RAW: Signal 7 raised at PC=0x7ffa0f569743 while already in AbslFailureSignalHandler()
+[2m[36m(RolloutWorker pid=508625)[0m PC: @     0x7ffa0f56982f  (unknown)  __memmove_evex_unaligned_erms
+[2m[36m(RolloutWorker pid=508625)[0m     @     0x7ffa0f43ea30  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=508625)[0m     @           0x91cd80  303789208  (unknown)
+[2m[33m(raylet)[0m *** SIGBUS received at time=1671074408 on cpu 15 ***
+[2m[36m(RolloutWorker pid=508625)[0m     @     0x7ffa0ebdc0f0  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=508625)[0m     @ 0x3de907894810c083  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=508625)[0m [2022-12-14 22:20:08,651 E 508625 513144] logging.cc:361: *** SIGBUS received at time=1671074408 on cpu 9 ***
+[2m[36m(RolloutWorker pid=508625)[0m [2022-12-14 22:20:08,651 E 508625 513144] logging.cc:361: PC: @     0x7ffa0f56982f  (unknown)  __memmove_evex_unaligned_erms
+[2m[36m(RolloutWorker pid=508625)[0m [2022-12-14 22:20:08,659 E 508625 513144] logging.cc:361:     @     0x7ffa0f43ea30  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=508625)[0m [2022-12-14 22:20:08,666 E 508625 513144] logging.cc:361:     @           0x91cd80  303789208  (unknown)
+[2m[36m(RolloutWorker pid=508625)[0m [2022-12-14 22:20:08,678 E 508625 513144] logging.cc:361:     @     0x7ffa0ebdc0f0  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=508625)[0m [2022-12-14 22:20:08,686 E 508625 513144] logging.cc:361:     @ 0x3de907894810c083  (unknown)  (unknown)
+[2m[36m(RolloutWorker pid=508625)[0m Fatal Python error: Bus error
+[2m[36m(RolloutWorker pid=508625)[0m 
+[2m[36m(RolloutWorker pid=508625)[0m 
+[2m[36m(RolloutWorker pid=508625)[0m Extension modules: msgpack._cmsgpack, setproctitle, numpy.core._multiarray_umath, numpy.core._multiarray_tests, numpy.linalg._umath_linalg, numpy.fft._pocketfft_internal, numpy.random._common, numpy.random.bit_generator, numpy.random._bounded_integers, numpy.random._mt19937, numpy.random.mtrand, numpy.random._philox, numpy.random._pcg64, numpy.random._sfc64, numpy.random._generator, google.protobuf.pyext._message, psutil._psutil_linux, psutil._psutil_posix, grpc._cython.cygrpc, yaml._yaml, ray._raylet, pvectorc, _brotli, simplejson._speedups, lz4._version, lz4.frame._frame, tensorflow.python.framework.fast_tensor_util, h5py._errors, h5py.defs, h5py._objects, h5py.h5, h5py.h5r, h5py.utils, h5py.h5s, h5py.h5ac, h5py.h5p, h5py.h5t, h5py._conv, h5py.h5z, h5py._proxy, h5py.h5a, h5py.h5d, h5py.h5ds, h5py.h5g, h5py.h5i, h5py.h5f, h5py.h5fd, h5py.h5pl, h5py.h5o, h5py.h5l, h5py._selector, scipy._lib._ccallback_c, scipy.sparse._sparsetools, scipy.sparse._csparsetools, scipy.sparse.csgraph._tools, scipy.sparse.csgraph._shortest_path, scipy.sparse.csgraph._traversal, scipy.sparse.csgraph._min_spanning_tree, scipy.sparse.csgraph._flow, scipy.sparse.csgraph._matching, scipy.sparse.csgraph._reordering, pandas._libs.tslibs.dtypes, pandas._libs.tslibs.base, pandas._libs.tslibs.np_datetime, pandas._libs.tslibs.nattype, pandas._libs.tslibs.timezones, pandas._libs.tslibs.ccalendar, pandas._libs.tslibs.tzconversion, pandas._libs.tslibs.strptime, pandas._libs.tslibs.fields, pandas._libs.tslibs.timedeltas, pandas._libs.tslibs.timestamps, pandas._libs.properties, pandas._libs.tslibs.offsets, pandas._libs.tslibs.parsing, pandas._libs.tslibs.conversion, pandas._libs.tslibs.period, pandas._libs.tslibs.vectorized, pandas._libs.ops_dispatch, pandas._libs.missing, pandas._libs.hashtable, pandas._libs.algos, pandas._libs.interval, pandas._libs.tslib, pandas._libs.lib, pandas._libs.hashing, pandas._libs.ops, numexpr.interpreter, bottleneck.reduce, bottleneck.nonreduce, bottleneck.nonreduce_axis, bottleneck.move, pandas._libs.arrays, pandas._libs.index, pandas._libs.join, pandas._libs.sparse, pandas._libs.reduction, pandas._libs.indexing, pandas._libs.internals, pandas._libs.writers, pandas._libs.window.aggregations, pandas._libs.window.indexers, pandas._libs.reshape, pandas._libs.groupby, pandas._libs.parsers, pandas._libs.json, pandas._libs.testing, PIL._imaging, scipy.ndimage._nd_image, scipy.special._ufuncs_cxx, scipy.special._ufuncs, scipy.special._specfun, scipy.linalg._fblas, scipy.linalg._flapack, scipy.linalg._cythonized_array_utils, scipy.linalg._flinalg, scipy.linalg._solve_toeplitz, scipy.linalg._matfuncs_sqrtm_triu, scipy.linalg.cython_blas, scipy.linalg.cython_lapack, scipy.linalg._decomp_update, scipy.special._comb, scipy.special._ellip_harm_2, _ni_label, scipy.ndimage._ni_label, torch._C, torch._C._fft, torch._C._linalg, torch._C._nested, torch._C._nn, torch._C._sparse, torch._C._special, skimage._shared.geometry, skimage.util._remap, matplotlib._c_internal_utils, matplotlib._path, kiwisolver._cext, matplotlib._image, scipy.spatial._ckdtree, scipy._lib.messagestream, scipy.spatial._qhull, scipy.spatial._voronoi, scipy.spatial._distance_wrap, scipy.spatial._hausdorff, scipy.spatial.transform._rotation, skimage.draw._draw, skimage.transform._hough_transform, scipy.interpolate._fitpack, scipy.interpolate.dfitpack, scipy.interpolate._bspl, scipy.interpolate._ppoly, scipy.interpolate.interpnd, scipy.interpolate._rbfinterp_pythran, skimage.transform._warps_cy, skimage.measure._find_contours_cy, skimage.measure._marching_cubes_lewiner_cy, skimage.measure._marching_cubes_classic_cy, skimage.measure._moments_cy, scipy.signal._sigtools, scipy._lib._uarray._uarray, scipy.signal._max_len_seq_inner, scipy.signal._upfirdn_apply, scipy.signal._spline, scipy.sparse.linalg._isolve._iterative, scipy.sparse.linalg._dsolve._superlu, scipy.sparse.linalg._eigen.arpack._arpack, scipy.optimize._minpack2, scipy.optimize._group_columns, scipy.optimize._trlib._trlib, numpy.linalg.lapack_lite, scipy.optimize._lbfgsb, _moduleTNC, scipy.optimize._moduleTNC, scipy.optimize._cobyla, scipy.optimize._slsqp, scipy.optimize._minpack, scipy.optimize._lsq.givens_elimination, scipy.optimize._zeros, scipy.optimize.__nnls, scipy.optimize._highs.cython.src._highs_wrapper, scipy.optimize._highs._highs_wrapper, scipy.optimize._highs.cython.src._highs_constants, scipy.optimize._highs._highs_constants, scipy.linalg._interpolative, scipy.optimize._bglu_dense, scipy.optimize._lsap_module, scipy.integrate._odepack, scipy.integrate._quadpack, scipy.integrate._vode, scipy.integrate._dop, scipy.integrate._lsoda, scipy.signal._sosfilt, scipy.signal._spectral, scipy.special.cython_special, scipy.stats._stats, beta_ufunc, scipy.stats._boost.beta_ufunc, binom_ufunc, scipy.stats._boost.binom_ufunc, nbinom_ufunc, scipy.stats._boost.nbinom_ufunc, hypergeom_ufunc, scipy.stats._boost.hypergeom_ufunc, scipy.stats._biasedurn, scipy.stats._hypotests_pythran, scipy.stats._statlib, scipy.stats._mvn, scipy.stats._sobol, scipy.stats._qmc_cy, scipy.stats._unuran.unuran_wrapper, scipy.signal._peak_finding_utils, skimage.measure._pnpoly, skimage.measure._ccomp, skimage.transform._radon_transform (total: 214)
+[2m[33m(raylet)[0m PC: @     0x555f4e01a820  (unknown)  dlmalloc
+[2m[33m(raylet)[0m     @     0x7f9015c3ea30       3344  (unknown)
+[2m[33m(raylet)[0m     @     0x555f4e00ba88        112  plasma::PlasmaAllocator::Allocate()
+[2m[33m(raylet)[0m     @     0x555f4e00d983        256  plasma::ObjectStore::CreateObject()
+[2m[33m(raylet)[0m     @     0x555f4dffe3b2        176  plasma::ObjectLifecycleManager::CreateObjectInternal()
+[2m[33m(raylet)[0m     @     0x555f4dffea92        112  plasma::ObjectLifecycleManager::CreateObject()
+[2m[33m(raylet)[0m     @     0x555f4e007e0e        128  plasma::PlasmaStore::CreateObject()
+[2m[33m(raylet)[0m     @     0x555f4e0087df        304  plasma::PlasmaStore::HandleCreateObjectRequest()
+[2m[33m(raylet)[0m     @     0x555f4e00de1b         80  plasma::CreateRequestQueue::ProcessRequest()
+[2m[33m(raylet)[0m     @     0x555f4e00fab6        192  plasma::CreateRequestQueue::ProcessRequests()
+[2m[33m(raylet)[0m     @     0x555f4e0069d1        224  plasma::PlasmaStore::ProcessCreateRequests()
+[2m[33m(raylet)[0m     @     0x555f4e00979d        448  plasma::PlasmaStore::ProcessMessage()
+[2m[33m(raylet)[0m     @     0x555f4e000ff5         32  std::_Function_handler<>::_M_invoke()
+[2m[33m(raylet)[0m     @     0x555f4e0260a3        176  std::_Function_handler<>::_M_invoke()
+[2m[33m(raylet)[0m     @     0x555f4e145871        384  ray::ClientConnection::ProcessMessage()
+[2m[33m(raylet)[0m     @     0x555f4e181cf6         80  EventTracker::RecordExecution()
+[2m[33m(raylet)[0m     @     0x555f4e13f507        160  boost::asio::detail::binder2<>::operator()()
+[2m[33m(raylet)[0m     @     0x555f4e13fbd8        496  boost::asio::detail::reactive_socket_recv_op<>::do_complete()
+[2m[33m(raylet)[0m     @     0x555f4e6afbcb        128  boost::asio::detail::scheduler::do_run_one()
+[2m[33m(raylet)[0m     @     0x555f4e6b1391        192  boost::asio::detail::scheduler::run()
+[2m[33m(raylet)[0m     @     0x555f4e6b15c0         64  boost::asio::io_context::run()
+[2m[33m(raylet)[0m     @     0x555f4e000218        384  plasma::PlasmaStoreRunner::Start()
+[2m[33m(raylet)[0m     @     0x555f4df9b375        208  std::thread::_State_impl<>::_M_run()
+[2m[33m(raylet)[0m     @     0x555f4e7002d0  (unknown)  execute_native_thread_routine
+[2m[33m(raylet)[0m     @ ... and at least 3 more frames
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,852 E 504051 504090] (raylet) logging.cc:361: *** SIGBUS received at time=1671074408 on cpu 15 ***
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,852 E 504051 504090] (raylet) logging.cc:361: PC: @     0x555f4e01a820  (unknown)  dlmalloc
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x7f9015c3ea30       3344  (unknown)
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00ba88        112  plasma::PlasmaAllocator::Allocate()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00d983        256  plasma::ObjectStore::CreateObject()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4dffe3b2        176  plasma::ObjectLifecycleManager::CreateObjectInternal()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4dffea92        112  plasma::ObjectLifecycleManager::CreateObject()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e007e0e        128  plasma::PlasmaStore::CreateObject()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e0087df        304  plasma::PlasmaStore::HandleCreateObjectRequest()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00de1b         80  plasma::CreateRequestQueue::ProcessRequest()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00fab6        192  plasma::CreateRequestQueue::ProcessRequests()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e0069d1        224  plasma::PlasmaStore::ProcessCreateRequests()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00979d        448  plasma::PlasmaStore::ProcessMessage()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e000ff5         32  std::_Function_handler<>::_M_invoke()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e0260a3        176  std::_Function_handler<>::_M_invoke()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e145871        384  ray::ClientConnection::ProcessMessage()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e181cf6         80  EventTracker::RecordExecution()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e13f507        160  boost::asio::detail::binder2<>::operator()()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e13fbd8        496  boost::asio::detail::reactive_socket_recv_op<>::do_complete()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e6afbcb        128  boost::asio::detail::scheduler::do_run_one()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e6b1391        192  boost::asio::detail::scheduler::run()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e6b15c0         64  boost::asio::io_context::run()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e000218        384  plasma::PlasmaStoreRunner::Start()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4df9b375        208  std::thread::_State_impl<>::_M_run()
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e7002d0  (unknown)  execute_native_thread_routine
+[2m[33m(raylet)[0m [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @ ... and at least 3 more frames
+[2m[36m(RolloutWorker pid=508624)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 940, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508626)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 940, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508623)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 940, in ray._raylet.execute_task
+2022-12-14 22:20:26,422	WARNING worker.py:1839 -- Raylet is terminated: ip=128.36.232.16, id=39271f67fd944aeb58d51df7f81979da155d0c00bb084bea96a1f916. Termination is unexpected. Possible reasons include: (1) SIGKILL by the user or system OOM killer, (2) Invalid memory access from Raylet causing SIGSEGV or SIGBUS, (3) Other termination signals. Last 20 lines of the Raylet logs:
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4dffea92        112  plasma::ObjectLifecycleManager::CreateObject()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e007e0e        128  plasma::PlasmaStore::CreateObject()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e0087df        304  plasma::PlasmaStore::HandleCreateObjectRequest()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00de1b         80  plasma::CreateRequestQueue::ProcessRequest()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00fab6        192  plasma::CreateRequestQueue::ProcessRequests()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e0069d1        224  plasma::PlasmaStore::ProcessCreateRequests()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e00979d        448  plasma::PlasmaStore::ProcessMessage()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e000ff5         32  std::_Function_handler<>::_M_invoke()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e0260a3        176  std::_Function_handler<>::_M_invoke()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e145871        384  ray::ClientConnection::ProcessMessage()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e181cf6         80  EventTracker::RecordExecution()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e13f507        160  boost::asio::detail::binder2<>::operator()()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e13fbd8        496  boost::asio::detail::reactive_socket_recv_op<>::do_complete()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e6afbcb        128  boost::asio::detail::scheduler::do_run_one()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e6b1391        192  boost::asio::detail::scheduler::run()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e6b15c0         64  boost::asio::io_context::run()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e000218        384  plasma::PlasmaStoreRunner::Start()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4df9b375        208  std::thread::_State_impl<>::_M_run()
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @     0x555f4e7002d0  (unknown)  execute_native_thread_routine
+    [2022-12-14 22:20:08,853 E 504051 504090] (raylet) logging.cc:361:     @ ... and at least 3 more frames
+
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 976, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 2353, in ray._raylet.CoreWorker.store_task_outputs
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 2245, in ray._raylet.CoreWorker.store_task_output
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508624)[0m ray.exceptions.RaySystemError: System error: Connection reset by peer
+[2m[36m(RolloutWorker pid=508624)[0m 
+[2m[36m(RolloutWorker pid=508624)[0m During handling of the above exception, another exception occurred:
+[2m[36m(RolloutWorker pid=508624)[0m 
+[2m[36m(RolloutWorker pid=508624)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 1032, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 812, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 980, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 587, in ray._raylet.store_task_errors
+[2m[36m(RolloutWorker pid=508624)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508624)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508624)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508624)[0m 
+[2m[36m(RolloutWorker pid=508624)[0m During handling of the above exception, another exception occurred:
+[2m[36m(RolloutWorker pid=508624)[0m 
+[2m[36m(RolloutWorker pid=508624)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 1065, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508624)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508624)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508624)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508624)[0m Exception ignored in: 'ray._raylet.task_execution_handler'
+[2m[36m(RolloutWorker pid=508624)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 1065, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508624)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508624)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508624)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508624)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 976, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 2353, in ray._raylet.CoreWorker.store_task_outputs
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 2245, in ray._raylet.CoreWorker.store_task_output
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508626)[0m ray.exceptions.RaySystemError: System error: Connection reset by peer
+[2m[36m(RolloutWorker pid=508626)[0m 
+[2m[36m(RolloutWorker pid=508626)[0m During handling of the above exception, another exception occurred:
+[2m[36m(RolloutWorker pid=508626)[0m 
+[2m[36m(RolloutWorker pid=508626)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 1032, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 812, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 980, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 587, in ray._raylet.store_task_errors
+[2m[36m(RolloutWorker pid=508626)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508626)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508626)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508626)[0m 
+[2m[36m(RolloutWorker pid=508626)[0m During handling of the above exception, another exception occurred:
+[2m[36m(RolloutWorker pid=508626)[0m 
+[2m[36m(RolloutWorker pid=508626)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 1065, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508626)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508626)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508626)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508626)[0m Exception ignored in: 'ray._raylet.task_execution_handler'
+[2m[36m(RolloutWorker pid=508626)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 1065, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508626)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508626)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508626)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508626)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 976, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 2353, in ray._raylet.CoreWorker.store_task_outputs
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 2245, in ray._raylet.CoreWorker.store_task_output
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508623)[0m ray.exceptions.RaySystemError: System error: Connection reset by peer
+[2m[36m(RolloutWorker pid=508623)[0m 
+[2m[36m(RolloutWorker pid=508623)[0m During handling of the above exception, another exception occurred:
+[2m[36m(RolloutWorker pid=508623)[0m 
+[2m[36m(RolloutWorker pid=508623)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 1032, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 812, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 980, in ray._raylet.execute_task
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 587, in ray._raylet.store_task_errors
+[2m[36m(RolloutWorker pid=508623)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508623)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508623)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508623)[0m 
+[2m[36m(RolloutWorker pid=508623)[0m During handling of the above exception, another exception occurred:
+[2m[36m(RolloutWorker pid=508623)[0m 
+[2m[36m(RolloutWorker pid=508623)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 1065, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508623)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508623)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508623)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+[2m[36m(RolloutWorker pid=508623)[0m Exception ignored in: 'ray._raylet.task_execution_handler'
+[2m[36m(RolloutWorker pid=508623)[0m Traceback (most recent call last):
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 1065, in ray._raylet.task_execution_handler
+[2m[36m(RolloutWorker pid=508623)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/utils.py", line 172, in push_error_to_driver
+[2m[36m(RolloutWorker pid=508623)[0m     worker.core_worker.push_error(job_id, error_type, message, time.time())
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 2560, in ray._raylet.CoreWorker.push_error
+[2m[36m(RolloutWorker pid=508623)[0m   File "python/ray/_raylet.pyx", line 196, in ray._raylet.check_status
+[2m[36m(RolloutWorker pid=508623)[0m ray.exceptions.RaySystemError: System error: Broken pipe
+2022-12-14 22:20:33,243	ERROR trial_runner.py:993 -- Trial PPO_job_search_env_5f00e_00002: Error processing event.
+Traceback (most recent call last):
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/execution/ray_trial_executor.py", line 1050, in get_next_executor_event
+    future_result = ray.get(ready_future)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/worker.py", line 2289, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError: [36mray::PPO.train()[39m (pid=507843, ip=128.36.232.16, repr=PPO)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/trainable/trainable.py", line 355, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/trainable/trainable.py", line 352, in train
+    result = self.step()
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/algorithm.py", line 772, in step
+    results, train_iter_ctx = self._run_one_training_iteration()
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/algorithm.py", line 2953, in _run_one_training_iteration
+    num_recreated += self.try_recover_from_step_attempt(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/algorithm.py", line 2617, in try_recover_from_step_attempt
+    raise error
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/algorithm.py", line 2948, in _run_one_training_iteration
+    results = self.training_step()
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/algorithms/ppo/ppo.py", line 408, in training_step
+    train_batch = synchronous_parallel_sample(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/execution/rollout_ops.py", line 100, in synchronous_parallel_sample
+    sample_batches = ray.get(
+ray.exceptions.RayTaskError: [36mray::RolloutWorker.sample()[39m (pid=508623, ip=128.36.232.16, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x7f5f3de25b10>)
+ray.exceptions.RaySystemError: System error: Connection reset by peer
+[2m[36m(RolloutWorker pid=508624)[0m [2022-12-14 22:20:33,830 C 508624 508624] core_worker.cc:2281:  Check failed: _s.ok() Bad status: IOError: Broken pipe
+[2m[36m(RolloutWorker pid=508624)[0m *** StackTrace Information ***
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc6e79a) [0x7f78d69dc79a] ray::operator<<()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc70282) [0x7f78d69de282] ray::SpdLogMessage::Flush()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray6RayLogD1Ev+0x37) [0x7f78d69de597] ray::RayLog::~RayLog()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core10CoreWorker11ExecuteTaskERKNS_17TaskSpecificationERKSt10shared_ptrISt13unordered_mapISsSt6vectorISt4pairIldESaIS9_EESt4hashISsESt8equal_toISsESaIS8_IKSsSB_EEEEPS7_IS8_INS_8ObjectIDES5_INS_9RayObjectEEESaISQ_EEST_PN6google8protobuf16RepeatedPtrFieldINS_3rpc20ObjectReferenceCountEEEPbS11_+0x38c) [0x7f78d637717c] ray::core::CoreWorker::ExecuteTask()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZNSt17_Function_handlerIFN3ray6StatusERKNS0_17TaskSpecificationESt10shared_ptrISt13unordered_mapISsSt6vectorISt4pairIldESaIS9_EESt4hashISsESt8equal_toISsESaIS8_IKSsSB_EEEEPS7_IS8_INS0_8ObjectIDES5_INS0_9RayObjectEEESaISO_EESR_PN6google8protobuf16RepeatedPtrFieldINS0_3rpc20ObjectReferenceCountEEEPbSZ_ESt5_BindIFMNS0_4core10CoreWorkerEFS1_S4_RKSK_SR_SR_SY_SZ_SZ_EPS13_St12_PlaceholderILi1EES19_ILi2EES19_ILi3EES19_ILi4EES19_ILi5EES19_ILi6EES19_ILi7EEEEE9_M_invokeERKSt9_Any_dataS4_OSK_OSR_S1O_OSY_OSZ_S1Q_+0x54) [0x7f78d62cc734] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x634798) [0x7f78d63a2798] ray::core::CoreWorkerDirectTaskReceiver::HandleTask()::{lambda()#1}::operator()()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x63567a) [0x7f78d63a367a] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x64854e) [0x7f78d63b654e] ray::core::InboundRequest::Accept()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x64d738) [0x7f78d63bb738] ray::core::ActorSchedulingQueue::ScheduleRequests()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core20ActorSchedulingQueue3AddEllSt8functionIFvS2_IFvNS_6StatusES2_IFvvEES5_EEEES9_S7_RKSsRKSt10shared_ptrINS_27FunctionDescriptorInterfaceEENS_6TaskIDERKSt6vectorINS_3rpc15ObjectReferenceESaISK_EE+0x596) [0x7f78d63bd296] ray::core::ActorSchedulingQueue::Add()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core28CoreWorkerDirectTaskReceiver10HandleTaskENS_3rpc15PushTaskRequestEPNS2_13PushTaskReplyESt8functionIFvNS_6StatusES6_IFvvEES9_EE+0x1114) [0x7f78d63a2244] ray::core::CoreWorkerDirectTaskReceiver::HandleTask()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x5eba6a) [0x7f78d6359a6a] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x84c2e6) [0x7f78d65ba2e6] EventTracker::RecordExecution()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x803d2e) [0x7f78d6571d2e] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x803f86) [0x7f78d6571f86] boost::asio::detail::completion_handler<>::do_complete()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc7f1ab) [0x7f78d69ed1ab] boost::asio::detail::scheduler::do_run_one()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc803e1) [0x7f78d69ee3e1] boost::asio::detail::scheduler::run()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc80650) [0x7f78d69ee650] boost::asio::io_context::run()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core10CoreWorker20RunTaskExecutionLoopEv+0x1c) [0x7f78d63494fc] ray::core::CoreWorker::RunTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core21CoreWorkerProcessImpl26RunWorkerTaskExecutionLoopEv+0x8c) [0x7f78d638615c] ray::core::CoreWorkerProcessImpl::RunWorkerTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core17CoreWorkerProcess20RunTaskExecutionLoopEv+0x1d) [0x7f78d638630d] ray::core::CoreWorkerProcess::RunTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508624)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x48e047) [0x7f78d61fc047] __pyx_pw_3ray_7_raylet_10CoreWorker_7run_task_loop()
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(+0x121aa4) [0x7f78d7721aa4]
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(_PyEval_EvalFrameDefault+0x83d) [0x7f78d771369d] _PyEval_EvalFrameDefault
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(+0x1120c3) [0x7f78d77120c3]
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(_PyEval_EvalFrameDefault+0x83d) [0x7f78d771369d] _PyEval_EvalFrameDefault
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(+0x1120c3) [0x7f78d77120c3]
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(PyEval_EvalCode+0x94) [0x7f78d778d684] PyEval_EvalCode
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(+0x1beb13) [0x7f78d77beb13]
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(+0x1ba03a) [0x7f78d77ba03a]
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(+0x8d1d2) [0x7f78d768d1d2]
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(_PyRun_SimpleFileObject+0x1a9) [0x7f78d77b4329] _PyRun_SimpleFileObject
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(_PyRun_AnyFileObject+0x48) [0x7f78d77b40e8] _PyRun_AnyFileObject
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(Py_RunMain+0x38c) [0x7f78d77b12ac] Py_RunMain
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libpython3.10.so.1.0(Py_BytesMain+0x3b) [0x7f78d777d68b] Py_BytesMain
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libc.so.6(+0x29510) [0x7f78d7229510] __libc_start_call_main
+[2m[36m(RolloutWorker pid=508624)[0m /lib64/libc.so.6(__libc_start_main+0x89) [0x7f78d72295c9] __libc_start_main@GLIBC_2.2.5
+[2m[36m(RolloutWorker pid=508624)[0m ray::RolloutWorker(_start+0x25) [0x55bea7361095] _start
+[2m[36m(RolloutWorker pid=508624)[0m 
+[2m[36m(RolloutWorker pid=508626)[0m [2022-12-14 22:20:33,816 C 508626 508626] core_worker.cc:2281:  Check failed: _s.ok() Bad status: IOError: Broken pipe
+[2m[36m(RolloutWorker pid=508626)[0m *** StackTrace Information ***
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc6e79a) [0x7f5563fdc79a] ray::operator<<()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc70282) [0x7f5563fde282] ray::SpdLogMessage::Flush()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray6RayLogD1Ev+0x37) [0x7f5563fde597] ray::RayLog::~RayLog()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core10CoreWorker11ExecuteTaskERKNS_17TaskSpecificationERKSt10shared_ptrISt13unordered_mapISsSt6vectorISt4pairIldESaIS9_EESt4hashISsESt8equal_toISsESaIS8_IKSsSB_EEEEPS7_IS8_INS_8ObjectIDES5_INS_9RayObjectEEESaISQ_EEST_PN6google8protobuf16RepeatedPtrFieldINS_3rpc20ObjectReferenceCountEEEPbS11_+0x38c) [0x7f556397717c] ray::core::CoreWorker::ExecuteTask()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZNSt17_Function_handlerIFN3ray6StatusERKNS0_17TaskSpecificationESt10shared_ptrISt13unordered_mapISsSt6vectorISt4pairIldESaIS9_EESt4hashISsESt8equal_toISsESaIS8_IKSsSB_EEEEPS7_IS8_INS0_8ObjectIDES5_INS0_9RayObjectEEESaISO_EESR_PN6google8protobuf16RepeatedPtrFieldINS0_3rpc20ObjectReferenceCountEEEPbSZ_ESt5_BindIFMNS0_4core10CoreWorkerEFS1_S4_RKSK_SR_SR_SY_SZ_SZ_EPS13_St12_PlaceholderILi1EES19_ILi2EES19_ILi3EES19_ILi4EES19_ILi5EES19_ILi6EES19_ILi7EEEEE9_M_invokeERKSt9_Any_dataS4_OSK_OSR_S1O_OSY_OSZ_S1Q_+0x54) [0x7f55638cc734] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x634798) [0x7f55639a2798] ray::core::CoreWorkerDirectTaskReceiver::HandleTask()::{lambda()#1}::operator()()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x63567a) [0x7f55639a367a] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x64854e) [0x7f55639b654e] ray::core::InboundRequest::Accept()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x64d738) [0x7f55639bb738] ray::core::ActorSchedulingQueue::ScheduleRequests()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core20ActorSchedulingQueue3AddEllSt8functionIFvS2_IFvNS_6StatusES2_IFvvEES5_EEEES9_S7_RKSsRKSt10shared_ptrINS_27FunctionDescriptorInterfaceEENS_6TaskIDERKSt6vectorINS_3rpc15ObjectReferenceESaISK_EE+0x596) [0x7f55639bd296] ray::core::ActorSchedulingQueue::Add()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core28CoreWorkerDirectTaskReceiver10HandleTaskENS_3rpc15PushTaskRequestEPNS2_13PushTaskReplyESt8functionIFvNS_6StatusES6_IFvvEES9_EE+0x1114) [0x7f55639a2244] ray::core::CoreWorkerDirectTaskReceiver::HandleTask()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x5eba6a) [0x7f5563959a6a] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x84c2e6) [0x7f5563bba2e6] EventTracker::RecordExecution()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x803d2e) [0x7f5563b71d2e] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x803f86) [0x7f5563b71f86] boost::asio::detail::completion_handler<>::do_complete()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc7f1ab) [0x7f5563fed1ab] boost::asio::detail::scheduler::do_run_one()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc803e1) [0x7f5563fee3e1] boost::asio::detail::scheduler::run()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc80650) [0x7f5563fee650] boost::asio::io_context::run()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core10CoreWorker20RunTaskExecutionLoopEv+0x1c) [0x7f55639494fc] ray::core::CoreWorker::RunTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core21CoreWorkerProcessImpl26RunWorkerTaskExecutionLoopEv+0x8c) [0x7f556398615c] ray::core::CoreWorkerProcessImpl::RunWorkerTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core17CoreWorkerProcess20RunTaskExecutionLoopEv+0x1d) [0x7f556398630d] ray::core::CoreWorkerProcess::RunTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508626)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x48e047) [0x7f55637fc047] __pyx_pw_3ray_7_raylet_10CoreWorker_7run_task_loop()
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(+0x121aa4) [0x7f5564d21aa4]
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(_PyEval_EvalFrameDefault+0x83d) [0x7f5564d1369d] _PyEval_EvalFrameDefault
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(+0x1120c3) [0x7f5564d120c3]
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(_PyEval_EvalFrameDefault+0x83d) [0x7f5564d1369d] _PyEval_EvalFrameDefault
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(+0x1120c3) [0x7f5564d120c3]
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(PyEval_EvalCode+0x94) [0x7f5564d8d684] PyEval_EvalCode
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(+0x1beb13) [0x7f5564dbeb13]
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(+0x1ba03a) [0x7f5564dba03a]
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(+0x8d1d2) [0x7f5564c8d1d2]
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(_PyRun_SimpleFileObject+0x1a9) [0x7f5564db4329] _PyRun_SimpleFileObject
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(_PyRun_AnyFileObject+0x48) [0x7f5564db40e8] _PyRun_AnyFileObject
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(Py_RunMain+0x38c) [0x7f5564db12ac] Py_RunMain
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libpython3.10.so.1.0(Py_BytesMain+0x3b) [0x7f5564d7d68b] Py_BytesMain
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libc.so.6(+0x29510) [0x7f5564829510] __libc_start_call_main
+[2m[36m(RolloutWorker pid=508626)[0m /lib64/libc.so.6(__libc_start_main+0x89) [0x7f55648295c9] __libc_start_main@GLIBC_2.2.5
+[2m[36m(RolloutWorker pid=508626)[0m ray::RolloutWorker(_start+0x25) [0x5559939c0095] _start
+[2m[36m(RolloutWorker pid=508626)[0m 
+[2m[36m(RolloutWorker pid=508623)[0m [2022-12-14 22:20:33,830 C 508623 508623] core_worker.cc:2281:  Check failed: _s.ok() Bad status: IOError: Broken pipe
+[2m[36m(RolloutWorker pid=508623)[0m *** StackTrace Information ***
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc6e79a) [0x7f643839379a] ray::operator<<()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc70282) [0x7f6438395282] ray::SpdLogMessage::Flush()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray6RayLogD1Ev+0x37) [0x7f6438395597] ray::RayLog::~RayLog()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core10CoreWorker11ExecuteTaskERKNS_17TaskSpecificationERKSt10shared_ptrISt13unordered_mapISsSt6vectorISt4pairIldESaIS9_EESt4hashISsESt8equal_toISsESaIS8_IKSsSB_EEEEPS7_IS8_INS_8ObjectIDES5_INS_9RayObjectEEESaISQ_EEST_PN6google8protobuf16RepeatedPtrFieldINS_3rpc20ObjectReferenceCountEEEPbS11_+0x38c) [0x7f6437d2e17c] ray::core::CoreWorker::ExecuteTask()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZNSt17_Function_handlerIFN3ray6StatusERKNS0_17TaskSpecificationESt10shared_ptrISt13unordered_mapISsSt6vectorISt4pairIldESaIS9_EESt4hashISsESt8equal_toISsESaIS8_IKSsSB_EEEEPS7_IS8_INS0_8ObjectIDES5_INS0_9RayObjectEEESaISO_EESR_PN6google8protobuf16RepeatedPtrFieldINS0_3rpc20ObjectReferenceCountEEEPbSZ_ESt5_BindIFMNS0_4core10CoreWorkerEFS1_S4_RKSK_SR_SR_SY_SZ_SZ_EPS13_St12_PlaceholderILi1EES19_ILi2EES19_ILi3EES19_ILi4EES19_ILi5EES19_ILi6EES19_ILi7EEEEE9_M_invokeERKSt9_Any_dataS4_OSK_OSR_S1O_OSY_OSZ_S1Q_+0x54) [0x7f6437c83734] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x634798) [0x7f6437d59798] ray::core::CoreWorkerDirectTaskReceiver::HandleTask()::{lambda()#1}::operator()()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x63567a) [0x7f6437d5a67a] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x64854e) [0x7f6437d6d54e] ray::core::InboundRequest::Accept()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x64d738) [0x7f6437d72738] ray::core::ActorSchedulingQueue::ScheduleRequests()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core20ActorSchedulingQueue3AddEllSt8functionIFvS2_IFvNS_6StatusES2_IFvvEES5_EEEES9_S7_RKSsRKSt10shared_ptrINS_27FunctionDescriptorInterfaceEENS_6TaskIDERKSt6vectorINS_3rpc15ObjectReferenceESaISK_EE+0x596) [0x7f6437d74296] ray::core::ActorSchedulingQueue::Add()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core28CoreWorkerDirectTaskReceiver10HandleTaskENS_3rpc15PushTaskRequestEPNS2_13PushTaskReplyESt8functionIFvNS_6StatusES6_IFvvEES9_EE+0x1114) [0x7f6437d59244] ray::core::CoreWorkerDirectTaskReceiver::HandleTask()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x5eba6a) [0x7f6437d10a6a] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x84c2e6) [0x7f6437f712e6] EventTracker::RecordExecution()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x803d2e) [0x7f6437f28d2e] std::_Function_handler<>::_M_invoke()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x803f86) [0x7f6437f28f86] boost::asio::detail::completion_handler<>::do_complete()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc7f1ab) [0x7f64383a41ab] boost::asio::detail::scheduler::do_run_one()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc803e1) [0x7f64383a53e1] boost::asio::detail::scheduler::run()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0xc80650) [0x7f64383a5650] boost::asio::io_context::run()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core10CoreWorker20RunTaskExecutionLoopEv+0x1c) [0x7f6437d004fc] ray::core::CoreWorker::RunTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core21CoreWorkerProcessImpl26RunWorkerTaskExecutionLoopEv+0x8c) [0x7f6437d3d15c] ray::core::CoreWorkerProcessImpl::RunWorkerTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(_ZN3ray4core17CoreWorkerProcess20RunTaskExecutionLoopEv+0x1d) [0x7f6437d3d30d] ray::core::CoreWorkerProcess::RunTaskExecutionLoop()
+[2m[36m(RolloutWorker pid=508623)[0m /home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_raylet.so(+0x48e047) [0x7f6437bb3047] __pyx_pw_3ray_7_raylet_10CoreWorker_7run_task_loop()
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(+0x121aa4) [0x7f6439121aa4]
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(_PyEval_EvalFrameDefault+0x83d) [0x7f643911369d] _PyEval_EvalFrameDefault
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(+0x1120c3) [0x7f64391120c3]
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(_PyEval_EvalFrameDefault+0x83d) [0x7f643911369d] _PyEval_EvalFrameDefault
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(+0x1120c3) [0x7f64391120c3]
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(PyEval_EvalCode+0x94) [0x7f643918d684] PyEval_EvalCode
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(+0x1beb13) [0x7f64391beb13]
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(+0x1ba03a) [0x7f64391ba03a]
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(+0x8d1d2) [0x7f643908d1d2]
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(_PyRun_SimpleFileObject+0x1a9) [0x7f64391b4329] _PyRun_SimpleFileObject
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(_PyRun_AnyFileObject+0x48) [0x7f64391b40e8] _PyRun_AnyFileObject
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(Py_RunMain+0x38c) [0x7f64391b12ac] Py_RunMain
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libpython3.10.so.1.0(Py_BytesMain+0x3b) [0x7f643917d68b] Py_BytesMain
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libc.so.6(+0x29510) [0x7f6438c29510] __libc_start_call_main
+[2m[36m(RolloutWorker pid=508623)[0m /lib64/libc.so.6(__libc_start_main+0x89) [0x7f6438c295c9] __libc_start_main@GLIBC_2.2.5
+[2m[36m(RolloutWorker pid=508623)[0m ray::RolloutWorker(_start+0x25) [0x562f4e45c095] _start
+[2m[36m(RolloutWorker pid=508623)[0m 
+[2m[36m(PPO pid=507843)[0m 2022-12-14 22:20:35,493	ERROR worker.py:400 -- Unhandled error (suppress with 'RAY_IGNORE_UNHANDLED_ERRORS=1'): [36mray::RolloutWorker.sample()[39m (pid=508626, ip=128.36.232.16, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x7f5069b55b40>)
+[2m[36m(PPO pid=507843)[0m ray.exceptions.RaySystemError: System error: Connection reset by peer
+[2m[36m(PPO pid=507843)[0m 2022-12-14 22:20:35,497	ERROR worker.py:400 -- Unhandled error (suppress with 'RAY_IGNORE_UNHANDLED_ERRORS=1'): [36mray::RolloutWorker.sample()[39m (pid=508624, ip=128.36.232.16, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x7f73e4625ab0>)
+[2m[36m(PPO pid=507843)[0m ray.exceptions.RaySystemError: System error: Connection reset by peer
+[2m[36m(PPO pid=507843)[0m 2022-12-14 22:20:35,389	ERROR worker_set.py:591 -- Failed to stop workers!
+[2m[36m(PPO pid=507843)[0m Traceback (most recent call last):
+[2m[36m(PPO pid=507843)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/rllib/evaluation/worker_set.py", line 589, in stop
+[2m[36m(PPO pid=507843)[0m     ray.get(tids)
+[2m[36m(PPO pid=507843)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+[2m[36m(PPO pid=507843)[0m     return func(*args, **kwargs)
+[2m[36m(PPO pid=507843)[0m   File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/worker.py", line 2291, in get
+[2m[36m(PPO pid=507843)[0m     raise value
+[2m[36m(PPO pid=507843)[0m ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+2022-12-14 22:20:37,540	WARNING worker.py:1839 -- The node with node id: 39271f67fd944aeb58d51df7f81979da155d0c00bb084bea96a1f916 and address: 128.36.232.16 and node name: 128.36.232.16 has been marked dead because the detector has missed too many heartbeats from it. This can happen when a 	(1) raylet crashes unexpectedly (OOM, preempted node, etc.) 
+	(2) raylet has lagging heartbeats due to slow network or busy workload.
+2022-12-14 22:20:37,602	ERROR trial_runner.py:993 -- Trial PPO_job_search_env_5f00e_00000: Error processing event.
+ray.tune.error._TuneNoNextExecutorEventError: Traceback (most recent call last):
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/execution/ray_trial_executor.py", line 1050, in get_next_executor_event
+    future_result = ray.get(ready_future)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/worker.py", line 2291, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: PPO
+	actor_id: e31769850c36624ec66d560d01000000
+	pid: 504750
+	namespace: 4c1ca1c2-26d2-4456-85de-90c298b0568e
+	ip: 128.36.232.16
+The actor is dead because its owner has died. Owner Id: 01000000ffffffffffffffffffffffffffffffffffffffffffffffff Owner Ip address: 128.36.232.16 Owner worker exit type: SYSTEM_ERROR Worker exit detail: Owner's node has crashed.
+
+2022-12-14 22:20:37,621	WARNING resource_updater.py:50 -- Cluster resources not detected or are 0. Attempt #2...
+[2m[36m(PPO pid=506287)[0m  Attempting to recover 3 lost objects by resubmitting their tasks. To disable object reconstruction, set @ray.remote(max_retries=0).
+2022-12-14 22:20:38,123	WARNING resource_updater.py:50 -- Cluster resources not detected or are 0. Attempt #3...
+2022-12-14 22:20:38,625	WARNING resource_updater.py:50 -- Cluster resources not detected or are 0. Attempt #4...
+2022-12-14 22:20:39,126	WARNING resource_updater.py:50 -- Cluster resources not detected or are 0. Attempt #5...
+2022-12-14 22:20:39,628	WARNING resource_updater.py:63 -- Cluster resources cannot be detected or are 0. You can resume this experiment by passing in `resume=True` to `run`.
+2022-12-14 22:20:39,629	WARNING util.py:244 -- The `on_step_begin` operation took 2.008 s, which may be a performance bottleneck.
+2022-12-14 22:20:39,630	ERROR ray_trial_executor.py:111 -- An exception occurred when trying to stop the Ray actor:Traceback (most recent call last):
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/execution/ray_trial_executor.py", line 102, in _post_stop_cleanup
+    ray.get(future, timeout=timeout)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/worker.py", line 2291, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: PPO
+	actor_id: e31769850c36624ec66d560d01000000
+	pid: 504750
+	namespace: 4c1ca1c2-26d2-4456-85de-90c298b0568e
+	ip: 128.36.232.16
+The actor is dead because its owner has died. Owner Id: 01000000ffffffffffffffffffffffffffffffffffffffffffffffff Owner Ip address: 128.36.232.16 Owner worker exit type: SYSTEM_ERROR Worker exit detail: Owner's node has crashed.
+
+2022-12-14 22:20:39,632	ERROR trial_runner.py:993 -- Trial PPO_job_search_env_5f00e_00001: Error processing event.
+ray.tune.error._TuneNoNextExecutorEventError: Traceback (most recent call last):
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/execution/ray_trial_executor.py", line 1050, in get_next_executor_event
+    future_result = ray.get(ready_future)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/_private/worker.py", line 2291, in get
+    raise value
+ray.exceptions.RayActorError: The actor died unexpectedly before finishing this task.
+	class_name: PPO
+	actor_id: 97f1eafa677d653c812a68b401000000
+	pid: 506287
+	namespace: 4c1ca1c2-26d2-4456-85de-90c298b0568e
+	ip: 128.36.232.16
+The actor is dead because its node has died. Node Id: 39271f67fd944aeb58d51df7f81979da155d0c00bb084bea96a1f916
+
+== Status ==
+Current time: 2022-12-14 22:19:20 (running for 00:06:23.73)
+Memory usage on this node: 61.8/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:25 (running for 00:06:28.75)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:30 (running for 00:06:33.99)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:35 (running for 00:06:38.99)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:41 (running for 00:06:44.87)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:46 (running for 00:06:49.88)
+Memory usage on this node: 61.6/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:51 (running for 00:06:54.88)
+Memory usage on this node: 61.6/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:19:56 (running for 00:06:59.88)
+Memory usage on this node: 61.7/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:20:01 (running for 00:07:04.93)
+Memory usage on this node: 61.4/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:20:06 (running for 00:07:09.93)
+Memory usage on this node: 61.4/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:20:11 (running for 00:07:15.00)
+Memory usage on this node: 60.1/62.4 GiB : ***LOW MEMORY*** less than 10% of the memory on this node is available for use. This can cause unexpected crashes. Consider reducing the memory used by your application or reducing the Ray object store size by setting `object_store_memory` when calling `ray.init`.
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:20:16 (running for 00:07:20.01)
+Memory usage on this node: 46.3/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:20:21 (running for 00:07:25.03)
+Memory usage on this node: 46.3/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:20:26 (running for 00:07:30.03)
+Memory usage on this node: 46.3/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+== Status ==
+Current time: 2022-12-14 22:20:31 (running for 00:07:35.06)
+Memory usage on this node: 46.3/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 15.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | RUNNING  | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | RUNNING  | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+
+
+Result for PPO_job_search_env_5f00e_00002:
+  date: 2022-12-14_22-14-44
+  experiment_id: 80f6d01ae9fc485fa34db15efcc935b9
+  hostname: hippo.zoo.cs.yale.edu
+  node_ip: 128.36.232.16
+  pid: 507843
+  timestamp: 1671074084
+  trial_id: 5f00e_00002
+  
+Result for PPO_job_search_env_5f00e_00000:
+  date: 2022-12-14_22-13-19
+  experiment_id: bfe115fabd2f46b9a0def26f74fdeaa0
+  hostname: hippo.zoo.cs.yale.edu
+  node_ip: 128.36.232.16
+  pid: 504750
+  timestamp: 1671073999
+  trial_id: 5f00e_00000
+  
+== Status ==
+Current time: 2022-12-14 22:20:37 (running for 00:07:41.25)
+Memory usage on this node: 42.4/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 5.0/16 CPUs, 0/1 GPUs, 0.0/31.09 GiB heap, 0.0/15.54 GiB objects (0.0/1.0 accelerator_type:P620)
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (2 ERROR, 1 RUNNING)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00001 | RUNNING  | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00000 | ERROR    | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00002 | ERROR    | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+Number of errored trials: 2
++--------------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Trial name                     |   # failures | error file                                                                                                                                                                     |
+|--------------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PPO_job_search_env_5f00e_00000 |            1 | /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56/PPO_job_search_env_5f00e_00000_0_2022-12-14_22-12-56/error.txt |
+| PPO_job_search_env_5f00e_00002 |            1 | /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56/PPO_job_search_env_5f00e_00002_2_2022-12-14_22-13-57/error.txt |
++--------------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Result for PPO_job_search_env_5f00e_00001:
+  date: 2022-12-14_22-13-57
+  experiment_id: b6134d4ad4cf44699f76d0eb56ac9401
+  hostname: hippo.zoo.cs.yale.edu
+  node_ip: 128.36.232.16
+  pid: 506287
+  timestamp: 1671074037
+  trial_id: 5f00e_00001
+  
+== Status ==
+Current time: 2022-12-14 22:20:39 (running for 00:07:43.32)
+Memory usage on this node: 40.7/62.4 GiB 
+Using FIFO scheduling algorithm.
+Resources requested: 0/0 CPUs, 0/0 GPUs, 0.0/0.0 GiB heap, 0.0/0.0 GiB objects
+Result logdir: /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56
+Number of trials: 3/3 (3 ERROR)
++--------------------------------+----------+----------------------+
+| Trial name                     | status   | loc                  |
+|--------------------------------+----------+----------------------|
+| PPO_job_search_env_5f00e_00000 | ERROR    | 128.36.232.16:504750 |
+| PPO_job_search_env_5f00e_00001 | ERROR    | 128.36.232.16:506287 |
+| PPO_job_search_env_5f00e_00002 | ERROR    | 128.36.232.16:507843 |
++--------------------------------+----------+----------------------+
+Number of errored trials: 3
++--------------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Trial name                     |   # failures | error file                                                                                                                                                                     |
+|--------------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PPO_job_search_env_5f00e_00000 |            1 | /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56/PPO_job_search_env_5f00e_00000_0_2022-12-14_22-12-56/error.txt |
+| PPO_job_search_env_5f00e_00001 |            1 | /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56/PPO_job_search_env_5f00e_00001_1_2022-12-14_22-13-19/error.txt |
+| PPO_job_search_env_5f00e_00002 |            1 | /home/accts/ahc49/csec491/salary-negotation/ray_results/job_search_env/tf2/c5e10b200i40/PPO_2022-12-14_22-12-56/PPO_job_search_env_5f00e_00002_2_2022-12-14_22-13-57/error.txt |
++--------------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Traceback (most recent call last):
+  File "/home/accts/ahc49/csec491/salary-negotation/job_search.py", line 209, in <module>
+    tune.run(
+  File "/home/accts/ahc49/.local/lib/python3.10/site-packages/ray/tune/tune.py", line 771, in run
+    raise TuneError("Trials did not complete", incomplete_trials)
+ray.tune.error.TuneError: ('Trials did not complete', [PPO_job_search_env_5f00e_00000, PPO_job_search_env_5f00e_00001, PPO_job_search_env_5f00e_00002])

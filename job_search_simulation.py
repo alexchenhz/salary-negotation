@@ -28,5 +28,4 @@ class JobSearchSimulation():
         return episode_reward
     
 if __name__ == "__main__":
-    pass
-    
+    jss = JobSearchSimulation()

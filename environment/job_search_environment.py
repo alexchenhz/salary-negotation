@@ -1,13 +1,11 @@
 import functools
 import random
-import logging
 
 
 import numpy as np
 from gym.spaces import Dict, Discrete, Tuple, Box
 from gym.spaces.utils import flatdim, flatten
 from pettingzoo import ParallelEnv
-from pettingzoo.test import parallel_api_test
 from pettingzoo.utils import wrappers
 
 NUM_CANDIDATES = 5
@@ -38,14 +36,14 @@ MAX_CANDIDATE_STRENGTH = 100
 DISCOUNT_RATE = 0.05
 
 
-def env(render_mode=None):
+def env(env_config=None, render_mode=None):
     """
     The env function often wraps the environment in wrappers by default.
     You can find full documentation for these methods
     elsewhere in the developer documentation.
     """
     internal_render_mode = render_mode if render_mode != "ansi" else "human"
-    env = raw_env(render_mode=internal_render_mode)
+    env = JobSearchEnvironment(env_config=env_config, render_mode=render_mode)
     # This wrapper is only for environments which print results to the terminal
     if render_mode == "ansi":
         env = wrappers.CaptureStdoutWrapper(env)
@@ -64,20 +62,10 @@ def env(render_mode=None):
     return env
 
 
-def raw_env(render_mode=None):
-    """
-    To support the AEC API, the raw_env() function just uses the from_parallel
-    function to convert from a ParallelEnv to an AEC env
-    """
-    env = JobSearchEnvironment(render_mode=render_mode)
-    # env = parallel_to_aec(env)
-    return env
-
-
 class JobSearchEnvironment(ParallelEnv):
     metadata = {"render_modes": ["human"], "name": "js_v0"}
 
-    def __init__(self, render_mode=None):
+    def __init__(self, env_config=None, render_mode=None):
         """
         The init method takes in environment arguments and
          should define the following attributes:
@@ -86,9 +74,16 @@ class JobSearchEnvironment(ParallelEnv):
         - observation_spaces
         These attributes should not be changed after initialization.
         """
+        env_config = env_config or {}
+        # Store args
+        self.num_candidates = env_config.get("num_candidates", NUM_CANDIDATES)
+        self.num_employers = env_config.get("num_employers", NUM_EMPLOYERS)
+        self.employer_budget = env_config.get("employer_budget", EMPLOYER_BUDGET)
+        self.max_num_iters = env_config.get("max_num_iters", MAX_NUM_ITERS)
+
         # Create candidate and employer agents
-        self._candidates = ["candidate_" + str(r) for r in range(NUM_CANDIDATES)]
-        self._employers = ["employer_" + str(r) for r in range(NUM_EMPLOYERS)]
+        self._candidates = ["candidate_" + str(r) for r in range(self.num_candidates)]
+        self._employers = ["employer_" + str(r) for r in range(self.num_employers)]
         self.possible_agents = self._candidates + self._employers
         self.agents = self.possible_agents[:]
 
@@ -103,8 +98,8 @@ class JobSearchEnvironment(ParallelEnv):
                 (
                     Discrete(len(CANDIDATE_ACTIONS)),
                     Discrete(max(len(self._employers), len(self._candidates))),
-                    Discrete(EMPLOYER_BUDGET + 1),
-                    Discrete(MAX_NUM_ITERS + 1),
+                    Discrete(self.employer_budget + 1),
+                    Discrete(self.max_num_iters + 1),
                 )
             )
             for agent in self.possible_agents
@@ -125,7 +120,7 @@ class JobSearchEnvironment(ParallelEnv):
                                     ),  # for each employer: 0 = not hiring, 1 = still hiring
                                     "accepted_offer": Dict(
                                         {
-                                            employer: Discrete(EMPLOYER_BUDGET + 1)
+                                            employer: Discrete(self.employer_budget + 1)
                                             for employer in self._employers
                                         }
                                     ),
@@ -133,8 +128,8 @@ class JobSearchEnvironment(ParallelEnv):
                                         {
                                             employer: Tuple(
                                                 (
-                                                    Discrete(EMPLOYER_BUDGET + 1),
-                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                    Discrete(self.employer_budget + 1),
+                                                    Discrete(self.max_num_iters + 1),
                                                 )
                                             )
                                             for employer in self._employers
@@ -145,7 +140,7 @@ class JobSearchEnvironment(ParallelEnv):
                                             employer: Tuple(
                                                 (
                                                     Discrete(2),
-                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                    Discrete(self.employer_budget + 1),
                                                 )
                                             )
                                             for employer in self._employers
@@ -155,8 +150,8 @@ class JobSearchEnvironment(ParallelEnv):
                                         {
                                             employer: Tuple(
                                                 (
-                                                    Discrete(EMPLOYER_BUDGET + 1),
-                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                    Discrete(self.employer_budget + 1),
+                                                    Discrete(self.max_num_iters + 1),
                                                 )
                                             )
                                             for employer in self._employers
@@ -184,8 +179,8 @@ class JobSearchEnvironment(ParallelEnv):
                                         {
                                             candidate: Tuple(
                                                 (
-                                                    Discrete(EMPLOYER_BUDGET + 1),
-                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                    Discrete(self.employer_budget + 1),
+                                                    Discrete(self.max_num_iters + 1),
                                                 )
                                             )
                                             for candidate in self._candidates
@@ -202,7 +197,7 @@ class JobSearchEnvironment(ParallelEnv):
                                             candidate: Tuple(
                                                 (
                                                     Discrete(2),
-                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                    Discrete(self.employer_budget + 1),
                                                 )
                                             )
                                             for candidate in self._candidates
@@ -212,8 +207,8 @@ class JobSearchEnvironment(ParallelEnv):
                                         {
                                             candidate: Tuple(
                                                 (
-                                                    Discrete(EMPLOYER_BUDGET + 1),
-                                                    Discrete(MAX_NUM_ITERS + 1),
+                                                    Discrete(self.employer_budget + 1),
+                                                    Discrete(self.max_num_iters + 1),
                                                 )
                                             )
                                             for candidate in self._candidates
@@ -224,15 +219,15 @@ class JobSearchEnvironment(ParallelEnv):
                                             candidate: Tuple(
                                                 (
                                                     Discrete(2),
-                                                    Discrete(EMPLOYER_BUDGET + 1),
+                                                    Discrete(self.employer_budget + 1),
                                                 )
                                             )
                                             for candidate in self._candidates
                                         }
                                     ),  # for each candidate: 0 = not rejected/1 = rejected, offer value of counter offer that was rejected (rejected by employer)
                                     "remaining_budget": Discrete(
-                                        EMPLOYER_BUDGET + 1
-                                    ),  # each employer will only have a budget of EMPLOYER_BUDGET
+                                        self.employer_budget + 1
+                                    ),  # each employer will only have a budget of self.employer_budget
                                 }
                             ),
                         }
@@ -309,7 +304,7 @@ class JobSearchEnvironment(ParallelEnv):
                         "rejected_offers": {
                             candidate: (0, 0) for candidate in self._candidates
                         },
-                        "remaining_budget": EMPLOYER_BUDGET,
+                        "remaining_budget": self.employer_budget,
                     },
                 },
                 "action_mask": np.zeros(flatdim(self.action_space(agent))),
@@ -352,7 +347,7 @@ class JobSearchEnvironment(ParallelEnv):
                         "rejected_offers": {
                             candidate: (0, 0) for candidate in self._candidates
                         },
-                        "remaining_budget": EMPLOYER_BUDGET,
+                        "remaining_budget": self.employer_budget,
                     },
                 },
                 "action_mask": np.zeros(flatdim(self.action_space(agent))),
@@ -377,6 +372,10 @@ class JobSearchEnvironment(ParallelEnv):
         else:
             infos = {agent: {} for agent in self.agents}
             return observations, infos
+
+    def render(self):
+        """Render the current game state in a more readable format"""
+        pass
 
     def step(self, actions):
         """
@@ -411,11 +410,9 @@ class JobSearchEnvironment(ParallelEnv):
                 if action == NO_ACTION:
                     pass
                 elif action == APPLY:
-                    if (
-                        self.game_state[candidate]["observation"]["candidate_obs"][
-                            "job_openings"
-                        ][employer]
-                    ):
+                    if self.game_state[candidate]["observation"]["candidate_obs"][
+                        "job_openings"
+                    ][employer]:
                         # Update employer observation
                         # Update job applicants
                         self.game_state[employer]["observation"]["employer_obs"][
@@ -759,7 +756,7 @@ class JobSearchEnvironment(ParallelEnv):
         for agent in self.agents:
             if agent in self.dones:
                 continue
-            if self.num_iters >= MAX_NUM_ITERS:
+            if self.num_iters >= self.max_num_iters:
                 dones[agent] = True
             elif "candidate" in agent:
                 dones[agent] = any(
@@ -837,8 +834,8 @@ class JobSearchEnvironment(ParallelEnv):
                     max(len(self._employers), len(self._candidates))
                     - len(self._employers)
                 ),
-                np.zeros(EMPLOYER_BUDGET + 1),
-                np.zeros(MAX_NUM_ITERS + 1),
+                np.zeros(self.employer_budget + 1),
+                np.zeros(self.max_num_iters + 1),
             )
         )
 
@@ -850,8 +847,8 @@ class JobSearchEnvironment(ParallelEnv):
                     max(len(self._employers), len(self._candidates))
                     - len(self._candidates)
                 ),
-                np.zeros(EMPLOYER_BUDGET + 1),
-                np.zeros(MAX_NUM_ITERS + 1),
+                np.zeros(self.employer_budget + 1),
+                np.zeros(self.max_num_iters + 1),
             )
         )
 
@@ -863,14 +860,14 @@ class JobSearchEnvironment(ParallelEnv):
             offer_values = np.concatenate(
                 (
                     np.zeros(current_offer_value + 1),
-                    np.ones(EMPLOYER_BUDGET + 1 - (current_offer_value + 1)),
+                    np.ones(self.employer_budget + 1 - (current_offer_value + 1)),
                 )
             )
             # Candidate will counter with deadline greater than or equal to current deadline
             deadlines = np.concatenate(
                 (
                     np.zeros(current_deadline),
-                    np.ones(MAX_NUM_ITERS + 1 - current_deadline),
+                    np.ones(self.max_num_iters + 1 - current_deadline),
                 )
             )
             counter_offer_details = np.concatenate(
@@ -887,10 +884,9 @@ class JobSearchEnvironment(ParallelEnv):
         def get_employer_offer_values_and_deadlines(
             candidate_strength,
             remaining_budget,
-            counter_offer_value=(EMPLOYER_BUDGET + 1),
+            counter_offer_value=(self.employer_budget + 1),
             counter_offer_deadline=self.num_iters,
         ):
-            assert remaining_budget >= 0
             # Employer will only offer value weakly less than candidate strength or remaining budget, whichever is smaller
             offer_values = np.concatenate(
                 (
@@ -906,13 +902,16 @@ class JobSearchEnvironment(ParallelEnv):
                         + 1
                     ),
                     np.zeros(
-                        EMPLOYER_BUDGET
+                        self.employer_budget
                         + 1
                         - (
-                            min(
-                                candidate_strength,
-                                remaining_budget,
-                                counter_offer_value,
+                            max(
+                                min(
+                                    candidate_strength,
+                                    remaining_budget,
+                                    counter_offer_value,
+                                ),
+                                0,
                             )
                             + 1
                         )
@@ -923,7 +922,7 @@ class JobSearchEnvironment(ParallelEnv):
             deadlines = np.concatenate(
                 (
                     np.zeros(counter_offer_deadline + 1),
-                    np.ones(MAX_NUM_ITERS + 1 - (counter_offer_deadline + 1)),
+                    np.ones(self.max_num_iters + 1 - (counter_offer_deadline + 1)),
                 )
             )
             offer_details = np.concatenate(
