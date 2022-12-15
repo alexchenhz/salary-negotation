@@ -1,5 +1,6 @@
 
 from ray.rllib.agents.ppo import ppo
+import environment.job_search_environment as job_search_env
 
 class JobSearchSimulation():
     
@@ -29,3 +30,7 @@ class JobSearchSimulation():
     
 if __name__ == "__main__":
     jss = JobSearchSimulation()
+    config = {}
+    env = job_search_env.env(env_config=None, render_mode="human")
+
+    env.reset()
