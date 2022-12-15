@@ -24,9 +24,17 @@ In this project, we explore the use of reinforcement learning to train candidate
 
 ## Repository README
 
+Repository can also be found on [GitHub](https://github.com/alexchenhz/salary-negotation).
+
 ### Getting started
 
 Running with `python==3.10.8`.
+
+Create a new virtual environment.
+
+```bash
+python3 -m venv ./venv
+```
 
 Activate the virtual environment.
 

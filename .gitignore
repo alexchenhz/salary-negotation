@@ -2,4 +2,5 @@ ray_results/
 stdouts/
 .python-version
 .vscode/
---pycache__/
+__pycache__/
+venv/
