@@ -26,11 +26,12 @@ In this project, we explore the use of reinforcement learning to train candidate
 
 ### Getting started
 
+Running with `python==3.10.8`.
+
 Activate the virtual environment.
 
 ```bash
 source venv/bin/activate
-
 ```
 
 Install the required packages. This project primarily depends on `pettingzoo` and `ray`, in addition to other packages.
