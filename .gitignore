@@ -4,3 +4,4 @@ stdouts/
 .vscode/
 __pycache__/
 venv/
+.ipynb_checkpoints/
